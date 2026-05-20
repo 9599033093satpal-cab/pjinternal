@@ -585,12 +585,16 @@ def get_semantic_data(job_id):
         
     filename = job.filename
     pdf_stem = Path(filename).stem
-    semantic_path = os.path.join(app.config['OUTPUT_FOLDER'], job_id, f"{pdf_stem}_semantic.json")
+    output_dir = os.path.join(app.config['OUTPUT_FOLDER'], job_id)
+    semantic_path = os.path.join(output_dir, f"{pdf_stem}_semantic.json")
+    verified_path = os.path.join(output_dir, f"{pdf_stem}_verified.json")
     
-    if not os.path.exists(semantic_path):
+    path_to_read = verified_path if os.path.exists(verified_path) else semantic_path
+    
+    if not os.path.exists(path_to_read):
         return jsonify({'error': 'Semantic JSON not found. Was neural refinement successful?'}), 404
         
-    with open(semantic_path, 'r', encoding='utf-8') as f:
+    with open(path_to_read, 'r', encoding='utf-8') as f:
         data = json.load(f)
     return jsonify(data)
 
@@ -609,12 +613,23 @@ def save_semantic_data(job_id):
     output_dir = os.path.join(app.config['OUTPUT_FOLDER'], job_id)
     original_path = os.path.join(output_dir, f"{pdf_stem}_semantic.json")
     verified_path = os.path.join(output_dir, f"{pdf_stem}_verified.json")
+    master_path = os.path.join(output_dir, "master_case.json")
+    
+    # Check if updated_data is the full master case structure
+    is_master_case = isinstance(updated_data, dict) and 'document_bundle' in updated_data
     
     # Calculate Accuracy vs Original
     original_data = {}
-    if os.path.exists(original_path):
-        with open(original_path, 'r', encoding='utf-8') as f:
-            original_data = json.load(f)
+    if is_master_case:
+        # For master case, compare against the original master_case.json on disk
+        if os.path.exists(master_path):
+            with open(master_path, 'r', encoding='utf-8') as f:
+                original_data = json.load(f)
+    else:
+        # For custom/semantic JSON, compare against the original _semantic.json
+        if os.path.exists(original_path):
+            with open(original_path, 'r', encoding='utf-8') as f:
+                original_data = json.load(f)
     
     # Flatten comparison logic
     def flatten(d, parent_key='', sep='.'):
@@ -638,6 +653,14 @@ def save_semantic_data(job_id):
     flat_orig = flatten(original_data)
     flat_updated = flatten(updated_data)
     
+    # If comparing master case, we only want to calculate accuracy on "extracted_fields" and "master_case"
+    # to avoid including text, quality_score, and metadata in the accuracy score.
+    if is_master_case:
+        flat_orig_filtered = {k: v for k, v in flat_orig.items() if 'extracted_fields' in k or 'master_case' in k}
+        flat_updated_filtered = {k: v for k, v in flat_updated.items() if 'extracted_fields' in k or 'master_case' in k}
+        flat_orig = flat_orig_filtered
+        flat_updated = flat_updated_filtered
+
     total_fields = len(flat_orig)
     matches = 0
     audit_trail = []
@@ -678,6 +701,34 @@ def save_semantic_data(job_id):
     job.status = 'ready_for_export'
     db.session.commit()
 
+    # Save to master_case.json and verified JSON on disk
+    if is_master_case:
+        with open(master_path, 'w', encoding='utf-8') as f:
+            json.dump(updated_data, f, ensure_ascii=False, indent=2)
+    else:
+        # If it is a custom/semantic page extracted fields update, update master_case.json as well if it exists
+        if os.path.exists(master_path):
+            try:
+                with open(master_path, 'r', encoding='utf-8') as f:
+                    master_case = json.load(f)
+                if 'pages' in master_case:
+                    for p in master_case['pages']:
+                        p['extracted_fields'] = updated_data
+                if 'master_case' in master_case:
+                    for section, fields in master_case['master_case'].items():
+                        if isinstance(fields, dict):
+                            for k in fields.keys():
+                                if k in updated_data:
+                                    fields[k] = updated_data[k]
+                                for sem_k, sem_v in updated_data.items():
+                                    if isinstance(sem_v, dict) and k in sem_v:
+                                        fields[k] = sem_v[k]
+                with open(master_path, 'w', encoding='utf-8') as f:
+                    json.dump(master_case, f, ensure_ascii=False, indent=2)
+            except Exception as e:
+                logger.error(f"Error updating master_case.json: {e}")
+                
+    # Always write to verified_path as well
     with open(verified_path, 'w', encoding='utf-8') as f:
         json.dump(updated_data, f, ensure_ascii=False, indent=2)
         
@@ -967,13 +1018,30 @@ def map_to_form(job_id):
     target_schema = TARGET_FORMS[form_id]["schema"]
     source_data = job.verified_json or job.audit_summary.get('verified_json') # Fallback if not verified yet
     
-    # If not explicitly verified, use the latest audit or combined
+    # Try all paths: verified, master_case, semantic
     if not source_data:
-        pdf_name = Path(f"{job_id}_{job.filename}").stem
-        semantic_path = os.path.join(app.config['OUTPUT_FOLDER'], job_id, f"{pdf_name}_semantic.json")
-        if os.path.exists(semantic_path):
-            with open(semantic_path, 'r', encoding='utf-8') as f:
+        pdf_stem = Path(job.filename).stem
+        output_dir = os.path.join(app.config['OUTPUT_FOLDER'], job_id)
+        
+        # 1. verified.json
+        verified_path = os.path.join(output_dir, f"{pdf_stem}_verified.json")
+        if os.path.exists(verified_path):
+            with open(verified_path, 'r', encoding='utf-8') as f:
                 source_data = json.load(f)
+        
+        # 2. master_case.json
+        if not source_data:
+            master_path = os.path.join(output_dir, 'master_case.json')
+            if os.path.exists(master_path):
+                with open(master_path, 'r', encoding='utf-8') as f:
+                    source_data = json.load(f)
+                    
+        # 3. semantic.json
+        if not source_data:
+            semantic_path = os.path.join(output_dir, f"{pdf_stem}_semantic.json")
+            if os.path.exists(semantic_path):
+                with open(semantic_path, 'r', encoding='utf-8') as f:
+                    source_data = json.load(f)
 
     if not source_data:
         return jsonify({'error': 'No structured data found for this job'}), 404
@@ -1003,11 +1071,28 @@ def map_custom_form(job_id):
         
     source_data = job.verified_json
     if not source_data:
-        pdf_name = Path(f"{job_id}_{job.filename}").stem
-        semantic_path = os.path.join(app.config['OUTPUT_FOLDER'], job_id, f"{pdf_name}_semantic.json")
-        if os.path.exists(semantic_path):
-            with open(semantic_path, 'r', encoding='utf-8') as f:
+        pdf_stem = Path(job.filename).stem
+        output_dir = os.path.join(app.config['OUTPUT_FOLDER'], job_id)
+        
+        # 1. verified.json
+        verified_path = os.path.join(output_dir, f"{pdf_stem}_verified.json")
+        if os.path.exists(verified_path):
+            with open(verified_path, 'r', encoding='utf-8') as f:
                 source_data = json.load(f)
+        
+        # 2. master_case.json
+        if not source_data:
+            master_path = os.path.join(output_dir, 'master_case.json')
+            if os.path.exists(master_path):
+                with open(master_path, 'r', encoding='utf-8') as f:
+                    source_data = json.load(f)
+                    
+        # 3. semantic.json
+        if not source_data:
+            semantic_path = os.path.join(output_dir, f"{pdf_stem}_semantic.json")
+            if os.path.exists(semantic_path):
+                with open(semantic_path, 'r', encoding='utf-8') as f:
+                    source_data = json.load(f)
 
     if not source_data:
         return jsonify({'error': 'No structured data found'}), 404
