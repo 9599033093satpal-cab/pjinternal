@@ -1239,12 +1239,13 @@ def list_documents():
 
 
 if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
     print("\n" + "="*60)
     print("  Aether OCR Platform — Production")
-    print("  http://localhost:5000")
+    print(f"  http://0.0.0.0:{port}")
     print("="*60 + "\n")
     
     with app.app_context():
         db.create_all()
         
-    app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)
+    app.run(host='0.0.0.0', port=port, debug=False, threaded=True)
