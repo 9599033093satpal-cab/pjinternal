@@ -2,10 +2,7 @@
 Aether OCR — Master Case JSON Builder
 =======================================
 Aggregates all page-level OCR + classification results
-into a single master_case.json — the Single Source of Truth.
-
-Also handles cross-page field validation
-(same loan number must appear consistently across pages).
+into a single enterprise-grade structured document intelligence output.
 """
 
 import json
@@ -18,72 +15,10 @@ from openai import OpenAI
 from dotenv import load_dotenv
 
 from document_classifier import TYPE_FIELD_MAP
-from confidence_engine import compute_page_confidence, score_master_case
+from confidence_engine import compute_page_confidence, compute_field_confidence
 
 load_dotenv()
 logger = logging.getLogger(__name__)
-
-
-# Document-type-aware extraction prompts
-EXTRACTION_PROMPTS = {
-    "sarfaesi_notice": """Extract from this SARFAESI notice. Return ONLY valid JSON with these exact keys:
-{
-  "borrower_name": "", "borrower_address": "", "co_borrower_name": "",
-  "loan_number": "", "outstanding_principal": "", "outstanding_interest": "",
-  "total_demand_amount": "", "notice_date": "", "response_deadline": "",
-  "bank_name": "", "bank_branch": "", "authorized_officer": "",
-  "property_description": "", "account_type": ""
-}""",
-
-    "loan_agreement": """Extract from this loan agreement. Return ONLY valid JSON:
-{
-  "borrower_name": "", "co_borrower_name": "", "guarantor_name": "",
-  "loan_amount": "", "disbursement_date": "", "interest_rate": "",
-  "tenure_months": "", "emi_amount": "", "loan_type": "",
-  "collateral_description": "", "bank_name": "", "branch_name": ""
-}""",
-
-    "property_deed": """Extract from this property deed. Return ONLY valid JSON:
-{
-  "owner_name": "", "previous_owner": "", "survey_number": "",
-  "plot_number": "", "total_area": "", "area_unit": "",
-  "property_address": "", "village": "", "taluka": "", "district": "",
-  "state": "", "registration_date": "", "registration_number": "",
-  "sub_registrar_office": "", "consideration_amount": ""
-}""",
-
-    "affidavit": """Extract from this affidavit. Return ONLY valid JSON:
-{
-  "deponent_name": "", "deponent_address": "", "court_name": "",
-  "case_number": "", "date": "", "subject_matter": "",
-  "key_statements": [], "notary_name": "", "notary_date": ""
-}""",
-
-    "kyc_document": """Extract from this KYC document. Return ONLY valid JSON:
-{
-  "full_name": "", "dob": "", "gender": "", "address": "",
-  "city": "", "state": "", "pincode": "", "phone": "", "email": "",
-  "id_type": "", "id_number": "", "photo_present": false
-}""",
-
-    "possession_notice": """Extract from this possession notice. Return ONLY valid JSON:
-{
-  "borrower_name": "", "loan_number": "", "bank_name": "",
-  "property_address": "", "possession_date": "", "authorized_officer": "",
-  "outstanding_amount": "", "notice_date": ""
-}""",
-
-    "court_order": """Extract from this court order. Return ONLY valid JSON:
-{
-  "case_number": "", "court_name": "", "judge_name": "",
-  "petitioner": "", "respondent": "", "order_date": "",
-  "next_hearing_date": "", "key_directions": [], "case_type": ""
-}""",
-
-    "other": """Extract key information from this document. Return ONLY valid JSON:
-{"content_summary": "", "key_entities": [], "dates_mentioned": [], "amounts_mentioned": []}""",
-}
-
 
 class MasterCaseBuilder:
     def __init__(self):
@@ -91,96 +26,464 @@ class MasterCaseBuilder:
         self.client = OpenAI(api_key=api_key) if api_key else None
         self.model = "gpt-4o"  # Full model for extraction accuracy
 
-    def extract_fields(self, text: str, doc_type: str, page_num: int) -> dict:
-        """Extract structured fields from page text using type-aware prompt."""
-        if not self.client or not text.strip():
-            return {}
+    def _is_document_start_page(self, page_text: str) -> bool:
+        """Detects if a page contains clear signals of being the first page of a new document."""
+        if not page_text:
+            return False
+            
+        text_lower = page_text.lower()
+        
+        # Stamp paper indicators are strong signs of a new document start
+        stamp_patterns = [
+            "non judicial",
+            "गैर न्यायिक",
+            "stamp duty",
+            "satyamev jayate",
+            "सत्यमेव जयते"
+        ]
+        has_stamp = any(pat in text_lower[:800] for pat in stamp_patterns)
+        if has_stamp:
+            return True
+            
+        # Specific title patterns that start a document (usually near the top)
+        title_patterns = [
+            "articles of agreement",
+            "this deed of",
+            "memorandum of understanding",
+            "offer letter",
+            "insurance policy schedule",
+            "sarfaesi notice",
+            "possession notice"
+        ]
+        has_title = any(pat in text_lower[:500] for pat in title_patterns)
+        if has_title:
+            return True
+            
+        # "agreement for leave and license" or similar starting lines
+        if "agreement for" in text_lower[:500] and "between" in text_lower[:800]:
+            return True
+            
+        return False
 
-        prompt_template = EXTRACTION_PROMPTS.get(doc_type, EXTRACTION_PROMPTS["other"])
+    def segment_pages(self, pages: list) -> list:
+        """
+        Smooth classifications and segment pages into continuous document chunks.
+        """
+        if not pages:
+            return []
+            
+        # 1. Smooth page types to clean up single-page classification noise
+        smoothed = []
+        for i, p in enumerate(pages):
+            p_type = p.get("classification", {}).get("type", "other")
+            if not p_type:
+                p_type = "other"
+            smoothed.append(p_type)
+            
+        n = len(smoothed)
+        # 3-page window smoothing for 'blank_page' or 'other'
+        for i in range(n):
+            if smoothed[i] in ["blank_page", "other"]:
+                left = smoothed[i-1] if i > 0 else None
+                right = smoothed[i+1] if i < n-1 else None
+                if left and left == right and left not in ["blank_page", "other"]:
+                    smoothed[i] = left
+                    
+        # 2. Form contiguous segments
+        segments = []
+        curr_segment = None
+        
+        for i, p in enumerate(pages):
+            p_type = smoothed[i]
+            p_num = p.get("page_num", i + 1)
+            p_text = p.get("text", "")
+            
+            is_start = self._is_document_start_page(p_text)
+            
+            if curr_segment is None:
+                curr_segment = {
+                    "document_type": p_type,
+                    "page_range": [p_num, p_num],
+                    "pages": [p]
+                }
+            elif is_start or (p_type != curr_segment["document_type"] and p_type not in ["blank_page", "other"] and curr_segment["document_type"] not in ["blank_page", "other"]):
+                # Start new segment if we detect a new document start, or if type mismatch
+                segments.append(curr_segment)
+                curr_segment = {
+                    "document_type": p_type if p_type not in ["blank_page", "other"] else curr_segment["document_type"],
+                    "page_range": [p_num, p_num],
+                    "pages": [p]
+                }
+            else:
+                # Absorb/extend
+                if curr_segment["document_type"] in ["blank_page", "other"] and p_type not in ["blank_page", "other"]:
+                    curr_segment["document_type"] = p_type
+                curr_segment["page_range"][1] = p_num
+                curr_segment["pages"].append(p)
+                
+        if curr_segment:
+            segments.append(curr_segment)
+            
+        # 3. Post-process segments
+        final_segments = []
+        for seg in segments:
+            is_all_blank = all(p.get("is_blank", False) for p in seg["pages"])
+            if is_all_blank or seg["document_type"] == "blank_page":
+                continue
+                
+            # Merge adjacent segments only if they have the same type AND the second segment does not start with a start page signal
+            if final_segments and final_segments[-1]["document_type"] == seg["document_type"]:
+                first_page_text = seg["pages"][0].get("text", "")
+                if not self._is_document_start_page(first_page_text):
+                    final_segments[-1]["page_range"][1] = seg["page_range"][1]
+                    final_segments[-1]["pages"].extend(seg["pages"])
+                    continue
+            
+            final_segments.append(seg)
+                
+        if not final_segments and segments:
+            final_segments = [segments[0]]
+            
+        return final_segments
 
-        prompt = f"""{prompt_template}
+    def extract_segment_intelligence(self, segment_text: str, doc_type: str, page_range: list) -> dict:
+        """
+        Call OpenAI to extract entities and semantically grouped clauses for the document segment.
+        """
+        if not self.client or not segment_text.strip():
+            return {
+                "entities": {},
+                "clauses": {},
+                "semantic_confidence": 0.5
+            }
+            
+        prompt = f"""You are an enterprise legal and financial document intelligence AI system.
+Analyze the following document of type '{doc_type}' (covering pages {page_range[0]} to {page_range[1]}).
 
-CRITICAL RULES:
-1. Only extract values that ACTUALLY APPEAR in the text.
-2. If a field is not found, leave it as empty string "".
-3. Do NOT hallucinate or guess values.
-4. Return ONLY raw JSON, no markdown, no explanation.
+Extract the following information. If a field is not present or mentioned, leave it empty/null or empty array. Do not hallucinate or guess.
 
-DOCUMENT TEXT (Page {page_num}):
-{text[:3000]}
+1. ENTITIES TO EXTRACT:
+   - licensor: Name of licensor (for rental/lease agreements)
+   - licensee: Name of licensee (for rental/lease agreements)
+   - borrower: Name of primary borrower (for loan agreements/demands)
+   - co_borrower: Name of co-borrower
+   - loan_account_number: Loan account number
+   - property_address: Address of property under agreement / collateral
+   - emi: Equated Monthly Installment amount (financial amount)
+   - interest_rate: Annual interest rate percentage
+   - loan_amount: Total loan principal amount
+   - policy_number: Insurance policy number
+   - agreement_dates: Key agreement date(s) (e.g. execution date)
 
-JSON:"""
+2. CLAUSES TO EXTRACT (Extract the full text or summary of relevant clauses under these exact semantic categories):
+   - repayment_terms: Clauses relating to repayment schedule, EMIs, tenure, or payment modes.
+   - loan_conditions: Conditions precedent, collateral, default, rate of interest reviews, or borrower obligations.
+   - agreement_clauses: Governing clauses of the contract, dispute resolution, terminations, or tenant/landlord covenants.
+   - insurance_terms: Policy terms, premium payments, sum assured, coverage conditions, or nominee clauses.
+   - legal_notices: Demands, non-compliance notices, SARFAESI section 13(2)/13(4) terms, or legal actions.
+
+CRITICAL INSTRUCTIONS:
+- You must return ONLY a valid JSON object. No markdown, no triple backticks, no explanatory text.
+- Clean up any raw OCR noise (like extra spaces, strange symbols, or stamp marks) from the extracted values.
+- For each extracted field in entities, return a dictionary with two keys: "value" (the extracted string) and "source_section" (the section header/context where it was found in the text).
+- For clauses, return a dictionary where the keys are the categories above and values are arrays of strings (each representing a specific clause block/paragraph found).
+
+Required JSON format:
+{{
+  "entities": {{
+    "licensor": {{"value": "", "source_section": ""}},
+    "licensee": {{"value": "", "source_section": ""}},
+    "borrower": {{"value": "", "source_section": ""}},
+    "co_borrower": {{"value": "", "source_section": ""}},
+    "loan_account_number": {{"value": "", "source_section": ""}},
+    "property_address": {{"value": "", "source_section": ""}},
+    "emi": {{"value": "", "source_section": ""}},
+    "interest_rate": {{"value": "", "source_section": ""}},
+    "loan_amount": {{"value": "", "source_section": ""}},
+    "policy_number": {{"value": "", "source_section": ""}},
+    "agreement_dates": {{"value": "", "source_section": ""}}
+  }},
+  "clauses": {{
+    "repayment_terms": [],
+    "loan_conditions": [],
+    "agreement_clauses": [],
+    "insurance_terms": [],
+    "legal_notices": []
+  }},
+  "semantic_confidence": 0.0
+}}
+
+DOCUMENT TEXT:
+{segment_text[:15000]}
+
+JSON RESPONSE:"""
 
         for attempt in range(2):
             try:
                 resp = self.client.chat.completions.create(
                     model=self.model,
                     messages=[
-                        {"role": "system", "content": "You are a precise legal document data extraction engine. Output only valid JSON. Never hallucinate values."},
+                        {"role": "system", "content": "You are a precise enterprise legal document intelligence engine. Output only valid JSON. Never hallucinate values."},
                         {"role": "user", "content": prompt},
                     ],
                     temperature=0.0,
-                    max_tokens=800,
+                    max_tokens=2500,
                 )
                 content = re.sub(r"```json|```", "", resp.choices[0].message.content).strip()
-                return json.loads(content)
+                parsed = json.loads(content)
+                if "entities" not in parsed:
+                    parsed["entities"] = {}
+                if "clauses" not in parsed:
+                    parsed["clauses"] = {}
+                if "semantic_confidence" not in parsed:
+                    parsed["semantic_confidence"] = 0.85
+                return parsed
             except Exception as e:
-                logger.warning(f"Extraction attempt {attempt+1} failed page {page_num}: {e}")
+                logger.warning(f"Segment extraction attempt {attempt+1} failed: {e}")
+                
+        return {
+            "entities": {},
+            "clauses": {},
+            "semantic_confidence": 0.5
+        }
 
-        return {}
+    def _validate_field_format(self, field_name: str, value: str) -> bool:
+        """Returns True if value matches expected format for the field."""
+        if not value:
+            return False
+        value = str(value).strip()
+        patterns = {
+            "loan_account_number":     r"^\d{10,20}$",
+            "phone":           r"^\d{10}$",
+            "email":           r"^[\w\.-]+@[\w\.-]+\.\w+$",
+            "pincode":         r"^\d{6}$",
+            "loan_amount":     r"^\d+(\.\d{1,2})?$",
+            "emi":             r"^\d+(\.\d{1,2})?$",
+            "interest_rate":   r"^\d+(\.\d+)?%?$",
+            "agreement_dates":  r"\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}",
+        }
+        pattern = patterns.get(field_name)
+        if pattern:
+            return bool(re.search(pattern, value))
+        return len(value) > 2  # Any non-trivial value is a weak pass
 
     def build(self, job_id: str, filename: str, pages: list, output_dir: str) -> dict:
         """
-        Build complete master_case.json from all processed pages.
-        pages: list of {page_num, text, engine, confidence, quality_score, is_blank, classification}
+        Build complete enterprise-grade structured JSON and master_case.json.
         """
-        logger.info(f"Building master_case.json for job {job_id} ({len(pages)} pages)")
-
-        master = {
+        logger.info(f"Building Enterprise Master Case for job {job_id} ({len(pages)} pages)")
+        
+        # 1. Segment pages into contiguous logical documents
+        segments = self.segment_pages(pages)
+        
+        processed_docs = []
+        extracted_entities_by_type = {}
+        
+        for doc_idx, seg in enumerate(segments):
+            doc_type = seg["document_type"]
+            pg_range = seg["page_range"]
+            
+            # Clean and combine text of pages in segment
+            combined_text_list = []
+            for p in seg["pages"]:
+                cleaned_page_text = self._clean_ocr_text(p.get("text", ""))
+                combined_text_list.append(cleaned_page_text)
+            combined_text = "\n".join(combined_text_list)
+            
+            # Extract intelligence using LLM
+            extracted = self.extract_segment_intelligence(combined_text, doc_type, pg_range)
+            
+            # Clean up the output structure
+            entities_raw = extracted.get("entities", {})
+            clauses_raw = extracted.get("clauses", {})
+            semantic_conf = float(extracted.get("semantic_confidence", 0.85))
+            
+            # Extract simple values for entities, keeping source section
+            entities_simple = {}
+            source_pages_map = {}
+            
+            for k, val_info in entities_raw.items():
+                if isinstance(val_info, dict):
+                    val = val_info.get("value", "")
+                    sec = val_info.get("source_section", "")
+                else:
+                    val = val_info
+                    sec = ""
+                entities_simple[k] = val
+                
+                # Determine which page in segment contains the value
+                val_str = str(val).strip()
+                source_pg = pg_range[0]
+                if val_str and val_str not in ["", "null", "N/A"]:
+                    for p in seg["pages"]:
+                        if val_str.lower() in p.get("text", "").lower():
+                            source_pg = p.get("page_num", source_pg)
+                            break
+                source_pages_map[k] = {
+                    "source_page": source_pg,
+                    "source_section": sec
+                }
+                
+            # Compute OCR confidence for segment
+            seg_ocr_scores = [compute_page_confidence(p) for p in seg["pages"]]
+            ocr_conf = round(sum(seg_ocr_scores) / len(seg_ocr_scores), 3) if seg_ocr_scores else 0.8
+            
+            # Compute Validation confidence for segment
+            non_empty_entities = [v for v in entities_simple.values() if v and str(v).strip() not in ["", "null", "N/A"]]
+            valid_count = 0
+            for k, v in entities_simple.items():
+                if v and str(v).strip() not in ["", "null", "N/A"]:
+                    if self._validate_field_format(k, v):
+                        valid_count += 1
+            validation_conf = round(valid_count / len(non_empty_entities), 3) if non_empty_entities else 1.0
+            
+            processed_doc = {
+                "document_type": doc_type,
+                "page_range": pg_range,
+                "entities": entities_simple,
+                "clauses": clauses_raw,
+                "confidence": {
+                    "ocr_confidence": ocr_conf,
+                    "semantic_confidence": semantic_conf,
+                    "validation_confidence": validation_conf
+                },
+                "source_pages": list(range(pg_range[0], pg_range[1] + 1)),
+                "source_pages_map": source_pages_map
+            }
+            processed_docs.append(processed_doc)
+            
+            if doc_type not in extracted_entities_by_type:
+                extracted_entities_by_type[doc_type] = []
+            extracted_entities_by_type[doc_type].append(entities_simple)
+            
+        # 2. Build master_case fields by merging segment extractions
+        def get_global_entity(keys):
+            for doc in processed_docs:
+                for k in keys:
+                    val = doc["entities"].get(k)
+                    if val and str(val).strip() not in ["", "null", "N/A"]:
+                        return str(val).strip()
+            return ""
+            
+        master_case_obj = {
+            "borrower": {
+                "name": get_global_entity(["borrower", "licensor", "licensee"]),
+                "address": get_global_entity(["property_address"])
+            },
+            "loan": {
+                "loan_account_number": get_global_entity(["loan_account_number"]),
+                "loan_amount": get_global_entity(["loan_amount"]),
+                "interest_rate": get_global_entity(["interest_rate"]),
+                "emi": get_global_entity(["emi"])
+            },
+            "property": {
+                "property_address": get_global_entity(["property_address"])
+            },
+            "insurance": {
+                "policy_number": get_global_entity(["policy_number"])
+            },
+            "agreements": {
+                "agreement_dates": get_global_entity(["agreement_dates"])
+            }
+        }
+        
+        # 3. Detect contradictions
+        anomalies = self._detect_contradictions(processed_docs)
+        
+        # Check for missing expected fields
+        missing_fields = []
+        for doc in processed_docs:
+            doc_type = doc["document_type"]
+            expected = TYPE_FIELD_MAP.get(doc_type, [])
+            for field in expected:
+                val = doc["entities"].get(field)
+                if not val or str(val).strip() in ["", "null", "N/A"]:
+                    missing_fields.append(f"{doc_type}.{field}")
+                    anomalies.append({
+                        "field": f"{doc_type}.{field}",
+                        "type": "missing",
+                        "severity": "medium",
+                        "message": f"Critical field '{field}' was not found in the {doc_type} segment."
+                    })
+                    
+        validation_score = self._calculate_val_score(anomalies)
+        
+        # 4. Construct backward-compatible pages array for visual dashboard
+        pages_compat = []
+        for p in pages:
+            p_num = p.get("page_num", 1)
+            p_is_blank = p.get("is_blank", False)
+            
+            matching_seg = None
+            for doc in processed_docs:
+                if p_num in doc["source_pages"]:
+                    matching_seg = doc
+                    break
+                    
+            if matching_seg:
+                extracted_fields = {
+                    "entities": matching_seg["entities"],
+                    "clauses": matching_seg["clauses"]
+                }
+                doc_type = matching_seg["document_type"]
+            else:
+                extracted_fields = {}
+                doc_type = p.get("classification", {}).get("type", "other")
+                
+            page_entry = {
+                "page_num": p_num,
+                "doc_type": doc_type,
+                "is_blank": p_is_blank,
+                "ocr_engine": p.get("engine", "unknown"),
+                "quality_score": p.get("quality_score", 0.0),
+                "confidence": compute_page_confidence(p),
+                "extracted_fields": extracted_fields,
+                "text": p.get("text", "")
+            }
+            pages_compat.append(page_entry)
+            
+        type_dist = {}
+        for p in pages_compat:
+            t = p["doc_type"]
+            if t != "blank_page":
+                type_dist[t] = type_dist.get(t, 0) + 1
+        primary_type = max(type_dist, key=type_dist.get) if type_dist else "other"
+        
+        # Build confidence map
+        confidence_map = {}
+        for sec, fields in master_case_obj.items():
+            for f, val in fields.items():
+                confidence_map[f"{sec}.{f}"] = compute_field_confidence(
+                    val, f, 0.85
+                )
+                
+        overall_conf = round(sum(d["confidence"]["semantic_confidence"] for d in processed_docs) / len(processed_docs), 3) if processed_docs else 0.85
+        
+        # Assemble final output
+        output_data = {
             "case_id": job_id,
+            "documents": processed_docs,
+            "master_case": master_case_obj,
+            
             "filename": filename,
             "created_at": datetime.now().isoformat(),
             "document_bundle": {
                 "total_pages": len(pages),
                 "blank_pages": sum(1 for p in pages if p.get("is_blank")),
                 "processed_pages": sum(1 for p in pages if not p.get("is_blank")),
-                "primary_type": "unknown",
-                "type_distribution": {},
+                "primary_type": primary_type,
+                "type_distribution": type_dist,
             },
-            "parties": {
-                "borrower": {"name": "", "address": "", "pan": "", "phone": ""},
-                "co_borrower": {"name": ""},
-                "lender": {"bank_name": "", "branch": "", "officer": ""},
-                "guarantor": {"name": ""},
+            "pages": pages_compat,
+            "intelligence_report": {
+                "has_conflicts": any(a["type"] == "contradiction" for a in anomalies),
+                "conflicts": {a["field"]: a["variants"] for a in anomalies if a["type"] == "contradiction"},
+                "missing_fields": missing_fields,
+                "anomalies": anomalies,
+                "validation_score": validation_score
             },
-            "financial": {
-                "loan_number": "",
-                "loan_amount": "",
-                "outstanding_principal": "",
-                "outstanding_interest": "",
-                "total_demand": "",
-                "interest_rate": "",
-                "tenure_months": "",
-                "emi_amount": "",
-                "overdue_since": "",
-            },
-            "property": {
-                "survey_number": "",
-                "area": "",
-                "area_unit": "",
-                "address": "",
-                "district": "",
-                "state": "",
-            },
-            "legal_status": {
-                "notice_issued": False,
-                "notice_date": "",
-                "response_deadline": "",
-                "possession_status": "unknown",
-                "court_case_number": "",
-            },
-            "pages": [],
-            "page_metadata": {}, # Maps page number (str) to diagnostic info
+            "confidence_map": confidence_map,
+            "overall_confidence": overall_conf,
             "audit": {
                 "human_corrections": 0,
                 "accuracy_score": None,
@@ -195,216 +498,136 @@ JSON:"""
                 "excel_path": "",
                 "draft_docx": "",
                 "verified_json": "",
-            },
+            }
         }
-
-        # Track field sources for cross-validation
-        field_sources = {}
-
-        for page in pages:
-            page_num = page.get("page_num", 0)
-            is_blank = page.get("is_blank", False)
-            doc_type = page.get("classification", {}).get("type", "other")
-
-            page_confidence = compute_page_confidence(page)
-
-            page_entry = {
-                "page_num": page_num,
-                "doc_type": doc_type,
-                "is_blank": is_blank,
-                "ocr_engine": page.get("engine", "unknown"),
-                "quality_score": page.get("quality_score", 0.0),
-                "confidence": page_confidence,
-                "extracted_fields": {},
-                "text": page.get("text", "")
-            }
-
-            if not is_blank and page.get("text", "").strip():
-                # Extract fields for this page
-                extracted = self.extract_fields(page["text"], doc_type, page_num)
-                page_entry["extracted_fields"] = extracted
-
-                # Merge into master case (first non-empty value wins, unless cross-validated)
-                self._merge_fields(master, extracted, doc_type, page_num, field_sources)
-
-            master["pages"].append(page_entry)
-            master["page_metadata"][str(page_num)] = {
-                "engine": page_entry["ocr_engine"],
-                "quality": page_entry["quality_score"],
-                "confidence": page_entry["confidence"],
-                "doc_type": doc_type
-            }
-
-        # Cross-validate: flag inconsistencies
-        master = self._cross_validate(master, field_sources)
-
-        # Score all fields
-        master = score_master_case(master)
-
-        # Determine dominant doc type
-        type_dist = {}
-        for p in master["pages"]:
-            t = p["doc_type"]
-            if t != "blank_page":
-                type_dist[t] = type_dist.get(t, 0) + 1
-        master["document_bundle"]["type_distribution"] = type_dist
-        if type_dist:
-            master["document_bundle"]["primary_type"] = max(type_dist, key=type_dist.get)
-
-        # Legal status flags
-        if master["financial"]["loan_number"]:
-            master["legal_status"]["notice_issued"] = True
-
+        
         # Save master_case.json
         output_path = Path(output_dir) / "master_case.json"
         with open(output_path, "w", encoding="utf-8") as f:
-            json.dump(master, f, indent=2, ensure_ascii=False)
-
-        master["exports"]["json_path"] = str(output_path)
+            json.dump(output_data, f, indent=2, ensure_ascii=False)
+            
+        output_data["exports"]["json_path"] = str(output_path)
         logger.info(f"master_case.json saved: {output_path}")
-        return master
+        return output_data
 
-    def _merge_fields(self, master: dict, extracted: dict, doc_type: str,
-                      page_num: int, field_sources: dict):
-        """Merge extracted fields into master case structure."""
-        mappings = {
-            # Financial
-            "loan_number":           ("financial", "loan_number"),
-            "loan_amount":           ("financial", "loan_amount"),
-            "outstanding_principal": ("financial", "outstanding_principal"),
-            "outstanding_interest":  ("financial", "outstanding_interest"),
-            "total_demand_amount":   ("financial", "total_demand"),
-            "interest_rate":         ("financial", "interest_rate"),
-            "tenure_months":         ("financial", "tenure_months"),
-            "emi_amount":            ("financial", "emi_amount"),
-            # Parties
-            "borrower_name":         ("parties", "borrower", "name"),
-            "borrower_address":      ("parties", "borrower", "address"),
-            "co_borrower_name":      ("parties", "co_borrower", "name"),
-            "bank_name":             ("parties", "lender", "bank_name"),
-            "bank_branch":           ("parties", "lender", "branch"),
-            "authorized_officer":    ("parties", "lender", "officer"),
-            "guarantor_name":        ("parties", "guarantor", "name"),
-            # Property
-            "survey_number":         ("property", "survey_number"),
-            "total_area":            ("property", "area"),
-            "area_unit":             ("property", "area_unit"),
-            "property_address":      ("property", "address"),
-            "district":              ("property", "district"),
-            "state":                 ("property", "state"),
-            # Legal
-            "notice_date":           ("legal_status", "notice_date"),
-            "response_deadline":     ("legal_status", "response_deadline"),
-            "case_number":           ("legal_status", "court_case_number"),
+    def _detect_contradictions(self, documents: list) -> list:
+        """
+        Detect mismatches in extracted fields across different documents in the bundle.
+        """
+        anomalies = []
+        field_values = {
+            "borrower_name": {},
+            "loan_account_number": {},
+            "loan_amount": {},
+            "interest_rate": {},
+            "emi": {},
+            "property_address": {},
+            "agreement_dates": {}
         }
-
-        for ext_key, master_path in mappings.items():
-            value = extracted.get(ext_key, "")
-            if not value or str(value).strip() in ["", "null", "N/A"]:
-                continue
-
-            # Navigate to the right place in master
-            if len(master_path) == 2:
-                section, field = master_path
-                target = master[section]
-                field_name = field
-            elif len(master_path) == 3:
-                section, sub, field = master_path
-                target = master[section][sub]
-                field_name = field
-            
-            key = ".".join(master_path)
-            val_str = str(value).strip()
-            
-            # Track variant for contradiction detection
-            if key not in field_sources: field_sources[key] = {}
-            if val_str not in field_sources[key]: field_sources[key][val_str] = []
-            field_sources[key][val_str].append(page_num)
-
-            # First value found becomes the default in master
-            if not target.get(field_name):
-                target[field_name] = val_str
-
-    def _cross_validate(self, master: dict, field_sources: dict) -> dict:
-        """Flag fields that appear inconsistently across pages and find missing data."""
-        inconsistencies = []
-        conflicts = {} # field_key -> list of different values found
         
-        # 1. Detect Conflicts (Contradiction Detection)
-        # field_sources structure: { "financial.loan_number": { "val1": [pg1, pg2], "val2": [pg10] } }
-        for field_key, variants in field_sources.items():
+        for idx, doc in enumerate(documents):
+            doc_type = doc["document_type"]
+            label = f"{doc_type} (Pgs {doc['page_range'][0]}-{doc['page_range'][1]})"
+            entities = doc["entities"]
+            
+            val_map = {
+                "borrower_name": entities.get("borrower") or entities.get("licensor") or entities.get("licensee"),
+                "loan_account_number": entities.get("loan_account_number"),
+                "loan_amount": entities.get("loan_amount"),
+                "interest_rate": entities.get("interest_rate"),
+                "emi": entities.get("emi"),
+                "property_address": entities.get("property_address"),
+                "agreement_dates": entities.get("agreement_dates")
+            }
+            
+            for key, val in val_map.items():
+                if val and str(val).strip() not in ["", "null", "N/A"]:
+                    field_values[key][label] = str(val).strip()
+                    
+        for key, variants in field_values.items():
             if len(variants) > 1:
-                # We have a mismatch!
-                conflict_desc = f"Mismatch found for {field_key}: " + ", ".join([f"'{v}' (Pgs: {', '.join(map(str, pgs))})" for v, pgs in variants.items()])
-                inconsistencies.append({
-                    "field": field_key,
-                    "type": "contradiction",
-                    "severity": "high",
-                    "message": conflict_desc,
-                    "variants": variants
-                })
-                conflicts[field_key] = variants
-                logger.warning(f"  [CONTRADICTION] {conflict_desc}")
+                unique_vals = set(variants.values())
+                if len(unique_vals) > 1:
+                    conflict_desc = f"Mismatch in {key.replace('_', ' ')}: " + ", ".join([f"'{v}' in {doc_lbl}" for doc_lbl, v in variants.items()])
+                    anomalies.append({
+                        "field": key,
+                        "type": "contradiction",
+                        "severity": "high",
+                        "message": conflict_desc,
+                        "variants": variants
+                    })
+                    logger.warning(f"  [CONTRADICTION] {conflict_desc}")
+                    
+        return anomalies
 
-        # 2. Detect Missing Critical Fields
-        # Based on primary document type
-        doc_type = master["document_bundle"]["primary_type"]
-        expected_fields = TYPE_FIELD_MAP.get(doc_type, [])
-        missing = []
-        
-        for field in expected_fields:
-            # Flatten master check
-            path = field.split('.')
-            curr = master
-            found = True
-            for part in path:
-                if isinstance(curr, dict) and part in curr:
-                    curr = curr[part]
-                else:
-                    found = False; break
-            
-            if not found or not str(curr).strip():
-                missing.append(field)
-                inconsistencies.append({
-                    "field": field,
-                    "type": "missing",
-                    "severity": "medium",
-                    "message": f"Critical field '{field}' was not found in the {doc_type} bundle."
-                })
-
-        master["intelligence_report"] = {
-            "has_conflicts": len(conflicts) > 0,
-            "conflicts": conflicts,
-            "missing_fields": missing,
-            "anomalies": inconsistencies,
-            "validation_score": self._calculate_val_score(master, inconsistencies)
-        }
-        return master
-
-    def _calculate_val_score(self, master, anomalies):
-        """Calculate a 0-100 score for the entire case's data integrity."""
-        total_pages = master["document_bundle"]["processed_pages"]
-        if total_pages == 0: return 0
-        
+    def _calculate_val_score(self, anomalies: list) -> int:
+        """Calculate a 0-100 score for data integrity based on anomalies."""
         penalty = 0
         for a in anomalies:
-            if a["type"] == "contradiction": penalty += 15
-            if a["type"] == "missing": penalty += 5
-        
+            if a["type"] == "contradiction":
+                penalty += 15
+            elif a["type"] == "missing":
+                penalty += 5
         score = 100 - penalty
         return max(0, min(100, score))
 
     def _clean_ocr_text(self, text: str) -> str:
-        """Filter out OCR garbage (unreadable blocks, noisy symbols)."""
-        if not text: return ""
-        # Remove lines that are mostly garbage (low vowel density or too many special chars)
+        """Filter out OCR garbage (unreadable blocks, noisy symbols, duplicates)."""
+        if not text:
+            return ""
+        
+        # Split by lines
         lines = text.split('\n')
         clean_lines = []
+        seen_paragraphs = set()
+        
         for line in lines:
-            if len(line.strip()) < 3: continue
-            # Garbage heuristic: ratio of alphanumeric to symbols
-            alnum = sum(1 for c in line if c.isalnum() or c.isspace())
-            ratio = alnum / len(line)
-            if ratio < 0.4: continue # Skip if >60% is symbols
-            clean_lines.append(line)
+            line_strip = line.strip()
+            if not line_strip:
+                clean_lines.append("")
+                continue
+                
+            if len(line_strip) < 3:
+                continue
+                
+            # Filter lines that are mostly symbols/noise (e.g. stamp noise, borders)
+            alnum_count = sum(1 for c in line_strip if c.isalnum())
+            if len(line_strip) > 0 and (alnum_count / len(line_strip)) < 0.45:
+                # Less than 45% alphanumeric -> likely border or separator noise
+                continue
+                
+            # Filter repetitive characters/borders (e.g. "----------" or "============")
+            if re.match(r'^[-=_*#\s]{5,}$', line_strip):
+                continue
+                
+            # Filter stamp noise patterns or OCR artifacts
+            words = line_strip.split()
+            valid_words = []
+            for w in words:
+                w_clean = re.sub(r'[^\w]', '', w)
+                if not w_clean:
+                    continue
+                if w_clean.isdigit():
+                    valid_words.append(w)
+                    continue
+                if len(w_clean) > 5:
+                    vowels = sum(1 for c in w_clean.lower() if c in 'aeiouy')
+                    if vowels == 0:
+                        continue
+                valid_words.append(w)
+                
+            if not valid_words:
+                continue
+                
+            reconstructed_line = " ".join(valid_words)
+            
+            # Remove duplicated clauses / duplicate lines
+            norm_line = re.sub(r'\s+', ' ', reconstructed_line.lower()).strip()
+            if len(norm_line) > 30:
+                if norm_line in seen_paragraphs:
+                    continue
+                seen_paragraphs.add(norm_line)
+                
+            clean_lines.append(reconstructed_line)
+            
         return "\n".join(clean_lines)

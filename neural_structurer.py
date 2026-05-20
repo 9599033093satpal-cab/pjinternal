@@ -1,3 +1,11 @@
+"""
+[ignoring loop detection]
+Aether OCR — Neural Structurer
+===================================
+Transforms raw OCR text into semantically structured JSON matching
+the enterprise-grade target document intelligence schema.
+"""
+
 import json
 import logging
 import os
@@ -14,7 +22,6 @@ class NeuralStructurer:
     Transforms raw OCR text into semantically structured JSON using LLM.
     """
     def __init__(self, api_key=None):
-        # Load .env using absolute path to avoid CWD issues in threads
         env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
         load_dotenv(dotenv_path=env_path)
         self.openai_key = api_key or os.environ.get("OPENAI_API_KEY")
@@ -44,12 +51,17 @@ class NeuralStructurer:
             logger.warning("No valid AI API keys (OpenAI/Gemini) found. Structuring will use heuristic fallback.")
 
     def process(self, raw_text: str, schema_template: dict = None) -> dict:
-        schema_instruction = ""
+        """
+        Processes raw text and returns structured enterprise-grade JSON.
+        """
+        # If schema template is provided, use it
         if schema_template:
             schema_instruction = f"""
-        STRICT SCHEMA: Return a JSON object matching EXACTLY the following template keys:
-        {json.dumps(schema_template, indent=2)}
-        """
+            STRICT SCHEMA: Return a JSON object matching EXACTLY the following template keys:
+            {json.dumps(schema_template, indent=2)}
+            """
+        else:
+            schema_instruction = None
 
         # 1. Try OpenAI if available
         if self.openai_client:
@@ -71,96 +83,121 @@ class NeuralStructurer:
         logger.error("All AI structuring methods failed. Using heuristic fallback.")
         return self._fallback_structure(raw_text)
 
-    def _process_with_openai(self, raw_text: str, schema_instruction: str) -> dict:
-        """Optimized OpenAI logic for massive documents"""
-        chunk_size = 100000
-        chunks = [raw_text[i:i + chunk_size] for i in range(0, len(raw_text), chunk_size)]
+    def _process_with_openai(self, raw_text: str, schema_instruction: str = None) -> dict:
+        """Process text with OpenAI client."""
+        prompt = self._build_prompt(raw_text, schema_instruction)
         
-        # Intelligently limit chunks to prevent massive API overhead and rate limits
-        if len(chunks) > 3:
-            logger.info(f"Massive text detected ({len(chunks)} chunks). Intelligently downsampling to 3 primary key sections (Start, Middle, End).")
-            chunks = [chunks[0], chunks[len(chunks)//2], chunks[-1]]
-            
-        combined_ordered_array = []
-
-        for chunk_idx, chunk_text in enumerate(chunks):
-            prompt = self._build_prompt(chunk_text, chunk_idx, len(chunks), schema_instruction)
-            
-            for attempt in range(2): # Reduced retries for faster fallback
-                try:
-                    response = self.openai_client.chat.completions.create(
-                        model=self.model_name,
-                        messages=[
-                            {"role": "system", "content": "You are a precise JSON extraction engine. Output only valid JSON arrays. Do not wrap in markdown blocks."},
-                            {"role": "user", "content": prompt}
-                        ],
-                        temperature=0.0
-                    )
-                    content = response.choices[0].message.content
-                    data = self._parse_json(content)
-                    if data and isinstance(data, list):
-                        combined_ordered_array.extend(data)
-                        break
-                except Exception as e:
-                    logger.error(f"OpenAI error on chunk {chunk_idx+1}: {e}")
-                    if 'rate limit' in str(e).lower(): time.sleep(5)
-            else:
-                return None # Signal failure for fallback
-
-        return self._reconstruct_dict(combined_ordered_array)
-
-    def _process_with_gemini(self, raw_text: str, schema_instruction: str) -> dict:
-        """Optimized Gemini processing logic for massive documents"""
-        chunk_size = 100000 
-        chunks = [raw_text[i:i + chunk_size] for i in range(0, len(raw_text), chunk_size)]
-        
-        # Intelligently limit chunks
-        if len(chunks) > 3:
-            logger.info(f"Massive text detected for Gemini ({len(chunks)} chunks). Downsampling to 3 primary key sections.")
-            chunks = [chunks[0], chunks[len(chunks)//2], chunks[-1]]
-            
-        combined_ordered_array = []
-
-        for chunk_idx, chunk_text in enumerate(chunks):
-            prompt = self._build_prompt(chunk_text, chunk_idx, len(chunks), schema_instruction)
-            
+        for attempt in range(2):
             try:
-                response = self.gemini_model.generate_content(prompt)
-                data = self._parse_json(response.text)
-                if data and isinstance(data, list):
-                    combined_ordered_array.extend(data)
-                else:
-                    logger.error(f"Gemini returned invalid data for chunk {chunk_idx+1}")
-                    return None
+                response = self.openai_client.chat.completions.create(
+                    model=self.model_name,
+                    messages=[
+                        {"role": "system", "content": "You are a precise enterprise document intelligence AI system. Output only valid JSON."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    temperature=0.0,
+                    max_tokens=3000
+                )
+                content = response.choices[0].message.content
+                data = self._parse_json(content)
+                if data:
+                    return data
             except Exception as e:
-                logger.error(f"Gemini error on chunk {chunk_idx+1}: {e}")
-                return None
+                logger.error(f"OpenAI structuring error: {e}")
+                if 'rate limit' in str(e).lower():
+                    time.sleep(5)
+        return None
 
-        return self._reconstruct_dict(combined_ordered_array)
+    def _process_with_gemini(self, raw_text: str, schema_instruction: str = None) -> dict:
+        """Process text with Gemini client."""
+        prompt = self._build_prompt(raw_text, schema_instruction)
+        
+        try:
+            response = self.gemini_model.generate_content(prompt)
+            data = self._parse_json(response.text)
+            if data:
+                return data
+        except Exception as e:
+            logger.error(f"Gemini structuring error: {e}")
+        return None
 
-    def _build_prompt(self, chunk_text, chunk_idx, total_chunks, schema_instruction):
-        return f"""
-        Act as an expert Document Intelligence Agent. Transform the following OCR text chunk into structured JSON.
+    def _build_prompt(self, raw_text: str, schema_instruction: str = None) -> str:
+        if schema_instruction:
+            return f"""
+            Act as an expert Document Intelligence Agent. Transform the following OCR text into structured JSON.
+            {schema_instruction}
 
-        ### ABSOLUTE ORDER RULE (HARD-CODED, NO EXCEPTIONS):
-        1. Output the data as a JSON ARRAY of objects to strictly preserve section order.
-        2. Each object has exactly two keys: "section" (string title) and "data" (the content).
-        3. The order of objects in the array MUST match the TOP-TO-BOTTOM physical order of the text.
-        4. NEVER reorder sections.
+            OCR TEXT:
+            {raw_text[:25000]}
 
-        ### REQUIRED OUTPUT FORMAT:
-        [
-          {{"section": "Heading 1", "data": {{"key": "..."}}}},
-          {{"section": "Heading 2", "data": ["..."]}}
-        ]
+            YOUR RESPONSE (JSON object only, no markdown, no explanation):
+            """
+            
+        return f"""You are an enterprise legal and financial document intelligence AI system.
+Analyze the following document bundle and perform document segmentation, classification, and entity/clause extraction.
 
-        {schema_instruction}
+1. SEGMENTATION & CLASSIFICATION:
+   Identify all logical sub-documents in the text (e.g. Leave and License Agreements, Loan Agreements, Offer Letters, Insurance Policies, Schedules, Financial Clauses, and Court Orders).
+   For each document, define its type and approximate page range or section within the text.
 
-        ### OCR TEXT CHUNK ({chunk_idx + 1} of {total_chunks}):
-        {chunk_text}
+2. ENTITY EXTRACTION:
+   Extract these entities for each identified document segment:
+   - licensor, licensee, borrower, co_borrower, loan_account_number, property_address, emi, interest_rate, loan_amount, policy_number, agreement_dates.
+   For each field, return its extracted value.
 
-        ### YOUR RESPONSE (JSON array only, no markdown, no explanation):
-        """
+3. SEMANTIC CLAUSE GROUPING:
+   Group key clauses into:
+   - repayment_terms, loan_conditions, agreement_clauses, insurance_terms, legal_notices.
+
+4. MASTER CASE CONSOLIDATION:
+   Consolidate all extracted values into a global 'master_case' object matching:
+   {{
+     "borrower": {{"name": "", "address": ""}},
+     "loan": {{"loan_account_number": "", "loan_amount": "", "interest_rate": "", "emi": ""}},
+     "property": {{"property_address": ""}},
+     "insurance": {{"policy_number": ""}},
+     "agreements": {{"agreement_dates": ""}}
+   }}
+
+Return ONLY a valid JSON object matching the target enterprise schema:
+{{
+  "documents": [
+    {{
+      "document_type": "loan_agreement",
+      "page_range": [1, 5],
+      "entities": {{
+        "borrower": "...",
+        "co_borrower": "...",
+        "loan_account_number": "...",
+        "loan_amount": "...",
+        "interest_rate": "...",
+        "emi": "...",
+        "agreement_dates": "..."
+      }},
+      "clauses": {{
+        "repayment_terms": ["..."],
+        "loan_conditions": ["..."]
+      }},
+      "confidence": {{
+        "ocr_confidence": 0.95,
+        "semantic_confidence": 0.9,
+        "validation_confidence": 0.9
+      }}
+    }}
+  ],
+  "master_case": {{
+     "borrower": {{ "name": "...", "address": "..." }},
+     "loan": {{ "loan_account_number": "...", "loan_amount": "...", "interest_rate": "...", "emi": "..." }},
+     "property": {{ "property_address": "..." }},
+     "insurance": {{ "policy_number": "..." }},
+     "agreements": {{ "agreement_dates": "..." }}
+  }}
+}}
+
+TEXT BUNDLE:
+{raw_text[:25000]}
+
+JSON RESPONSE:"""
 
     def _parse_json(self, content):
         try:
@@ -170,41 +207,33 @@ class NeuralStructurer:
             logger.error(f"JSON Parse Error: {e}")
             return None
 
-    def _reconstruct_dict(self, combined_ordered_array):
-        if not combined_ordered_array: return None
-        ordered_dict = {}
-        for item in combined_ordered_array:
-            if isinstance(item, dict) and "section" in item and "data" in item:
-                sec_name = item["section"]
-                if sec_name in ordered_dict:
-                    if isinstance(ordered_dict[sec_name], list):
-                        if isinstance(item["data"], list): ordered_dict[sec_name].extend(item["data"])
-                        else: ordered_dict[sec_name].append(item["data"])
-                    else:
-                        ordered_dict[sec_name] = [ordered_dict[sec_name], item["data"]]
-                else:
-                    ordered_dict[sec_name] = item["data"]
-        return ordered_dict
-
     def _fallback_structure(self, text: str) -> dict:
         """Heuristic fallback extraction if LLM is unavailable."""
-        # Basic regex patterns for "Real" look
         emails = re.findall(r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}', text)
         dates = re.findall(r'\d{1,2}[/-]\d{1,2}[/-]\d{2,4}', text)
-        phones = re.findall(r'(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}', text)
         
         return {
-            "document_analysis": {
-                "summary": text[:300] + "...",
-                "potential_entities": {
-                    "emails": list(set(emails[:5])),
-                    "dates": list(set(dates[:5])),
-                    "contacts": list(set(phones[:5]))
+            "documents": [
+                {
+                    "document_type": "unknown",
+                    "page_range": [1, 1],
+                    "entities": {
+                        "emails": list(set(emails[:5])),
+                        "dates": list(set(dates[:5]))
+                    },
+                    "clauses": {},
+                    "confidence": {
+                        "ocr_confidence": 0.5,
+                        "semantic_confidence": 0.5,
+                        "validation_confidence": 0.5
+                    }
                 }
-            },
-            "system_status": {
-                "mode": "pattern_matching_fallback",
-                "reason": "AI_KEY_ISSUE_OR_QUOTA_EXCEEDED",
-                "full_text_preview": text[:1000]
+            ],
+            "master_case": {
+                "borrower": {"name": "", "address": ""},
+                "loan": {"loan_account_number": "", "loan_amount": "", "interest_rate": "", "emi": ""},
+                "property": {"property_address": ""},
+                "insurance": {"policy_number": ""},
+                "agreements": {"agreement_dates": ""}
             }
         }
