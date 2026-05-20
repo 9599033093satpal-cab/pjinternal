@@ -4,23 +4,24 @@ Aether OCR Platform — Production Backend
 """
 
 import os
-os.environ["DISABLE_SQLALCHEMY_CEXT_RUNTIME"] = "1"
 import sys
-import collections
 import platform
-# Monkeypatch platform universally to bypass Windows WMI query hangs across all packages (like SQLAlchemy, pypdfium2, OpenAI, etc.)
-uname_result = collections.namedtuple("uname_result", ["system", "node", "release", "version", "machine", "processor"])
-platform.uname = lambda: uname_result("Windows", "localhost", "10", "10.0.19045", "AMD64", "Intel64 Family 6 Model 158 Stepping 10, GenuineIntel")
-platform.machine = lambda: "AMD64"
-platform.system = lambda: "Windows"
-platform.platform = lambda *args, **kwargs: "Windows-10-10.0.19045-SP0"
-platform.python_implementation = lambda: "CPython"
-platform.python_version = lambda: "3.12.3"
 
-# Dynamic injection of virtualenv site-packages to bypass Windows virtualenv launcher shim hangs
-venv_site = os.path.join(os.path.dirname(os.path.abspath(__file__)), "venv12", "Lib", "site-packages")
-if os.path.exists(venv_site):
-    sys.path.insert(0, venv_site)
+# Windows-only patches to bypass WMI query hangs (skipped on Linux/GCP)
+if sys.platform == 'win32':
+    import collections
+    os.environ["DISABLE_SQLALCHEMY_CEXT_RUNTIME"] = "1"
+    uname_result = collections.namedtuple("uname_result", ["system", "node", "release", "version", "machine", "processor"])
+    platform.uname = lambda: uname_result("Windows", "localhost", "10", "10.0.19045", "AMD64", "Intel64 Family 6 Model 158 Stepping 10, GenuineIntel")
+    platform.machine = lambda: "AMD64"
+    platform.system = lambda: "Windows"
+    platform.platform = lambda *args, **kwargs: "Windows-10-10.0.19045-SP0"
+    platform.python_implementation = lambda: "CPython"
+    platform.python_version = lambda: "3.12.3"
+    # Inject local venv site-packages (Windows dev only)
+    venv_site = os.path.join(os.path.dirname(os.path.abspath(__file__)), "venv12", "Lib", "site-packages")
+    if os.path.exists(venv_site):
+        sys.path.insert(0, venv_site)
 import uuid
 import json
 import glob
@@ -1239,12 +1240,21 @@ def list_documents():
 
 
 if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
     print("\n" + "="*60)
     print("  Aether OCR Platform — Production")
-    print("  http://localhost:5000")
+    print(f"  http://0.0.0.0:{port}")
     print("="*60 + "\n")
     
     with app.app_context():
         db.create_all()
         
-    app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)
+    app.run(host='0.0.0.0', port=port, debug=False, threaded=True)
+
+# Initialize DB at module level so gunicorn also creates tables on startup
+with app.app_context():
+    try:
+        db.create_all()
+    except Exception as _e:
+        import logging as _log
+        _log.getLogger(__name__).warning(f"DB init warning: {_e}")

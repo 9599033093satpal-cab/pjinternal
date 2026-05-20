@@ -1,63 +1,66 @@
-# Enterprise OCR Agent - Dockerfile
-# Multi-stage build for optimized image size
+# Aether OCR Platform — GCP Cloud Run Dockerfile
+# Uses gunicorn + opencv-python-headless (no libGL needed)
 
-FROM python:3.11-slim as builder
+FROM python:3.11-slim
 
-# Install build dependencies
+# Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     g++ \
-    && rm -rf /var/lib/apt/lists/*
-
-# Create virtual environment
-RUN python -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
-
-# Install Python dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
-
-# Final stage
-FROM python:3.11-slim
-
-# Install runtime dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    # PDF and OCR tools
     poppler-utils \
     tesseract-ocr \
     tesseract-ocr-eng \
-    tesseract-ocr-hin \
-    tesseract-ocr-fra \
-    tesseract-ocr-deu \
-    tesseract-ocr-spa \
-    # Image processing libraries
     libglib2.0-0 \
     libsm6 \
     libxext6 \
     libxrender-dev \
     libgomp1 \
-    # Cleanup
     && rm -rf /var/lib/apt/lists/*
 
-# Copy virtual environment from builder
-COPY --from=builder /opt/venv /opt/venv
-
-# Set environment variables
-ENV PATH="/opt/venv/bin:$PATH" \
-    PYTHONUNBUFFERED=1 \
-    TESSDATA_PREFIX=/usr/share/tesseract-ocr/5/tessdata
-
-# Create working directory
+# Set working directory
 WORKDIR /app
 
-# Copy application files
+# Install Python dependencies (gunicorn + opencv-headless included)
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copy all application source files
+COPY app.py .
+COPY tasks.py .
 COPY ocr_agent.py .
-COPY examples.py .
-COPY README.md .
+COPY ocr_router.py .
+COPY ocr_engine.py .
+COPY neural_structurer.py .
+COPY document_classifier.py .
+COPY case_builder.py .
+COPY confidence_engine.py .
+COPY blank_page_detector.py .
+COPY form_mapper.py .
+COPY draft_generator.py .
+COPY excel_exporter.py .
+COPY migrate_db.py .
 
-# Create directories for input/output
-RUN mkdir -p /app/input /app/output
+# Copy web assets
+COPY templates/ templates/
+COPY static/ static/
 
-# Default command
-CMD ["python", "ocr_agent.py", "--help"]
+# Create required runtime directories
+RUN mkdir -p /app/uploads /app/outputs /app/instance
+
+# Environment
+ENV PYTHONUNBUFFERED=1 \
+    TESSDATA_PREFIX=/usr/share/tesseract-ocr/5/tessdata \
+    FLASK_ENV=production
+
+# GCP Cloud Run injects PORT=8080
+EXPOSE 8080
+
+# Start gunicorn on $PORT (injected by Cloud Run as 8080)
+CMD exec gunicorn --bind "0.0.0.0:${PORT:-8080}" \
+    --workers 2 \
+    --threads 4 \
+    --timeout 300 \
+    --keep-alive 5 \
+    --log-level info \
+    app:app
