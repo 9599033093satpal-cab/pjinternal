@@ -1,0 +1,109 @@
+parulvats8@gmail.com
+
+8699098237
+
+9
+
+Noida
+
+SKILLS
+
+LANGUAGES
+
+English
+Full Professional Proficiency
+
+Hindi
+Full Professional Proficiency
+
+INTERESTS
+
+Swimming
+
+Parul Vats
+
+Systems Software Engineer
+
+Highly skilled Software Developer with 5 years of experience in designing and implementing end-to-
+end automation solutions. Having strong working experience in automating complex RPA processes
+involving integration with OCR,Image Processing,Web Recorder and database navigation.Proficient in
+collaborating with cross-functional teams to elicit requirement, leveraging exceptional
+communication skills to drive successful project outcomes.
+
+WORK EXPERIENCE
+
+Software Engineer
+R1 RCM
+
+08/2023 - Present Noida
+
+Achievements/Tasks
+
+| Automated the Northside Automation process, including data ingestion from multiple sources
+(Optum, Northside) and generating estimates by calculating health benefit details for primary
+and secondary insurance.
+
+Implemented multi-bot architecture and integrated Azure Queues and Topics to enable
+scalable, parallel RPA processing and efficient data exchange.
+
+Successfully led the automation of updating patient details across multiple host systems for a
+U.S. healthcare client, leveraging Citrix and Terminal Automation. This automation significantly
+reduced manual errors and processing time, ensuring seamless integration and real-time
+updates across all platforms.
+
+Worked on the process for completing and updating the patient registration process For
+mammography.The registration process needs to be completed in both Host System(an
+application accessed with Cerner inside VDI) and R1 Hub.
+
+| have worked on Invoice Processing Automation using Python Image Processing Modules and
+OCR to get the Details like Invoice Number,Address,item Description and the Total Value from
+Invoice Document.
+
+o
+
+a
+
+o
+
+a
+
+o
+
+Implemented credential automation utilizing Automation Anywhere Control Room and
+Credential Vault to securely manage bot authentication, eliminate manual credential handling,
+and maintain enterprise-grade security and compliance.
+
+Systems Software Engineer
+
+TTEC
+
+03/2022 - 08/2023 Hyderabad
+
+Achievements/Tasks
+
+© | have worked on Automating the Provisioning and De provisioning of Zoom Users. Adding and
+Removing the Security Group for the particular User.
+
+| Automated the AD Account Provisioning which includes creating the AD account,Adding the
+Security Group, Enabling the On-Premise and Remote Mailbox.
+
+5 Leveraged Generative Al Functionality in Google Cloud, created the Engine and Integrated API
+to get the Summarized Answer from the documents.
+
+© Fetched Relevant Information from Contracts by digitization of Contracts using Python's nltk
+module.
+
+Programmer Analyst
+
+Cognizant
+
+07/2020 - 03/2022 Hyderabad
+Project Name: NS/ Automation
+
+© My key responsibilities include developing the User Interface in Python which will display the
+test Cases for the testing of Vehicles,Image Processing For the Tell-tale in the dashboard.
+
+9 Using this dashboard, the testing of the electric vehicles can be automated and configured from
+the dashboard which removes the chances of human error during the testing phase.
+
+9 | was awarded with Cognizant Cheers Award in the month of Sep’ 2021.

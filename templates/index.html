@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aether AI Solutions | Console</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+<div class="dashboard-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar-solar">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:36px;padding:0 4px;">
+            <div class="brand-dot" style="display:none;"></div>
+            <span class="brand-name">Aether</span>
+        </div>
+        <div class="sidebar-label">OCR Engine</div>
+        <nav class="sidebar-nav" style="margin-bottom:16px;">
+            <a class="sidebar-item" onclick="showView('overview')">Overview</a>
+            <a class="sidebar-item active" onclick="showView('upload')">New Job</a>
+            <a class="sidebar-item" onclick="showView('validation')">File Processed</a>
+        </nav>
+        <nav class="sidebar-nav">
+            <a class="sidebar-item" onclick="showView('settings')">OCR Settings</a>
+        </nav>
+        <div id="admin-sidebar-section" style="display:none;">
+            <div class="sidebar-label">Administration</div>
+            <nav class="sidebar-nav">
+                <a class="sidebar-item" onclick="showView('admin')">Demo Requests</a>
+                <a class="sidebar-item" onclick="showView('rbac')">RBAC & Users</a>
+            </nav>
+        </div>
+        <div style="margin-top:auto;padding-top:24px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:4px;">
+            <a href="/" class="sidebar-item" style="opacity:0.7;">Marketing Page</a>
+            <a href="/logout" class="sidebar-item" style="color:#f87171;opacity:0.9;">Logout</a>
+        </div>
+    </aside>
+
+    <header class="top-bar-solar">
+        <div>
+            <span style="font-weight:800;font-size:1rem;color:var(--text-bright);" id="view-title">New OCR Job</span>
+            <span style="font-size:0.75rem;color:var(--text-dim);margin-left:12px;">AI Processing · Engine Ready</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;">
+            <div id="greeting-box" style="font-size:0.85rem;font-weight:700;color:var(--text-bright);"></div>
+            <button id="pulse-toggle-btn" style="background:var(--ink-soft);color:var(--text-mid);border:1px solid var(--border);border-radius:100px;padding:6px 14px;font-size:0.72rem;font-weight:800;cursor:pointer;transition:var(--transition);display:flex;align-items:center;gap:6px;" onclick="togglePulsePanel()" onmouseover="this.style.borderColor='var(--border-gold)';this.style.color='var(--gold)';" onmouseout="this.style.borderColor='';this.style.color='';">
+                <span>⚡ Sidebar</span>
+            </button>
+            <div id="engine-status" style="display:flex;align-items:center;gap:8px;background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.25);padding:6px 14px;border-radius:100px;">
+                <div style="width:7px;height:7px;border-radius:50%;background:#34d399;animation:pulseDot 2s infinite;"></div>
+                <span style="font-size:0.72rem;font-weight:800;color:#34d399;">ENGINE ONLINE</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="viewport-solar">
+
+        <!-- OVERVIEW VIEW -->
+        <div id="view-overview" class="ocr-view" style="display:none;">
+            <div style="max-width:1000px;margin:0 auto;">
+                <h1 style="font-size:2.5rem;font-weight:900;color:var(--text-bright);margin-bottom:8px;">Platform Overview</h1>
+                <p style="color:var(--text-mid);margin-bottom:48px;">Real-time statistics and performance metrics for your OCR tasks.</p>
+                
+                <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:24px;margin-bottom:48px;">
+                    <!-- Stat Cards -->
+                    <div style="background:var(--ink-mid);border:1px solid var(--border);border-radius:20px;padding:24px;display:flex;align-items:center;gap:20px;transition:all 0.3s;" onmouseover="this.style.borderColor='var(--border-gold)'" onmouseout="this.style.borderColor='var(--border)'">
+                        <div style="width:50px;height:50px;background:var(--gold-pale);border-radius:12px;display:grid;place-items:center;color:var(--gold);"></div>
+                        <div>
+                            <div style="font-size:0.7rem;font-weight:800;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px;">Files Processed</div>
+                            <div id="stat-ov-jobs" style="font-family:'Outfit',sans-serif;font-size:2rem;font-weight:900;color:var(--text-bright);line-height:1;">0</div>
+                        </div>
+                    </div>
+                    <div style="background:var(--ink-mid);border:1px solid var(--border);border-radius:20px;padding:24px;display:flex;align-items:center;gap:20px;transition:all 0.3s;" onmouseover="this.style.borderColor='var(--border-gold)'" onmouseout="this.style.borderColor='var(--border)'">
+                        <div style="width:50px;height:50px;background:rgba(59,130,246,0.1);border-radius:12px;display:grid;place-items:center;color:#3b82f6;"></div>
+                        <div>
+                            <div style="font-size:0.7rem;font-weight:800;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px;">Pages Digitized</div>
+                            <div id="stat-ov-pages" style="font-family:'Outfit',sans-serif;font-size:2rem;font-weight:900;color:var(--text-bright);line-height:1;">0</div>
+                        </div>
+                    </div>
+                    <div style="background:var(--ink-mid);border:1px solid var(--border);border-radius:20px;padding:24px;display:flex;align-items:center;gap:20px;transition:all 0.3s;" onmouseover="this.style.borderColor='var(--border-gold)'" onmouseout="this.style.borderColor='var(--border)'">
+                        <div style="width:50px;height:50px;background:rgba(52,211,153,0.1);border-radius:12px;display:grid;place-items:center;color:#34d399;"></div>
+                        <div>
+                            <div style="font-size:0.7rem;font-weight:800;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px;">Avg. Accuracy</div>
+                            <div id="stat-ov-acc" style="font-family:'Outfit',sans-serif;font-size:2rem;font-weight:900;color:var(--text-bright);line-height:1;">0%</div>
+                        </div>
+                    </div>
+                    <div style="background:var(--ink-mid);border:1px solid var(--border);border-radius:20px;padding:24px;display:flex;align-items:center;gap:20px;transition:all 0.3s;" onmouseover="this.style.borderColor='var(--border-gold)'" onmouseout="this.style.borderColor='var(--border)'">
+                        <div style="width:50px;height:50px;background:rgba(168,85,247,0.1);border-radius:12px;display:grid;place-items:center;color:#a855f7;"></div>
+                        <div>
+                            <div style="font-size:0.7rem;font-weight:800;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px;">Avg. Time</div>
+                            <div id="stat-ov-time" style="font-family:'Outfit',sans-serif;font-size:2rem;font-weight:900;color:var(--text-bright);line-height:1;">0s</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align:center;">
+                    <button onclick="showView('upload')" class="btn-fill" style="padding:16px 32px;font-size:1rem;">Start New Job</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- UPLOAD VIEW -->
+        <div id="view-upload" class="ocr-view">
+            <div style="max-width:800px;margin:0 auto;">
+                <h1 style="font-size:2.5rem;font-weight:900;color:var(--text-bright);margin-bottom:8px;">Transform Documents into Structured Data</h1>
+                <p style="color:var(--text-mid);margin-bottom:48px;">Upload unstructured PDFs. Our Agentic AI engine will automatically read, extract, and convert complex layouts into highly-accurate, editable JSON data ready for system integration.</p>
+
+                <!-- Drop Zone -->
+                <div id="dropzone" onclick="document.getElementById('fileInput').click()"
+                    style="border:2px dashed rgba(255,255,255,0.12);border-radius:24px;padding:80px 40px;text-align:center;cursor:pointer;transition:all 0.3s ease;background:var(--ink-mid);margin-bottom:32px;">
+                    <i data-lucide="file-up" style="width:56px;height:56px;color:var(--gold);margin:0 auto 20px;display:block;"></i>
+                    <h3 id="drop-title" style="font-size:1.4rem;font-weight:800;color:var(--text-bright);margin-bottom:8px;">Drop PDF here or click to browse</h3>
+                    <p id="drop-sub" style="color:var(--text-dim);font-size:0.88rem;">Supports PDF · Max 500MB · Any language</p>
+                    <input type="file" id="fileInput" accept=".pdf" style="display:none;">
+                </div>
+
+                <!-- Config row -->
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:32px;">
+                    <div>
+                        <label style="font-size:0.68rem;font-weight:800;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.12em;display:block;margin-bottom:8px;">Language</label>
+                        <select id="lang-select" class="input-solar" style="cursor:pointer;">
+                            <option value="eng">English</option>
+                            <option value="hin">Hindi</option>
+                            <option value="eng+hin">English + Hindi</option>
+                            <option value="fra">French</option>
+                            <option value="deu">German</option>
+                            <option value="spa">Spanish</option>
+                            <option value="ara">Arabic</option>
+                            <option value="chi_sim">Chinese (Simplified)</option>
+                            <option value="jpn">Japanese</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="font-size:0.68rem;font-weight:800;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.12em;display:block;margin-bottom:8px;">DPI Quality</label>
+                        <select id="dpi-select" class="input-solar" style="cursor:pointer;">
+                            <option value="150">150 DPI — Fast</option>
+                            <option value="200" selected>200 DPI — Balanced</option>
+                            <option value="300">300 DPI — High Quality</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="font-size:0.68rem;font-weight:800;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.12em;display:block;margin-bottom:8px;">Parallel Workers</label>
+                        <select id="workers-select" class="input-solar" style="cursor:pointer;">
+                            <option value="2">2 Workers</option>
+                            <option value="4" selected>4 Workers</option>
+                            <option value="6">6 Workers</option>
+                            <option value="8">8 Workers</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button id="startBtn" onclick="startOCR()" class="btn-solar" disabled
+                    style="width:100%;padding:20px;font-size:1rem;border-radius:16px;opacity:0.4;cursor:not-allowed;">
+                    Select a PDF to begin
+                </button>
+
+                <!-- Active Job Progress -->
+                <div id="job-progress" style="display:none;margin-top:40px;">
+                    <div style="background:var(--ink-mid);border:1px solid var(--border);border-radius:20px;padding:32px;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                            <div>
+                                <div style="font-weight:800;font-size:1rem;color:var(--text-bright);" id="prog-filename">Processing...</div>
+                                <div style="font-size:0.78rem;color:var(--text-dim);margin-top:4px;" id="prog-pages">Initializing...</div>
+                            </div>
+                            <div style="font-family:'Outfit',sans-serif;font-size:2rem;font-weight:800;color:var(--gold);" id="prog-pct">0%</div>
+                        </div>
+                        <div style="height:8px;background:var(--ink-soft);border-radius:100px;overflow:hidden;">
+                            <div id="prog-bar" style="height:100%;background:var(--grad-gold);width:0%;transition:width 0.5s ease;border-radius:100px;"></div>
+                        </div>
+                        <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;" id="prog-files"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- SETTINGS VIEW -->
+        <div id="view-settings" class="ocr-view" style="display:none;">
+            <h1 style="font-size:2rem;font-weight:900;color:var(--text-bright);margin-bottom:8px;">OCR Settings</h1>
+            <p style="color:var(--text-mid);margin-bottom:40px;">System configuration and engine status.</p>
+
+            <div style="display:grid;gap:20px;max-width:700px;">
+                <div style="background:var(--ink-mid);border:1px solid var(--border);border-radius:20px;padding:28px;">
+                    <h3 style="font-size:1rem;font-weight:800;color:var(--text-bright);margin-bottom:20px;">Engine Status</h3>
+                    <div style="display:flex;flex-direction:column;gap:14px;">
+                        <div style="display:flex;justify-content:space-between;">
+                            <span style="font-size:0.85rem;color:var(--text-mid);">Tesseract Version</span>
+                            <span style="font-size:0.85rem;font-weight:800;color:#34d399;">v5.5.0 ✓</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;">
+                            <span style="font-size:0.85rem;color:var(--text-mid);">pypdfium2</span>
+                            <span style="font-size:0.85rem;font-weight:800;color:#34d399;">Installed ✓</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;">
+                            <span style="font-size:0.85rem;color:var(--text-mid);">Languages Available</span>
+                            <span style="font-size:0.85rem;font-weight:800;color:var(--gold);">eng, hin (eng+hin)</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;">
+                            <span style="font-size:0.85rem;color:var(--text-mid);">Max Upload Size</span>
+                            <span style="font-size:0.85rem;font-weight:800;color:var(--text-bright);">500 MB</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;">
+                            <span style="font-size:0.85rem;color:var(--text-mid);">Parallel Processing</span>
+                            <span style="font-size:0.85rem;font-weight:800;color:var(--text-bright);">Up to 8 threads</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="background:var(--gold-pale);border:1px solid var(--border-gold);border-radius:20px;padding:24px;">
+                    <p style="font-size:0.85rem;color:var(--text-mid);line-height:1.65;">
+                        <strong style="color:var(--gold);">Hindi Support:</strong> If Hindi OCR fails, download 
+                        <code style="background:var(--ink-soft);padding:2px 6px;border-radius:6px;font-size:0.8rem;">hin.traineddata</code> 
+                        from <a href="https://github.com/tesseract-ocr/tessdata" target="_blank" style="color:var(--gold);">tesseract-ocr/tessdata</a> 
+                        and copy to <code style="background:var(--ink-soft);padding:2px 6px;border-radius:6px;font-size:0.8rem;">C:\Program Files\Tesseract-OCR\tessdata\</code> as Administrator.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADMIN VIEW -->
+        <div id="view-admin" class="ocr-view" style="display:none;">
+            <div style="max-width:1200px;margin:0 auto;">
+                <h1 style="font-size:2.5rem;font-weight:900;color:var(--text-bright);margin-bottom:8px;">Demo Requests</h1>
+                <p style="color:var(--text-mid);margin-bottom:48px;">Manage incoming leads and scheduling for platform demonstrations.</p>
+                
+                <div style="background:var(--ink-mid);border:1px solid var(--border);border-radius:24px;overflow:hidden;">
+                    <table style="width:100%;border-collapse:collapse;text-align:left;">
+                        <thead>
+                            <tr style="background:rgba(255,255,255,0.02);border-bottom:1px solid var(--border);">
+                                <th style="padding:20px 24px;font-size:0.7rem;font-weight:800;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;">Customer Name</th>
+                                <th style="padding:20px 24px;font-size:0.7rem;font-weight:800;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;">Email Address</th>
+                                <th style="padding:20px 24px;font-size:0.7rem;font-weight:800;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;">Contact Number</th>
+                                <th style="padding:20px 24px;font-size:0.7rem;font-weight:800;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;">Requested On</th>
+                                <th style="padding:20px 24px;font-size:0.7rem;font-weight:800;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;text-align:right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="demo-requests-body">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                    <div id="demo-empty" style="padding:100px 40px;text-align:center;display:none;">
+                        <i data-lucide="inbox" style="width:48px;height:48px;color:var(--border);margin-bottom:16px;"></i>
+                        <p style="color:var(--text-dim);">No demo requests found in the database.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RBAC VIEW -->
+        <div id="view-rbac" class="ocr-view" style="display:none;">
+            <div style="max-width:1200px;margin:0 auto;">
+                <h1 style="font-size:2.5rem;font-weight:900;color:var(--text-bright);margin-bottom:8px;">RBAC & Access Control</h1>
+                <p style="color:var(--text-mid);margin-bottom:48px;">Configure roles, permissions, and enterprise workspace access.</p>
+                
+                <div style="display:grid;grid-template-columns:1fr 350px;gap:32px;">
+                    <div style="background:var(--ink-mid);border:1px solid var(--border);border-radius:24px;padding:32px;">
+                        <h3 style="font-size:1.1rem;font-weight:800;color:var(--text-bright);margin-bottom:24px;">Active Workspace Users</h3>
+                        <div style="display:flex;flex-direction:column;gap:16px;">
+                            <div style="background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:16px;padding:20px;display:flex;justify-content:space-between;align-items:center;">
+                                <div style="display:flex;align-items:center;gap:16px;">
+                                    <div style="width:40px;height:40px;border-radius:12px;background:var(--grad-gold);display:grid;place-items:center;color:var(--ink);font-weight:900;">A</div>
+                                    <div>
+                                        <div style="font-weight:800;color:var(--text-bright);">System Admin</div>
+                                        <div style="font-size:0.75rem;color:var(--text-dim);">Root Level Access · +91 9876543210</div>
+                                    </div>
+                                </div>
+                                <span style="padding:4px 12px;background:rgba(232,160,32,0.1);color:var(--gold);border-radius:100px;font-size:0.65rem;font-weight:900;">SUPER ADMIN</span>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:16px;padding:20px;display:flex;justify-content:space-between;align-items:center;">
+                                <div style="display:flex;align-items:center;gap:16px;">
+                                    <div style="width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,0.05);display:grid;place-items:center;color:var(--text-dim);font-weight:900;">C</div>
+                                    <div>
+                                        <div style="font-weight:800;color:var(--text-bright);">Client User (Demo)</div>
+                                        <div style="font-size:0.75rem;color:var(--text-dim);">Restricted Access · +91 0000000000</div>
+                                    </div>
+                                </div>
+                                <span style="padding:4px 12px;background:rgba(255,255,255,0.05);color:var(--text-mid);border-radius:100px;font-size:0.65rem;font-weight:900;">CLIENT</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display:flex;flex-direction:column;gap:24px;">
+                        <div style="background:var(--ink-mid);border:1px solid var(--border);border-radius:24px;padding:28px;">
+                            <h3 style="font-size:0.9rem;font-weight:800;color:var(--text-bright);margin-bottom:16px;">Role Configuration</h3>
+                            <p style="font-size:0.75rem;color:var(--text-dim);line-height:1.6;margin-bottom:20px;">Define what "Client Portal" users can see and do within their workspace.</p>
+                            <div style="display:flex;flex-direction:column;gap:12px;">
+                                <label style="display:flex;align-items:center;gap:10px;font-size:0.8rem;color:var(--text-mid);">
+                                    <input type="checkbox" checked disabled> View Own Jobs
+                                </label>
+                                <label style="display:flex;align-items:center;gap:10px;font-size:0.8rem;color:var(--text-mid);">
+                                    <input type="checkbox" checked disabled> Run New Jobs
+                                </label>
+                                <label style="display:flex;align-items:center;gap:10px;font-size:0.8rem;color:var(--text-mid);">
+                                    <input type="checkbox" disabled> Access Admin Panel
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VALIDATION HITL VIEW -->
+        <div id="view-validation" class="ocr-view" style="display:none; height:100%; flex-direction:column;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-shrink:0;">
+                <h1 style="font-size:2rem;font-weight:900;color:var(--text-bright);">Validation Workspace</h1>
+                <div style="display:flex;align-items:center;gap:12px;">
+                    <input type="text" id="valSearchInput" placeholder="Search file name..." onkeyup="filterValJobs()" class="input-solar" style="padding:8px 14px; width:220px; font-size:0.8rem; background:var(--ink-mid); color:var(--text-bright); border:1px solid var(--border); border-radius:8px;">
+                    <button id="val-back-btn" onclick="showValidationList()" class="btn-solar" style="display:none; padding:8px 16px;font-size:0.82rem;background:var(--ink-mid);border:1px solid var(--border);color:var(--text-bright);">Back</button>
+                    <button id="bulk-delete-btn" onclick="bulkDeleteJobs()" class="btn-solar" style="display:none; padding:8px 16px;font-size:0.82rem;background:rgba(248,113,113,0.12);color:#f87171;border:1px solid rgba(248,113,113,0.3);">🗑 Delete Selected</button>
+                    <button onclick="loadValidationJobs()" class="btn-solar" style="padding:8px 16px;font-size:0.82rem;">Refresh</button>
+                </div>
+            </div>
+            
+            <!-- Job List Table -->
+            <div id="val-job-list-container" style="flex:1; overflow-y:auto; padding-right:10px;">
+                <div style="text-align:center;padding:40px;color:var(--text-dim);">Loading processed files...</div>
+            </div>
+
+            <!-- Split Screen Workspace -->
+            <div id="val-workspace" style="display:none; flex:1; gap:20px; min-height:0;">
+                
+                <!-- Left: Document Image -->
+                <div style="flex:1; background:var(--ink-mid); border:1px solid var(--border); border-radius:16px; display:flex; flex-direction:column; overflow:hidden;">
+                    <div style="padding:12px 16px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; background:var(--ink-soft);">
+                        <span style="font-size:0.8rem;font-weight:800;color:var(--text-bright);">Document View</span>
+                        <div style="display:flex;gap:12px;align-items:center;">
+                            <button class="btn-solar" style="padding:4px 8px;font-size:0.7rem;" onclick="collapsePanel('left')" title="Collapse View">Hide</button>
+                            <div style="display:flex;gap:4px;background:var(--ink);border-radius:6px;padding:2px;">
+                                <button class="btn-solar" style="padding:4px 8px;font-size:0.8rem;background:none;color:var(--text-bright);" onclick="valZoom(0.1)" title="Zoom In">Zoom In</button>
+                                <button class="btn-solar" style="padding:4px 8px;font-size:0.8rem;background:none;color:var(--text-bright);" onclick="valZoom(-0.1)" title="Zoom Out">Zoom Out</button>
+                                <button class="btn-solar" style="padding:4px 8px;font-size:0.8rem;background:none;color:var(--text-bright);" onclick="valZoomReset()" title="Reset Zoom">Reset</button>
+                            </div>
+                            <div style="display:flex;gap:8px;align-items:center;border-left:1px solid var(--border);padding-left:12px;">
+                                <button class="btn-solar" style="padding:4px 12px;font-size:0.7rem;" onclick="changeValPage(-1)">Prev</button>
+                                <span id="val-page-indicator" style="font-size:0.75rem;color:var(--gold);font-weight:800;">Pg 1</span>
+                                <button class="btn-solar" style="padding:4px 12px;font-size:0.7rem;" onclick="changeValPage(1)">Next</button>
+                                <button class="btn-gold" style="padding:4px 12px;font-size:0.7rem;margin-left:8px;" onclick="openFullPdf()" title="Open Original PDF in New Tab">Full View</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Zoomable Container -->
+                    <div id="val-img-container" style="flex:1; overflow:auto; position:relative; background:#0a0a0a; display:flex; justify-content:center; align-items:flex-start; padding:20px;">
+                        <img id="val-doc-img" src="" style="max-width:100%; height:auto; object-fit:contain; border-radius:4px; box-shadow:0 10px 30px rgba(0,0,0,0.5); transform-origin: top center; transition: transform 0.1s ease-out;" alt="Document Loading...">
+                    </div>
+                    <div style="padding:8px;text-align:center;font-size:0.7rem;color:var(--text-dim);border-top:1px solid var(--border);">Scroll to Zoom · Drag to Pan (WIP)</div>
+                </div>
+
+                <!-- Right: JSON Editor & Intelligence -->
+                <div id="val-right-panel" style="flex:1; display:flex; flex-direction:column; gap:20px; min-height:0;">
+                    
+                    <!-- Intelligence Center (Hidden completely per user request, kept in DOM for safe JS execution) -->
+                    <div id="intelligence-center" style="display:none !important;">
+                        <div id="integrity-score" style="display:none;"></div>
+                        <div id="anomaly-list" style="display:none;"></div>
+                    </div>
+
+                    <!-- Main Editor -->
+                    <div style="flex:1; background:var(--ink-mid); border:1px solid var(--border); border-radius:16px; display:flex; flex-direction:column; overflow:hidden;">
+                        <div style="padding:12px 16px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; background:var(--ink-soft); gap:8px;">
+                            <div style="display:flex; gap:10px; align-items:center;">
+                                <button id="tab-raw-btn" class="btn-solar" style="padding:4px 10px;font-size:0.75rem;font-weight:900;background:var(--grad-gold);color:var(--ink);border:none;border-radius:6px;" onclick="switchRightTab('raw')">📝 RAW OCR Text</button>
+                                <button id="tab-form-btn" class="btn-solar" style="padding:4px 10px;font-size:0.75rem;font-weight:900;background:none;color:var(--text-mid);border:1px solid var(--border);border-radius:6px;" onclick="switchRightTab('form')">⚡ Form Editor</button>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <button class="btn-solar" style="padding:4px 8px;font-size:0.7rem;" onclick="collapsePanel('right')" title="Full View Mode">Hide</button>
+                                <span id="accuracy-badge" style="display:none;padding:4px 10px;border-radius:100px;font-size:0.68rem;font-weight:900;background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.25);"></span>
+                                
+                                <button id="download-raw-btn" class="btn-solar" style="padding:6px 16px;font-size:0.75rem;background:rgba(232,160,32,0.12);color:var(--gold);border:1px solid rgba(232,160,32,0.3);" onclick="window.open('/api/download_raw/'+valCurrentJobId)">⬇ RAW File</button>
+                                <button id="download-semantic-btn" class="btn-solar" style="padding:6px 16px;font-size:0.75rem;background:rgba(59,130,246,0.12);color:#60a5fa;border:1px solid rgba(59,130,246,0.3);" onclick="window.open('/api/download_semantic/'+valCurrentJobId)">⬇ JSON</button>
+
+                                <button id="audit-btn" class="btn-solar" style="display:none;padding:6px 16px;font-size:0.75rem;background:rgba(168,85,247,0.1);color:#a855f7;border:1px solid rgba(168,85,247,0.25);" onclick="showAuditForJob(valCurrentJobId)">Audit</button>
+                                <button id="download-verified-btn" class="btn-solar" style="display:none;padding:6px 16px;font-size:0.75rem;background:rgba(16,185,129,0.1);color:#10b981;border:1px solid rgba(16,185,129,0.25);" onclick="window.open('/api/download_verified/'+valCurrentJobId)">Download Verified</button>
+                                <button id="export-form-btn" class="btn-solar" style="display:none;padding:6px 16px;font-size:0.75rem;background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.25);" onclick="openExportModalDirect(valCurrentJobId)">Export</button>
+                                <button id="save-verified-btn" class="btn-solar" style="padding:6px 16px;font-size:0.75rem;background:var(--grad-gold);color:var(--ink);border:none;" onclick="saveValidationData()">Save Verified Data</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Content: Dynamic Form Editor (Hidden by default since RAW OCR is prioritized) -->
+                        <div id="val-json-editor" style="display:none; flex:1; overflow-y:auto; padding:20px; font-family:monospace; font-size:0.85rem;">
+                            <!-- Dynamic Form Generated Here -->
+                        </div>
+
+                        <!-- Content: Raw OCR Text (Visible by default per user request) -->
+                        <div id="val-raw-text-view" style="flex:1; overflow-y:auto; padding:20px; font-family:'Inter', sans-serif; font-size:0.88rem; line-height:1.6; color:var(--text-bright); white-space:pre-wrap; background:rgba(0,0,0,0.15);">
+                            <div style="color:var(--text-dim);">Loading raw OCR text...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Pulse Panel: Live Stats -->
+    <aside class="pulse-panel">
+        <div>
+            <div style="font-size:0.62rem;font-weight:900;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:16px;">Live Status</div>
+            <div id="pulse-active" class="sentinel-card">
+                <div style="font-weight:800;font-size:0.82rem;color:var(--text-bright);margin-bottom:8px;">No active jobs</div>
+                <div style="font-size:0.72rem;color:var(--text-dim);">Upload a PDF to begin.</div>
+            </div>
+        </div>
+        <div>
+            <div style="font-size:0.62rem;font-weight:900;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:16px;">Session Stats</div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+                <div class="sentinel-card" style="display:flex;justify-content:space-between;align-items:center;">
+                    <span style="font-size:0.78rem;color:var(--text-mid);">Jobs Run</span>
+                    <span id="stat-total" style="font-weight:800;color:var(--text-bright);font-family:'Outfit',sans-serif;">0</span>
+                </div>
+                <div class="sentinel-card" style="display:flex;justify-content:space-between;align-items:center;">
+                    <span style="font-size:0.78rem;color:var(--text-mid);">Pages Done</span>
+                    <span id="stat-pages" style="font-weight:800;color:var(--gold);font-family:'Outfit',sans-serif;">0</span>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top:auto;">
+            <div style="background:var(--grad-gold);border-radius:16px;padding:24px;">
+                <h4 style="font-size:1rem;font-weight:900;color:var(--ink);margin-bottom:8px;">Need Hindi OCR?</h4>
+                <p style="font-size:0.75rem;color:rgba(0,0,0,0.6);line-height:1.5;margin-bottom:16px;">Select "Hindi" or "English + Hindi" in the language dropdown.</p>
+                <a href="#" onclick="showView('settings')" style="font-size:0.75rem;font-weight:900;color:var(--ink);text-decoration:none;">Setup Guide</a>
+            </div>
+        </div>
+    </aside>
+
+</div>
+
+<!-- ── AUDIT MODAL ── -->
+<div id="audit-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:center;justify-content:center;">
+    <div style="background:#111827;border:1px solid rgba(255,255,255,0.1);border-radius:24px;width:90%;max-width:860px;max-height:85vh;display:flex;flex-direction:column;overflow:hidden;">
+        <div style="padding:24px 28px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;justify-content:space-between;align-items:center;">
+            <h2 style="font-size:1.3rem;font-weight:900;color:#f8fafc;">Accuracy Audit Report</h2>
+            <button onclick="closeAuditModal()" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#64748b;border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:1.1rem;">✕</button>
+        </div>
+        <div id="audit-stats-row" style="display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.07);"></div>
+        <div style="overflow-y:auto;flex:1;">
+            <table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
+                <thead>
+                    <tr style="background:rgba(255,255,255,0.03);position:sticky;top:0;">
+                        <th style="padding:12px 16px;text-align:left;color:#64748b;font-weight:700;">Field</th>
+                        <th style="padding:12px 16px;text-align:left;color:#64748b;font-weight:700;">Machine Output</th>
+                        <th style="padding:12px 16px;text-align:left;color:#64748b;font-weight:700;">Human Correction</th>
+                        <th style="padding:12px 16px;text-align:left;color:#64748b;font-weight:700;">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="audit-table-body"></tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Export Form Modal -->
+    <div id="export-modal" class="modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1001;align-items:center;justify-content:center;">
+        <div style="max-width:800px;background:var(--ink-mid);border:1px solid var(--border);border-radius:24px;padding:32px;width:90%;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+                <div>
+                    <h2 style="font-size:1.5rem;font-weight:900;color:var(--text-bright);margin-bottom:4px;">Dynamic Form Exporter</h2>
+                    <p style="color:var(--text-dim);font-size:0.8rem;">Map verified OCR data into a target system schema using Agentic AI.</p>
+                </div>
+                <button onclick="closeExportModal()" style="background:none;border:none;color:var(--text-dim);font-size:1.5rem;cursor:pointer;">&times;</button>
+            </div>
+            
+            <div style="margin-bottom:24px;">
+                <label style="font-size:0.7rem;font-weight:800;color:var(--text-dim);text-transform:uppercase;margin-bottom:8px;display:block;">Select Target Form / Schema</label>
+                <div style="display:flex;gap:10px;">
+                    <select id="target-form-select" class="input-solar" style="flex:1;background:var(--ink);border:1px solid var(--border);color:var(--text-bright);padding:12px;border-radius:8px;">
+                        <option value="">-- Choose a target format --</option>
+                        <option value="custom">✨ Upload Custom Schema (.json)</option>
+                    </select>
+                    <input type="file" id="custom-schema-file" accept=".json" style="display:none;" onchange="handleCustomSchemaUpload(this)">
+                </div>
+            </div>
+
+            <div id="custom-schema-preview" style="display:none;margin-bottom:20px;padding:16px;background:rgba(232,160,32,0.05);border:1px dashed var(--gold);border-radius:12px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                    <span style="font-size:0.7rem;font-weight:800;color:var(--gold);">CUSTOM SCHEMA LOADED</span>
+                    <button onclick="clearCustomSchema()" style="background:none;border:none;color:#f87171;font-size:0.7rem;cursor:pointer;font-weight:700;">Remove</button>
+                </div>
+                <div id="custom-schema-name" style="font-size:0.8rem;color:var(--text-bright);">filename.json</div>
+            </div>
+
+            <div id="mapping-result-container" style="display:none;">
+                <label style="font-size:0.7rem;font-weight:800;color:var(--text-dim);text-transform:uppercase;margin-bottom:8px;display:block;">Agentic Mapping Result</label>
+                <pre id="mapping-json-display" style="background:#0a0a0a;padding:20px;border-radius:12px;color:#34d399;font-size:0.8rem;max-height:300px;overflow-y:auto;border:1px solid rgba(52,211,153,0.1);margin-bottom:20px;"></pre>
+                <button onclick="downloadMappedJson()" class="btn-solar" style="width:100%;padding:14px;background:var(--grad-gold);color:var(--ink);border:none;font-weight:800;">Download Mapped Form JSON</button>
+            </div>
+
+            <div id="mapping-loader" style="display:none;text-align:center;padding:40px;">
+                <div style="width:40px;height:40px;border:3px solid var(--gold);border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 20px;"></div>
+                <p style="color:var(--text-mid);font-size:0.9rem;">AI is intelligently mapping data to the target schema...</p>
+            </div>
+
+            <button id="generate-map-btn" onclick="generateMapping()" class="btn-solar" style="width:100%;padding:14px;background:#60a5fa;color:white;border:none;font-weight:800;cursor:pointer;">
+                Generate Mapping
+            </button>
+        </div>
+    </div>
+
+<style>
+@keyframes pulseDot { 0%,100%{transform:scale(1);} 50%{transform:scale(1.4);} }
+@keyframes spin { from {transform:rotate(0deg);} to {transform:rotate(360deg);} }
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+}
+</style>
+
+<script>
+lucide.createIcons();
+setGreeting();
+checkAdminRole();
+
+let activeJobId = null;
+let pollInterval = null;
+let sessionPages = 0;
+let sessionJobs = 0;
+
+function setGreeting() {
+    const now = new Date();
+    const hours = now.getHours();
+    let greet = "Good Morning";
+    if (hours >= 12 && hours < 17) greet = "Good Afternoon";
+    else if (hours >= 17) greet = "Good Evening";
+    
+    document.getElementById('greeting-box').innerHTML = `<span style="color:var(--gold);">${greet},</span> ${sessionStorage.getItem('userName') || 'Aether User'}`;
+}
+
+function collapsePanel(side) {
+    const left = document.querySelector('#val-workspace > div:first-child');
+    const right = document.getElementById('val-right-panel');
+    
+    if (side === 'left') {
+        const isCollapsed = left.style.flex === '0 0 40px';
+        left.style.flex = isCollapsed ? '1' : '0 0 40px';
+        left.style.overflow = isCollapsed ? 'hidden' : 'hidden';
+        left.querySelector('div:nth-child(2)').style.display = isCollapsed ? 'flex' : 'none';
+        left.querySelector('button').textContent = isCollapsed ? 'Open' : 'Close';
+    } else {
+        const isCollapsed = right.style.flex === '0 0 40px';
+        right.style.flex = isCollapsed ? '1' : '0 0 40px';
+        right.querySelector('div:nth-child(2)').style.display = isCollapsed ? 'block' : 'none';
+        right.querySelector('button').textContent = isCollapsed ? 'Open' : 'Close';
+    }
+}
+
+// ── Drop Zone ──
+const dz = document.getElementById('dropzone');
+const fi = document.getElementById('fileInput');
+let selectedFile = null;
+
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.style.borderColor = 'var(--gold)'; dz.style.background = 'var(--gold-pale)'; });
+dz.addEventListener('dragleave', () => { dz.style.borderColor = ''; dz.style.background = ''; });
+dz.addEventListener('drop', e => {
+    e.preventDefault(); dz.style.borderColor = ''; dz.style.background = '';
+    if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]);
+});
+fi.addEventListener('change', () => { if (fi.files[0]) setFile(fi.files[0]); });
+
+function setFile(file) {
+    if (!file.name.toLowerCase().endsWith('.pdf')) { alert('Please upload a PDF file.'); return; }
+    selectedFile = file;
+    document.getElementById('drop-title').textContent = file.name;
+    document.getElementById('drop-sub').textContent = (file.size / (1024*1024)).toFixed(1) + ' MB · Ready to process';
+    dz.style.borderColor = 'var(--gold)';
+    const btn = document.getElementById('startBtn');
+    btn.disabled = false; btn.style.opacity = '1'; btn.style.cursor = 'pointer';
+    btn.textContent = 'Start Processing';
+}
+
+// ── Start OCR ──
+async function startOCR() {
+    if (!selectedFile) return;
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+    formData.append('language', document.getElementById('lang-select').value);
+    formData.append('dpi', document.getElementById('dpi-select').value);
+    formData.append('workers', document.getElementById('workers-select').value);
+
+    const btn = document.getElementById('startBtn');
+    btn.disabled = true; btn.textContent = 'Uploading...';
+
+    try {
+        const res = await fetch('/api/upload', { method: 'POST', body: formData });
+        const data = await res.json();
+        if (res.ok) {
+            activeJobId = data.job_id;
+            startPolling(data.job_id, data.filename);
+            sessionJobs++;
+            document.getElementById('stat-total').textContent = sessionJobs;
+        } else {
+            // Show inline error in the progress area
+            const errMsg = data.error || 'Upload failed';
+            document.getElementById('job-progress').style.display = 'block';
+            document.getElementById('prog-filename').textContent = selectedFile.name;
+            document.getElementById('prog-pages').textContent = 'Upload Error: ' + errMsg;
+            document.getElementById('prog-bar').style.background = '#f87171';
+            document.getElementById('prog-bar').style.width = '100%';
+            document.getElementById('prog-pct').textContent = 'Error';
+            document.getElementById('prog-pct').style.color = '#f87171';
+            btn.disabled = false; btn.textContent = 'Start Processing';
+        }
+    } catch (e) {
+        document.getElementById('job-progress').style.display = 'block';
+        document.getElementById('prog-pages').textContent = 'Connection error. Is the server running?';
+        btn.disabled = false; btn.textContent = 'Start Processing';
+    }
+}
+
+// ── Polling ──
+function startPolling(jobId, filename) {
+    document.getElementById('job-progress').style.display = 'block';
+    document.getElementById('prog-filename').textContent = filename;
+    document.getElementById('startBtn').textContent = 'Processing...';
+
+    if (pollInterval) clearInterval(pollInterval);
+    pollInterval = setInterval(() => pollJob(jobId), 1500);
+}
+
+async function pollJob(jobId) {
+    try {
+        const res = await fetch(`/api/status/${jobId}`);
+        const job = await res.json();
+        updateProgress(job);
+        updatePulse(job);
+        if (job.status === 'completed' || job.status === 'failed') {
+            clearInterval(pollInterval);
+            onJobComplete(job);
+        }
+    } catch(e) { console.error(e); }
+}
+
+function updateProgress(job) {
+    const elapsed = job.started_at ? ((new Date() - new Date(job.started_at))/1000).toFixed(1) + 's' : '...';
+    document.getElementById('prog-pct').textContent = job.progress + '%';
+    document.getElementById('prog-bar').style.width = job.progress + '%';
+    document.getElementById('prog-pages').textContent =
+        job.status === 'refining' ? `Neural Refinement... (${elapsed})` :
+        job.total_pages > 0 ? `Page ${job.current_page} of ${job.total_pages} (${elapsed})` : 'Initializing engine...';
+}
+
+function updatePulse(job) {
+    const pulse = document.getElementById('pulse-active');
+    const isRefining = job.status === 'refining';
+    pulse.innerHTML = `
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <div style="width:7px;height:7px;border-radius:50%;background:${isRefining?'#34d399':'var(--gold)'};animation:pulseDot 1s infinite;"></div>
+            <span style="font-weight:800;font-size:0.8rem;color:${isRefining?'#34d399':'var(--gold)'};">${isRefining?'REFINING':'PROCESSING'}</span>
+        </div>
+        <div style="font-size:0.78rem;color:var(--text-bright);font-weight:700;margin-bottom:6px;">${job.filename}</div>
+        <div style="font-size:0.72rem;color:var(--text-dim);margin-bottom:10px;">${isRefining?'Applying Neural Logic...':`${job.current_page}/${job.total_pages} pages · ${job.progress}%`}</div>
+        <div style="height:4px;background:var(--ink-soft);border-radius:100px;overflow:hidden;">
+            <div style="height:100%;background:${isRefining?'linear-gradient(90deg,#34d399,#10b981)':'var(--grad-gold)'};width:${job.progress}%;transition:width 0.5s;border-radius:10px;"></div>
+        </div>`;
+}
+
+function onJobComplete(job) {
+    if (job.status === 'completed') {
+        sessionPages += job.total_pages;
+        document.getElementById('stat-pages').textContent = sessionPages.toLocaleString();
+
+        // Show download buttons for TXT, Raw JSON, and Semantic JSON
+        const files = document.getElementById('prog-files');
+        files.innerHTML = job.output_files.filter(f => f.endsWith('.txt') || f.endsWith('.json') && !f.includes('metadata')).map(f => {
+            let label = f;
+            let style = "background:var(--ink);color:var(--text-bright);";
+            if (f.endsWith('_semantic.json')) { label = 'Neural Insight JSON'; style = "background:var(--grad-gold);color:var(--ink);font-weight:900;"; }
+            else if (f.endsWith('_combined.json')) { label = 'Raw JSON'; style = "background:var(--ink-soft);color:var(--text-mid);"; }
+            return `<a href="/api/download/${job.job_id}/${f}" class="btn-solar" style="padding:10px 20px;font-size:0.78rem;${style}">${label}</a>`;
+        }).join('');
+
+        document.getElementById('prog-pages').textContent = `Complete — ${job.total_pages} pages processed`;
+        document.getElementById('prog-bar').style.background = 'linear-gradient(135deg,#34d399,#10b981)';
+        document.getElementById('prog-pct').style.color = '#34d399';
+
+        document.getElementById('pulse-active').innerHTML = `
+            <div style="font-weight:800;font-size:0.82rem;color:#34d399;margin-bottom:6px;">Job Complete</div>
+            <div style="font-size:0.72rem;color:var(--text-dim);">${job.total_pages} pages · ${job.output_files.filter(f=>f.endsWith('.txt')).length} files ready</div>`;
+
+        const btn = document.getElementById('startBtn');
+        btn.disabled = false; btn.textContent = 'Start Processing'; btn.style.opacity = '1';
+        selectedFile = null;
+    } else {
+        document.getElementById('prog-pages').textContent = 'Failed: ' + (job.error || 'Unknown error');
+        document.getElementById('prog-bar').style.background = '#f87171';
+        document.getElementById('prog-bar').style.width = '100%';
+        document.getElementById('prog-pct').textContent = 'Failed';
+        document.getElementById('prog-pct').style.color = '#f87171';
+        document.getElementById('startBtn').disabled = false;
+        document.getElementById('startBtn').textContent = 'Start Processing';
+    }
+}
+
+// ── Job History ──
+async function loadJobs() {
+    const res = await fetch('/api/jobs');
+    const jobs = await res.json();
+    const el = document.getElementById('jobs-list');
+    if (!jobs.length) { el.innerHTML = '<div style="text-align:center;padding:80px;color:var(--text-dim);">No jobs yet. Start your first OCR job.</div>'; return; }
+    el.innerHTML = jobs.map(job => `
+        <div style="background:var(--ink-mid);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:20px;">
+            <div style="flex:1;min-width:0;">
+                <div style="font-weight:800;font-size:0.95rem;color:var(--text-bright);margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${job.filename}</div>
+                <div style="font-size:0.75rem;color:var(--text-dim);">${job.total_pages} pages · ${job.language.toUpperCase()} · ${new Date(job.started_at).toLocaleString()}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
+                <span style="padding:4px 12px;border-radius:100px;font-size:0.68rem;font-weight:900;background:${job.status==='completed'?'rgba(52,211,153,0.1)':job.status==='processing'?'var(--gold-pale)':'rgba(248,113,113,0.1)'};color:${job.status==='completed'?'#34d399':job.status==='processing'?'var(--gold)':'#f87171'};">${job.status.toUpperCase()}</span>
+                ${job.status==='completed' ? job.output_files.filter(f=>f.endsWith('.txt') || f.endsWith('.json') && !f.includes('metadata')).map(f=> {
+                    let label = f.endsWith('_semantic.json') ? 'INSIGHT' : f.endsWith('_combined.json') ? 'JSON' : f;
+                    let style = f.endsWith('_semantic.json') ? "background:var(--gold);color:var(--ink);" : "background:var(--ink);color:var(--text-bright);";
+                    return `<a href="/api/download/${job.job_id}/${f}" class="btn-solar" style="padding:8px 16px;font-size:0.72rem;${style}">⬇ ${label}</a>`;
+                }).join('') : ''}
+                <button onclick="deleteJob('${job.job_id}')" style="background:none;border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text-dim);cursor:pointer;font-size:0.72rem;transition:all 0.2s;" onmouseover="this.style.borderColor='#f87171';this.style.color='#f87171'" onmouseout="this.style.borderColor='';this.style.color='';">✕</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+async function deleteJob(jobId) {
+    if (!confirm('Delete this job and its files?')) return;
+    await fetch(`/api/delete/${jobId}`, { method: 'DELETE' });
+    loadJobs();
+    if (typeof loadValidationJobs === 'function') {
+        loadValidationJobs();
+    }
+}
+
+function togglePulsePanel() {
+    const layout = document.querySelector('.dashboard-layout');
+    if (!layout) return;
+    layout.classList.toggle('collapsed-pulse');
+    const btn = document.getElementById('pulse-toggle-btn');
+    if (btn) {
+        const isCollapsed = layout.classList.contains('collapsed-pulse');
+        btn.innerHTML = isCollapsed ? '<span>◀ Show Stats</span>' : '<span>⚡ Sidebar</span>';
+    }
+}
+
+// ── View routing ──
+const views = { overview: 'Dashboard Overview', upload: 'New OCR Job', validation: 'Validation Dashboard', settings: 'OCR Settings', admin: 'Admin Panel — Demo Requests', rbac: 'RBAC & User Management' };
+function showView(name) {
+    // Restore right panel when changing view
+    const layout = document.querySelector('.dashboard-layout');
+    if (layout) {
+        layout.classList.remove('collapsed-pulse');
+        const btn = document.getElementById('pulse-toggle-btn');
+        if (btn) btn.innerHTML = '<span>⚡ Sidebar</span>';
+    }
+
+    document.querySelectorAll('.ocr-view').forEach(v => v.style.display = 'none');
+    document.getElementById('view-' + name).style.display = (name === 'validation') ? 'flex' : 'block';
+    document.getElementById('view-title').textContent = views[name];
+    
+    document.querySelectorAll('.sidebar-item').forEach(i => {
+        i.classList.remove('active');
+        if (i.getAttribute('onclick') && i.getAttribute('onclick').includes(name)) {
+            i.classList.add('active');
+        }
+    });
+
+    if (name === 'overview') loadOverviewStats();
+    if (name === 'validation') loadValidationJobs();
+    if (name === 'admin') loadDemoRequests();
+}
+
+function checkAdminRole() {
+    const role = localStorage.getItem('role') || 'user';
+    if (role === 'admin') {
+        document.getElementById('admin-sidebar-section').style.display = 'block';
+    }
+}
+
+async function loadDemoRequests() {
+    const body = document.getElementById('demo-requests-body');
+    const empty = document.getElementById('demo-empty');
+    body.innerHTML = '<tr><td colspan="5" style="padding:60px;text-align:center;color:var(--text-dim);">Loading requests...</td></tr>';
+    
+    try {
+        const res = await fetch('/api/admin/demo-requests');
+        const data = await res.json();
+        
+        if (data.success && data.requests.length > 0) {
+            body.innerHTML = '';
+            empty.style.display = 'none';
+            data.requests.forEach(req => {
+                const date = new Date(req.created_at).toLocaleString();
+                const row = document.createElement('tr');
+                row.style.borderBottom = '1px solid var(--border)';
+                row.innerHTML = `
+                    <td style="padding:20px 24px;font-weight:700;color:var(--text-bright);">${req.name}</td>
+                    <td style="padding:20px 24px;color:var(--text-mid);">${req.email}</td>
+                    <td style="padding:20px 24px;color:var(--text-mid);">${req.contact}</td>
+                    <td style="padding:20px 24px;color:var(--text-dim);font-size:0.85rem;">${date}</td>
+                    <td style="padding:20px 24px;text-align:right;">
+                        <button class="btn-solar" style="padding:8px 16px;font-size:0.75rem;" onclick="window.location='mailto:${req.email}'">Reply</button>
+                    </td>
+                `;
+                body.appendChild(row);
+            });
+        } else {
+            body.innerHTML = '';
+            empty.style.display = 'block';
+        }
+    } catch (e) {
+        body.innerHTML = `<tr><td colspan="5" style="padding:60px;text-align:center;color:#f87171;">Failed to load data. Please ensure you are logged in as admin.</td></tr>`;
+    }
+    lucide.createIcons();
+}
+
+async function loadOverviewStats() {
+    try {
+        const res = await fetch('/api/stats');
+        if (!res.ok) return;
+        const data = await res.json();
+        
+        document.getElementById('stat-ov-jobs').textContent = data.total_jobs;
+        document.getElementById('stat-ov-pages').textContent = data.total_pages;
+        document.getElementById('stat-ov-acc').textContent = data.avg_accuracy > 0 ? `${data.avg_accuracy}%` : '0%';
+        
+        let timeStr = '0s';
+        if (data.avg_duration_sec > 0) {
+            if (data.avg_duration_sec > 60) {
+                timeStr = `${Math.floor(data.avg_duration_sec / 60)}m ${data.avg_duration_sec % 60}s`;
+            } else {
+                timeStr = `${data.avg_duration_sec}s`;
+            }
+        }
+        document.getElementById('stat-ov-time').textContent = timeStr;
+    } catch (e) {
+        console.error('Error loading stats:', e);
+    }
+}
+
+// ── Validation HITL Logic ──
+let valCurrentJobId = null;
+let valCurrentPage = 1;
+let valTotalPages = 1;
+let valJsonData = null;
+
+async function loadValidationJobs() {
+    showValidationList(); // Ensure list is visible
+    // Reset bulk delete button
+    const bulkBtn = document.getElementById('bulk-delete-btn');
+    if (bulkBtn) bulkBtn.style.display = 'none';
+    
+    try {
+        const res = await fetch('/api/jobs');
+        const jobs = await res.json();
+        const container = document.getElementById('val-job-list-container');
+        
+        if (!Array.isArray(jobs) || jobs.length === 0) {
+            container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-dim);background:var(--ink-mid);border-radius:16px;border:1px dashed var(--border);">No files available yet.</div>';
+            return;
+        }
+    
+    let tableHTML = `
+    <div style="background:var(--ink-mid);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <table style="width:100%;border-collapse:collapse;font-size:0.85rem;text-align:left;">
+            <thead>
+                <tr style="background:var(--ink-soft);border-bottom:1px solid var(--border);color:var(--text-dim);">
+                    <th style="padding:6px 12px;width:30px;"><input type="checkbox" id="select-all-val-jobs" onclick="toggleSelectAllValJobs(this)" style="cursor:pointer;width:16px;height:16px;accent-color:var(--gold);"></th>
+                    <th style="padding:6px 12px;font-weight:700;">File Name</th>
+                    <th style="padding:6px 12px;font-weight:700;">Status</th>
+                    <th style="padding:6px 12px;font-weight:700;">Accuracy</th>
+                    <th style="padding:6px 12px;font-weight:700;">Started</th>
+                    <th style="padding:6px 12px;font-weight:700;text-align:right;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    tableHTML += jobs.map(job => {
+        const dateStr = new Date(job.started_at).toLocaleString();
+        
+        let statusBadge = '';
+        if (job.status === 'ready_for_export') {
+            statusBadge = '<span style="padding:4px 10px;border-radius:100px;font-size:0.65rem;font-weight:900;background:rgba(59,130,246,0.1);color:#3b82f6;">🚀 READY FOR EXPORT</span>';
+        } else if (job.status === 'exported') {
+            statusBadge = '<span style="padding:4px 10px;border-radius:100px;font-size:0.65rem;font-weight:900;background:rgba(16,185,129,0.1);color:#10b981;">✅ EXPORTED</span>';
+        } else if (job.status === 'completed') {
+            statusBadge = job.is_locked ? 
+                '<span style="padding:4px 10px;border-radius:100px;font-size:0.65rem;font-weight:900;background:rgba(168,85,247,0.1);color:#a855f7;">🔒 VERIFIED & LOCKED</span>' :
+                '<span style="padding:4px 10px;border-radius:100px;font-size:0.65rem;font-weight:900;background:rgba(52,211,153,0.1);color:#34d399;">READY FOR HITL</span>';
+        } else if (job.status === 'processing') {
+            const prog = job.progress || 0;
+            const pages = job.total_pages > 0 ? `Page ${job.current_page}/${job.total_pages}` : 'Initializing';
+            statusBadge = `
+                <div style="display:flex;flex-direction:column;gap:6px;min-width:140px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <span style="padding:3px 8px;border-radius:6px;font-size:0.65rem;font-weight:900;background:var(--gold-pale);color:var(--gold);">PROCESSING</span>
+                        <span style="font-size:0.75rem;font-weight:800;color:var(--gold);">${prog}%</span>
+                    </div>
+                    <div style="height:4px;background:var(--ink-soft);border-radius:100px;overflow:hidden;width:100%;">
+                        <div style="height:100%;background:var(--grad-gold);width:${prog}%;transition:width 0.4s ease;"></div>
+                    </div>
+                    <div style="font-size:0.68rem;color:var(--text-dim);font-weight:600;">${pages}</div>
+                </div>
+            `;
+        } else {
+            statusBadge = '<span style="padding:4px 10px;border-radius:100px;font-size:0.65rem;font-weight:900;background:rgba(248,113,113,0.1);color:#f87171;">FAILED</span>';
+        }
+
+        let accuracyHtml = '-';
+        if (job.accuracy_score !== null) {
+            let color = job.accuracy_score >= 90 ? '#34d399' : '#fbbf24';
+            accuracyHtml = `<span style="font-weight:800;color:${color};">${job.accuracy_score}%</span>`;
+        }
+
+        let editCountHtml = '';
+        if (job.audit_summary && job.audit_summary.edit_count > 0) {
+            editCountHtml = `<div style="font-size:0.65rem;color:var(--gold);margin-top:4px;font-weight:700;">${job.audit_summary.edit_count} edits made</div>`;
+        }
+
+        let actionsHtml = `<div style="display:flex;justify-content:flex-end;gap:8px;">`;
+        
+        // Always allow deletion
+        const deleteBtn = `<button onclick="deleteJob('${job.job_id}')" style="padding:4px 8px;font-size:0.8rem;background:transparent;color:#f87171;border:1px solid rgba(248,113,113,0.3);border-radius:6px;cursor:pointer;" title="Delete">Delete</button>`;
+
+        if (job.status === 'processing') {
+            actionsHtml += `<span style="font-size:0.7rem;color:var(--text-dim);">Processing...</span>`;
+        } else if (job.status === 'failed') {
+            actionsHtml += `<button onclick="loadJobData('${job.job_id}')" style="padding:4px 10px;font-size:0.75rem;background:var(--grad-gold);color:var(--ink);border:none;border-radius:6px;cursor:pointer;font-weight:700;">Retry</button>`;
+        } else {
+            // Always allow Validate
+            actionsHtml += `<button onclick="loadJobData('${job.job_id}')" style="padding:4px 10px;font-size:0.75rem;background:var(--grad-gold);color:var(--ink);border:none;border-radius:6px;cursor:pointer;font-weight:700;">Validate</button>`;
+
+            // Raw JSON button
+            let rawJsonFile = Array.isArray(job.output_files) ? job.output_files.find(f => typeof f === 'string' && f.endsWith('_combined.json')) : null;
+            if (rawJsonFile) {
+                actionsHtml += `<a href="/api/download/${job.job_id}/${rawJsonFile}" target="_blank" style="padding:4px 10px;font-size:0.75rem;background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;cursor:pointer;font-weight:700;text-decoration:none;">Raw JSON</a>`;
+            }
+
+            // Audited / Verified JSON and Audit buttons
+            if (job.audit_summary && job.audit_summary.edit_count > 0) {
+                actionsHtml += `<a href="/api/download_verified/${job.job_id}" target="_blank" style="padding:4px 10px;font-size:0.75rem;background:rgba(16,185,129,0.1);color:#10b981;border:1px solid rgba(16,185,129,0.25);border-radius:6px;cursor:pointer;font-weight:700;text-decoration:none;">Verified JSON</a>`;
+                actionsHtml += `<button onclick="showAuditForJob('${job.job_id}')" style="padding:4px 10px;font-size:0.75rem;background:rgba(168,85,247,0.1);color:#a855f7;border:1px solid rgba(168,85,247,0.25);border-radius:6px;cursor:pointer;font-weight:700;">Audit</button>`;
+            }
+
+            if (job.status === 'ready_for_export' || job.status === 'exported') {
+                actionsHtml += `<button onclick="openExportModalDirect('${job.job_id}')" style="padding:4px 10px;font-size:0.75rem;background:rgba(59,130,246,0.15);color:#3b82f6;border:1px solid rgba(59,130,246,0.3);border-radius:6px;cursor:pointer;font-weight:700;">Export</button>`;
+            }
+        }
+        
+        actionsHtml += deleteBtn;
+        actionsHtml += `</div>`;
+
+        return `
+        <tr class="val-job-row" data-filename="${job.filename.toLowerCase()}" style="border-bottom:1px solid var(--border);transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.02)'" onmouseout="this.style.background='transparent'">
+            <td style="padding:6px 12px;width:30px;"><input type="checkbox" class="val-job-checkbox" data-job-id="${job.job_id}" onclick="updateBulkDeleteButton()" style="cursor:pointer;width:16px;height:16px;accent-color:var(--gold);"></td>
+            <td style="padding:6px 12px;">
+                <a href="/api/download_pdf/${job.job_id}" target="_blank" title="Download Original PDF" style="display:inline-flex;align-items:center;gap:5px;font-weight:800;color:#60a5fa;text-decoration:none;margin-bottom:2px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color 0.2s;" onmouseover="this.style.color='#93c5fd'" onmouseout="this.style.color='#60a5fa'">${job.filename}</a>
+                <div style="font-size:0.65rem;color:var(--text-dim);font-family:monospace;">ID: ${job.job_id.substring(0,8)}...</div>
+                ${editCountHtml}
+            </td>
+            <td style="padding:6px 12px;">${statusBadge}</td>
+            <td style="padding:6px 12px;">${accuracyHtml}</td>
+            <td style="padding:6px 12px;color:var(--text-mid);font-size:0.75rem;">${dateStr}</td>
+            <td style="padding:6px 12px;">${actionsHtml}</td>
+        </tr>
+        `;
+    }).join('');
+
+    tableHTML += `
+            </tbody>
+        </table>
+    </div>`;
+    
+    container.innerHTML = tableHTML;
+    } catch (e) {
+        console.error("Error in loadValidationJobs:", e);
+        document.getElementById('val-job-list-container').innerHTML = `<div style="text-align:center;padding:40px;color:#f87171;">Error loading files. Please check connection.</div>`;
+    }
+    
+    // Apply filter immediately in case user typed something before refresh
+    filterValJobs();
+}
+
+function filterValJobs() {
+    const input = document.getElementById('valSearchInput');
+    if (!input) return;
+    const query = input.value.toLowerCase();
+    const rows = document.querySelectorAll('.val-job-row');
+    rows.forEach(row => {
+        const filename = row.getAttribute('data-filename') || '';
+        if (filename.includes(query)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+
+function toggleSelectAllValJobs(master) {
+    const checkboxes = document.querySelectorAll('.val-job-checkbox');
+    checkboxes.forEach(cb => cb.checked = master.checked);
+    updateBulkDeleteButton();
+}
+
+function updateBulkDeleteButton() {
+    const checked = document.querySelectorAll('.val-job-checkbox:checked').length;
+    const btn = document.getElementById('bulk-delete-btn');
+    if (btn) {
+        if (checked > 0) {
+            btn.style.display = 'inline-block';
+            btn.textContent = `🗑 Delete Selected (${checked})`;
+        } else {
+            btn.style.display = 'none';
+        }
+    }
+}
+
+async function bulkDeleteJobs() {
+    const checked = document.querySelectorAll('.val-job-checkbox:checked');
+    const jobIds = Array.from(checked).map(cb => cb.getAttribute('data-job-id'));
+    if (jobIds.length === 0) return;
+    
+    if (!confirm(`Are you sure you want to delete the ${jobIds.length} selected job(s)? This action is permanent.`)) {
+        return;
+    }
+    
+    try {
+        const res = await fetch('/api/jobs/bulk_delete', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ job_ids: jobIds })
+        });
+        
+        const result = await res.json();
+        if (res.ok) {
+            alert(result.message || 'Jobs deleted successfully.');
+            loadValidationJobs();
+        } else {
+            alert('Error deleting jobs: ' + (result.error || 'Unknown error'));
+        }
+    } catch (e) {
+        alert('Network error: ' + e.message);
+    }
+}
+
+// Helper to show audit directly from the table
+async function showAuditForJob(jobId) {
+    try {
+        const res = await fetch(`/api/audit/${jobId}`);
+        const audit = await res.json();
+        if (res.ok) {
+            window._lastAudit = audit;
+            showAuditModal();
+        } else {
+            alert('Error loading audit log');
+        }
+    } catch (e) {
+        alert('Error loading audit log: ' + e);
+    }
+}
+
+function showValidationList() {
+    // Restore right panel when returning to list view
+    const layout = document.querySelector('.dashboard-layout');
+    if (layout) {
+        layout.classList.remove('collapsed-pulse');
+        const btn = document.getElementById('pulse-toggle-btn');
+        if (btn) btn.innerHTML = '<span>⚡ Sidebar</span>';
+    }
+
+    document.getElementById('val-workspace').style.display = 'none';
+    document.getElementById('val-job-list-container').style.display = 'block';
+    document.getElementById('val-back-btn').style.display = 'none';
+    
+    const safeHide = (id) => { const el = document.getElementById(id); if(el) el.style.display = 'none'; };
+    safeHide('audit-btn');
+    safeHide('download-verified-btn');
+    safeHide('export-form-btn');
+    safeHide('accuracy-badge');
+    
+    setUnsavedChanges(false);
+
+    valCurrentJobId = null;
+}
+
+async function loadJobData(jobId) {
+    try {
+        const res = await fetch(`/api/master_case/${jobId}`);
+        const data = await res.json();
+        valCurrentJobId = jobId;
+        if (data.error) throw new Error(data.error);
+        
+        valJsonData = data;
+        valTotalPages = data.document_bundle.total_pages;
+        valCurrentPage = 1;
+        
+        // NEW: If other (resume) or unknown document type, load the rich semantic data!
+        if (data.document_bundle && (data.document_bundle.primary_type === 'other' || data.document_bundle.primary_type === 'unknown')) {
+            const semRes = await fetch(`/api/semantic_data/${jobId}`);
+            if (semRes.ok) {
+                const semData = await semRes.json();
+                if (valJsonData.pages) {
+                    valJsonData.pages.forEach(p => {
+                        p.extracted_fields = semData;
+                    });
+                }
+            }
+        }
+        
+        window.valConfidenceMap = data.confidence_map || {};
+        window.valAnomalies = data.intelligence_report?.anomalies || [];
+        
+        // Switch to Form tab by default for a beautiful, structured experience
+        switchRightTab('form');
+        setUnsavedChanges(false);
+        
+        // Auto-collapse right panel for maximum workspace space
+        const layout = document.querySelector('.dashboard-layout');
+        if (layout) {
+            layout.classList.add('collapsed-pulse');
+            const btn = document.getElementById('pulse-toggle-btn');
+            if (btn) btn.innerHTML = '<span>◀ Show Stats</span>';
+        }
+
+        document.getElementById('val-workspace').style.display = 'flex';
+        document.getElementById('val-job-list-container').style.display = 'none';
+        document.getElementById('val-back-btn').style.display = 'block';
+        
+        populateIntelligenceCenter(data);
+        updateValImage();
+    } catch (e) {
+        alert("Error loading case intelligence: " + e.message);
+    }
+}
+
+function populateIntelligenceCenter(data) {
+    const center = document.getElementById('intelligence-center');
+    const list = document.getElementById('anomaly-list');
+    const scoreEl = document.getElementById('integrity-score');
+    
+    const report = data.intelligence_report;
+    if (!report) {
+        center.style.display = 'none';
+        return;
+    }
+    
+    center.style.display = 'block';
+    list.innerHTML = '';
+    
+    const score = (report.validation_score !== undefined && report.validation_score !== null) ? report.validation_score : 100;
+    scoreEl.textContent = `Integrity Score: ${score}/100`;
+    scoreEl.style.color = score > 80 ? '#34d399' : score > 50 ? 'var(--gold)' : '#f87171';
+
+    report.anomalies.forEach(a => {
+        const item = document.createElement('div');
+        item.className = 'sentinel-card';
+        item.style.padding = '8px 12px';
+        item.style.fontSize = '0.72rem';
+        item.style.borderLeft = `3px solid ${a.severity==='high'?'#f87171':'var(--gold)'}`;
+        item.innerHTML = `
+            <div style="display:flex;justify-content:space-between;font-weight:800;margin-bottom:2px;">
+                <span>${a.type.toUpperCase()}</span>
+                <span style="opacity:0.6;">${a.field}</span>
+            </div>
+            <div style="color:var(--text-mid);">${a.message}</div>
+        `;
+        list.appendChild(item);
+    });
+}
+
+let valRawTextCache = null;
+
+function switchRightTab(tab) {
+    const rawBtn = document.getElementById('tab-raw-btn');
+    const formBtn = document.getElementById('tab-form-btn');
+    const rawView = document.getElementById('val-raw-text-view');
+    const formView = document.getElementById('val-json-editor');
+    
+    if (tab === 'raw') {
+        rawBtn.style.background = 'var(--grad-gold)';
+        rawBtn.style.color = 'var(--ink)';
+        rawBtn.style.border = 'none';
+        
+        formBtn.style.background = 'none';
+        formBtn.style.color = 'var(--text-mid)';
+        formBtn.style.border = '1px solid var(--border)';
+        
+        rawView.style.display = 'block';
+        formView.style.display = 'none';
+        
+        loadRawOcrText();
+    } else {
+        formBtn.style.background = 'var(--grad-gold)';
+        formBtn.style.color = 'var(--ink)';
+        formBtn.style.border = 'none';
+        
+        rawBtn.style.background = 'none';
+        rawBtn.style.color = 'var(--text-mid)';
+        rawBtn.style.border = '1px solid var(--border)';
+        
+        formView.style.display = 'block';
+        rawView.style.display = 'none';
+    }
+}
+
+async function loadRawOcrText() {
+    if (!valCurrentJobId) return;
+    const container = document.getElementById('val-raw-text-view');
+    
+    let rawText = '';
+    
+    // Check if page-wise raw text is available in loaded valJsonData
+    if (valJsonData && valJsonData.pages && valJsonData.pages[valCurrentPage - 1]) {
+        const pageData = valJsonData.pages[valCurrentPage - 1];
+        if (pageData.is_blank) {
+            container.innerHTML = '<div style="color:var(--text-dim); text-align:center; padding:40px; font-weight:800; border:1px dashed var(--border); border-radius:12px; background:rgba(0,0,0,0.1);">⬜ [ BLANK PAGE - No OCR Text ]</div>';
+            return;
+        } else if (pageData.text !== undefined && pageData.text !== null && pageData.text !== '') {
+            rawText = pageData.text;
+        }
+    }
+    
+    // Fallback to full raw text if page-wise text not found
+    if (!rawText) {
+        container.innerHTML = '<div style="color:var(--text-dim);">Loading raw OCR text...</div>';
+        try {
+            const res = await fetch(`/api/raw_text/${valCurrentJobId}`);
+            if (!res.ok) throw new Error(await res.text());
+            const data = await res.json();
+            rawText = data.raw_text;
+        } catch (e) {
+            container.innerHTML = `<div style="color:#f87171;">Failed to load raw OCR text: ${e.message}</div>`;
+            return;
+        }
+    }
+
+    // Beautifully parse raw text and format headings as Folders/Subheaders
+    const lines = rawText.split('\n');
+    let formattedHtml = `
+        <div style="font-size:0.75rem; color:var(--gold); font-weight:900; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:18px; border-bottom:1px solid rgba(212,175,55,0.25); padding-bottom:6px; display:flex; align-items:center; gap:8px;">
+            <span>📄 RAW OCR TEXT — PAGE ${valCurrentPage}</span>
+        </div>
+    `;
+    
+    lines.forEach(line => {
+        const trimmed = line.trim();
+        // Match common resume headings or any short fully-capitalized words representing sections
+        const isHeading = /^(SKILLS|WORK EXPERIENCE|LANGUAGES|INTERESTS|EDUCATION|SUMMARY|CONTACT INFORMATION|EXPERIENCE|ABOUT ME|PROJECTS|SKILLSET|PERSONAL INFORMATION)$/i.test(trimmed) || 
+                          (trimmed.length > 2 && trimmed.length < 25 && trimmed === trimmed.toUpperCase() && !trimmed.includes(':') && !trimmed.includes('@') && !trimmed.includes('.'));
+        
+        if (isHeading) {
+            formattedHtml += `<div style="font-size:0.8rem; color:var(--gold); font-weight:900; letter-spacing:0.05em; margin-top:20px; margin-bottom:10px; border-bottom:1px solid rgba(212,175,55,0.2); padding-bottom:4px; text-transform:uppercase;">📂 ${trimmed}</div>`;
+        } else if (trimmed) {
+            formattedHtml += `<div style="margin-bottom:6px; color:var(--text-bright); font-family:'Inter', sans-serif; font-size:0.85rem; font-weight:500;">${line}</div>`;
+        } else {
+            formattedHtml += `<div style="height:8px;"></div>`;
+        }
+    });
+    
+    container.innerHTML = formattedHtml;
+}
+
+async function loadValidationData(jobId, totalPages) {
+    if (!jobId) return;
+    
+    valCurrentJobId = jobId;
+    valTotalPages = totalPages || 1;
+    valCurrentPage = 1;
+    valRawTextCache = null; // Clear cache
+    
+    document.getElementById('val-job-list-container').style.display = 'none';
+    document.getElementById('val-workspace').style.display = 'flex';
+    document.getElementById('val-back-btn').style.display = 'inline-block';
+    
+    // Switch to Form tab by default for a beautiful, structured experience
+    switchRightTab('form');
+    setUnsavedChanges(false);
+    
+    // 1. Fetch JSON (Master Case preferred)
+    document.getElementById('val-json-editor').innerHTML = '<div style="color:var(--text-dim);">Loading data and confidence scores...</div>';
+    try {
+        // Try master_case first (enterprise mode)
+        const masterRes = await fetch(`/api/master_case/${jobId}`);
+        if (masterRes.ok) {
+            const masterData = await masterRes.json();
+            valJsonData = masterData; // Includes financial, parties, etc.
+            
+            // If other (resume) or unknown document type, load the rich semantic data!
+            if (masterData.document_bundle && (masterData.document_bundle.primary_type === 'other' || masterData.document_bundle.primary_type === 'unknown')) {
+                const semRes = await fetch(`/api/semantic_data/${jobId}`);
+                if (semRes.ok) {
+                    const semData = await semRes.json();
+                    if (valJsonData.pages) {
+                        valJsonData.pages.forEach(p => {
+                            p.extracted_fields = semData;
+                        });
+                    }
+                }
+            }
+            
+            window.valConfidenceMap = masterData.confidence_map || {};
+        } else {
+            // Fallback to old semantic_data
+            const semRes = await fetch(`/api/semantic_data/${jobId}`);
+            if (!semRes.ok) throw new Error(await semRes.text());
+            valJsonData = await semRes.json();
+            window.valConfidenceMap = {};
+        }
+        renderJsonEditor();
+    } catch (e) {
+        document.getElementById('val-json-editor').innerHTML = `<div style="color:#f87171;">Error loading data: ${e.message}</div>`;
+        valJsonData = null;
+    }
+    
+    // 2. Load Image
+    updateValImage();
+
+    // 3. Show Action Buttons if data exists
+    if (valJsonData) {
+        document.getElementById('download-verified-btn').style.display = 'inline-block';
+        document.getElementById('export-form-btn').style.display = 'inline-block';
+        // Check if audit exists for this job (best effort)
+        fetch(`/api/audit/${jobId}`).then(res => {
+            if (res.ok) document.getElementById('audit-btn').style.display = 'inline-block';
+        }).catch(() => {});
+    }
+}
+
+function updateValImage() {
+    if (!valCurrentJobId) return;
+    
+    // Page indicator with engine info
+    const indicator = document.getElementById('val-page-indicator');
+    indicator.textContent = `Pg ${valCurrentPage} / ${valTotalPages}`;
+    
+    if (window.valConfidenceMap) {
+        if (valJsonData && valJsonData.page_metadata && valJsonData.page_metadata[valCurrentPage]) {
+            const meta = valJsonData.page_metadata[valCurrentPage];
+            indicator.innerHTML += ` <br><span style="font-size:0.6rem;padding:2px 6px;background:var(--ink-soft);border-radius:4px;color:var(--text-mid);">ENGINE: ${meta.engine || 'Unknown'}</span>`;
+        }
+    }
+
+    const img = document.getElementById('val-doc-img');
+    img.src = `/api/file_image/${valCurrentJobId}/${valCurrentPage}?t=${new Date().getTime()}`;
+    
+    // SYNC JSON EDITOR: Show only current page fields
+    renderJsonEditor();
+    
+    // Sync raw OCR text if raw view is active
+    const rawView = document.getElementById('val-raw-text-view');
+    if (rawView && rawView.style.display !== 'none') {
+        loadRawOcrText();
+    }
+
+    // Reset zoom
+    valScale = 1; valTranslateX = 0; valTranslateY = 0;
+    applyTransform();
+}
+
+function openFullPdf() {
+    if (!valCurrentJobId) return;
+    window.open(`/api/download_pdf/${valCurrentJobId}`, '_blank');
+}
+
+function changeValPage(delta) {
+    const newPage = valCurrentPage + delta;
+    if (newPage >= 1 && newPage <= valTotalPages) {
+        valCurrentPage = newPage;
+        updateValImage();
+    }
+}
+
+// -- JSON Editor UI Builder (Page-Specific) --
+function renderJsonEditor() {
+    const container = document.getElementById('val-json-editor');
+    container.innerHTML = '';
+    
+    if (!valJsonData) {
+        container.innerHTML = '<div style="color:var(--text-dim);">No data available.</div>';
+        return;
+    }
+    
+    const form = document.createElement('form');
+    form.id = 'val-form';
+    
+    // If it's a master_case (enterprise), we filter by page
+    if (valJsonData.pages && valJsonData.pages[valCurrentPage - 1]) {
+        const pageData = valJsonData.pages[valCurrentPage - 1];
+        
+        const header = document.createElement('div');
+        header.style.marginBottom = '20px';
+        header.style.padding = '15px';
+        header.style.background = 'var(--gold-pale)';
+        header.style.borderRadius = '12px';
+        header.style.border = '1px solid var(--border-gold)';
+        header.innerHTML = `
+            <div style="font-size:0.65rem;font-weight:900;color:var(--gold);text-transform:uppercase;">Page Intelligence</div>
+            <div style="font-size:0.9rem;font-weight:800;color:var(--text-bright);margin-top:5px;">Detected: ${pageData.doc_type.replace(/_/g, ' ').toUpperCase()}</div>
+            <div style="font-size:0.7rem;color:var(--text-mid);margin-top:4px;">Confidence Score: ${Math.round(pageData.confidence * 100)}%</div>
+        `;
+        container.appendChild(header);
+
+        if (Object.keys(pageData.extracted_fields).length === 0) {
+            const empty = document.createElement('div');
+            empty.style.padding = '40px;text-align:center;color:var(--text-dim);';
+            empty.textContent = 'No specific fields extracted from this page.';
+            container.appendChild(empty);
+        } else {
+            // Path prefix points to the specific page in the master array
+            buildFormFields(pageData.extracted_fields, form, `pages[${valCurrentPage - 1}].extracted_fields`);
+        }
+    } else {
+        // Legacy fallback
+        buildFormFields(valJsonData, form, '');
+    }
+    
+    container.appendChild(form);
+}
+
+function buildFormFields(obj, parentElement, path) {
+    if (obj === null || obj === undefined) return;
+    
+    if (Array.isArray(obj)) {
+        const wrapper = document.createElement('div');
+        wrapper.style.marginLeft = '12px';
+        wrapper.style.paddingLeft = '14px';
+        wrapper.style.borderLeft = '3px solid rgba(212,175,55,0.4)';
+        wrapper.style.marginBottom = '16px';
+        wrapper.style.marginTop = '8px';
+        
+        obj.forEach((item, index) => {
+            const itemPath = path ? `${path}[${index}]` : `[${index}]`;
+            
+            const itemHeader = document.createElement('div');
+            itemHeader.style.fontSize = '0.72rem';
+            itemHeader.style.color = 'var(--ink)';
+            itemHeader.style.background = 'var(--grad-gold)';
+            itemHeader.style.padding = '4px 10px';
+            itemHeader.style.borderRadius = '4px';
+            itemHeader.style.display = 'inline-block';
+            itemHeader.style.marginTop = '16px';
+            itemHeader.style.marginBottom = '10px';
+            itemHeader.style.fontWeight = '900';
+            itemHeader.style.textTransform = 'uppercase';
+            itemHeader.style.letterSpacing = '0.05em';
+            itemHeader.style.boxShadow = '0 2px 5px rgba(0,0,0,0.15)';
+            itemHeader.textContent = `📌 Item ${index + 1}`;
+            wrapper.appendChild(itemHeader);
+            
+            if (typeof item === 'object') {
+                buildFormFields(item, wrapper, itemPath);
+            } else {
+                createInputField(item, wrapper, itemPath);
+            }
+        });
+        parentElement.appendChild(wrapper);
+    } 
+    else if (typeof obj === 'object') {
+        const wrapper = document.createElement('div');
+        wrapper.style.marginBottom = '8px';
+        
+        for (const key in obj) {
+            const newPath = path ? `${path}.${key}` : key;
+            
+            // Check for anomalies (Intelligence)
+            const anomaly = (window.valAnomalies || []).find(a => a.field === newPath);
+            
+            const fieldWrapper = document.createElement('div');
+            fieldWrapper.style.marginBottom = '16px';
+            
+            const label = document.createElement('label');
+            label.style.display = 'flex';
+            label.style.justifyContent = 'space-between';
+            label.style.alignItems = 'center';
+            label.style.marginBottom = '6px';
+            
+            const isObjectOrArray = typeof obj[key] === 'object' && obj[key] !== null;
+            
+            if (isObjectOrArray) {
+                // Style as a beautiful nested folder/subsection header!
+                label.style.fontSize = '0.82rem';
+                label.style.color = 'var(--gold)';
+                label.style.fontWeight = '900';
+                label.style.borderBottom = '1px solid rgba(212,175,55,0.2)';
+                label.style.paddingBottom = '4px';
+                label.style.marginTop = '18px';
+                label.style.letterSpacing = '0.05em';
+                label.innerHTML = `<span>📂 ${key.replace(/_/g, ' ').toUpperCase()}</span>`;
+            } else {
+                // Standard field input label
+                label.style.fontSize = '0.72rem';
+                label.style.color = anomaly ? '#f87171' : 'var(--text-dim)';
+                label.style.fontWeight = '800';
+                label.textContent = key.replace(/_/g, ' ').toUpperCase();
+            }
+            fieldWrapper.appendChild(label);
+            
+            if (isObjectOrArray) {
+                const nested = document.createElement('div');
+                nested.style.marginLeft = '12px';
+                nested.style.paddingLeft = '14px';
+                nested.style.borderLeft = '1px dashed rgba(255,255,255,0.15)';
+                nested.style.marginBottom = '8px';
+                buildFormFields(obj[key], nested, newPath);
+                fieldWrapper.appendChild(nested);
+            } else {
+                createInputField(obj[key], fieldWrapper, newPath);
+            }
+            wrapper.appendChild(fieldWrapper);
+        }
+        parentElement.appendChild(wrapper);
+    }
+}
+
+function createInputField(value, parent, path) {
+    const isMultiline = typeof value === 'string' && value.length > 80;
+    const input = document.createElement(isMultiline ? 'textarea' : 'input');
+    
+    // Intelligence (Anomalies) check
+    const anomaly = (window.valAnomalies || []).find(a => a.field === path);
+    const confData = window.valConfidenceMap ? window.valConfidenceMap[path] : null;
+    
+    let confClass = '';
+    let confTag = '';
+    
+    if (anomaly) {
+        confClass = anomaly.type === 'contradiction' ? 'confidence-red' : 'confidence-yellow';
+        const badgeColor = anomaly.type === 'contradiction' ? '#f87171' : 'var(--gold)';
+        confTag = `<span style="font-size:0.6rem;padding:2px 6px;border-radius:4px;font-weight:900;background:${badgeColor};color:var(--ink);margin-left:8px;">${anomaly.type.toUpperCase()}</span>`;
+        
+        const label = parent.querySelector('label');
+        if (label) {
+            label.innerHTML += confTag;
+            if (anomaly.type === 'contradiction') label.style.color = '#f87171';
+        }
+    } else if (confData) {
+        const score = confData.score;
+        const color = confData.color; // 'green', 'yellow', 'red'
+        confClass = `confidence-${color}`;
+        confTag = `<span class="conf-score-tag tag-${color}">${Math.round(score * 100)}%</span>`;
+        
+        const label = parent.querySelector('label');
+        if (label) {
+            label.innerHTML = `<span class="conf-dot ${color}"></span>` + label.innerHTML + confTag;
+        }
+    }
+
+    input.name = path;
+    input.value = value || '';
+    input.className = 'input-solar ' + confClass;
+    input.style.width = '100%';
+    input.style.backgroundColor = 'rgba(0,0,0,0.2)';
+    input.style.fontFamily = 'monospace';
+    input.style.fontSize = '0.85rem';
+    input.style.color = 'var(--text-bright)';
+    input.style.border = anomaly && anomaly.type === 'contradiction' ? '1px solid #f87171' : '1px solid var(--border)';
+    input.style.borderRadius = '8px';
+    input.style.padding = '10px 12px';
+    input.style.transition = 'all 0.2s ease';
+    input.style.outline = 'none';
+    
+    if (anomaly && anomaly.type === 'contradiction') {
+        input.style.boxShadow = '0 0 8px rgba(248,113,113,0.15)';
+    }
+    
+    input.onfocus = () => {
+        input.style.borderColor = 'var(--gold)';
+        input.style.backgroundColor = 'rgba(212,175,55,0.05)';
+        input.style.boxShadow = '0 0 10px rgba(212,175,55,0.2)';
+    };
+    input.onblur = () => {
+        input.style.borderColor = anomaly && anomaly.type === 'contradiction' ? '#f87171' : 'var(--border)';
+        input.style.backgroundColor = 'rgba(0,0,0,0.2)';
+        input.style.boxShadow = anomaly && anomaly.type === 'contradiction' ? '0 0 8px rgba(248,113,113,0.15)' : 'none';
+        
+        // Save value
+        setNestedValue(valJsonData, path, input.value);
+    };
+    
+    input.oninput = () => {
+        setUnsavedChanges(true);
+    };
+    
+    if (isMultiline) {
+        input.style.resize = 'vertical';
+        input.style.minHeight = '80px';
+    }
+    
+    parent.appendChild(input);
+}
+
+// -- Save State Intelligence --
+window.hasUnsavedChanges = false;
+function setUnsavedChanges(status) {
+    window.hasUnsavedChanges = status;
+    const saveBtn = document.getElementById('save-verified-btn');
+    if (!saveBtn) return;
+    
+    saveBtn.disabled = false;
+    saveBtn.style.opacity = '1';
+    saveBtn.style.cursor = 'pointer';
+    saveBtn.style.transition = 'all 0.3s ease';
+    
+    if (status) {
+        saveBtn.innerHTML = '💾 Save Changes (Unsaved)';
+        saveBtn.style.background = 'var(--grad-gold)';
+        saveBtn.style.color = 'var(--ink)';
+        saveBtn.style.border = 'none';
+        saveBtn.style.boxShadow = '0 0 15px rgba(212, 175, 55, 0.6)';
+        saveBtn.style.animation = 'pulse 1.5s infinite';
+    } else {
+        saveBtn.innerHTML = '💾 Save Verified Data';
+        saveBtn.style.background = 'rgba(212, 175, 55, 0.08)';
+        saveBtn.style.color = 'var(--gold)';
+        saveBtn.style.border = '1px solid rgba(212, 175, 55, 0.4)';
+        saveBtn.style.boxShadow = 'none';
+        saveBtn.style.animation = 'none';
+    }
+}
+
+// -- Save JSON --
+async function saveValidationData() {
+    if (!valCurrentJobId || !valJsonData) { alert('No data loaded.'); return; }
+
+    const form = document.getElementById('val-form');
+    const formData = new FormData(form);
+    let updatedJson = JSON.parse(JSON.stringify(valJsonData));
+    for (let [path, value] of formData.entries()) { setNestedValue(updatedJson, path, value); }
+
+    // INTERCEPT: If other (resume) or unknown document type, extract the clean semantic JSON to post!
+    let dataToPost = updatedJson;
+    const isCustom = updatedJson.document_bundle && (updatedJson.document_bundle.primary_type === 'other' || updatedJson.document_bundle.primary_type === 'unknown');
+    if (isCustom && updatedJson.pages && updatedJson.pages[valCurrentPage - 1]) {
+        dataToPost = updatedJson.pages[valCurrentPage - 1].extracted_fields;
+    }
+
+    const btn = document.getElementById('save-verified-btn');
+    btn.textContent = 'Saving...'; btn.style.opacity = '0.7'; btn.disabled = true;
+
+    // ── 1. Save to server (best-effort) ──
+    let accuracy = null;
+    let auditData = null;
+    try {
+        const res = await fetch(`/api/semantic_data/${valCurrentJobId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dataToPost)
+        });
+        const result = await res.json();
+        if (res.ok) {
+            accuracy = result.accuracy;
+            auditData = result.audit;
+            window._lastAudit = auditData;
+        }
+    } catch (e) {
+        console.warn('Server save failed (offline?), proceeding with local save:', e);
+    }
+
+    // ── 2. Always update local state ──
+    valJsonData = updatedJson;
+    window._verifiedJson = dataToPost;  // store clean semantic JSON for download
+
+    // ── 3. Show Accuracy Badge ──
+    const accBadge = document.getElementById('accuracy-badge');
+    if (accuracy !== null) {
+        accBadge.textContent = `✓ ${accuracy}% Accurate`;
+        accBadge.style.background = accuracy >= 90
+            ? 'rgba(52,211,153,0.12)' : 'rgba(251,191,36,0.12)';
+        accBadge.style.color = accuracy >= 90 ? '#34d399' : '#fbbf24';
+        accBadge.style.border = `1px solid ${accuracy >= 90 ? 'rgba(52,211,153,0.3)' : 'rgba(251,191,36,0.3)'}`;
+    } else {
+        accBadge.textContent = '✓ Saved Locally';
+        accBadge.style.background = 'rgba(52,211,153,0.12)';
+        accBadge.style.color = '#34d399';
+        accBadge.style.border = '1px solid rgba(52,211,153,0.3)';
+    }
+    accBadge.style.display = 'inline-block';
+
+    // ── 4. Removed Lock Badge Safely ──
+    const lockBadge = document.getElementById('lock-badge');
+    if (lockBadge) lockBadge.style.display = 'none';
+
+    // ── 5. Show Audit, Download & Export buttons ──
+    if (auditData) document.getElementById('audit-btn').style.display = 'inline-block';
+    document.getElementById('download-verified-btn').style.display = 'inline-block';
+    document.getElementById('export-form-btn').style.display = 'inline-block';
+
+    // ── 6. Update Save button to clean saved/inactive state ──
+    setUnsavedChanges(false);
+}
+
+let customSchemaContent = null;
+// activeJobId is already declared at the top
+
+function openExportModalDirect(jobId) {
+    activeJobId = jobId;
+    openExportModal();
+}
+
+async function openExportModal() {
+    if (!activeJobId && valCurrentJobId) activeJobId = valCurrentJobId;
+    if (!activeJobId) { alert("Please select a job first."); return; }
+
+    document.getElementById('export-modal').style.display = 'flex';
+    document.getElementById('mapping-result-container').style.display = 'none';
+    document.getElementById('generate-map-btn').style.display = 'block';
+    document.getElementById('custom-schema-preview').style.display = 'none';
+    customSchemaContent = null;
+    
+    // Load available forms
+    try {
+        const res = await fetch('/api/forms');
+        const forms = await res.json();
+        const select = document.getElementById('target-form-select');
+        select.innerHTML = '<option value="">-- Choose a target format --</option><option value="custom">✨ Upload Custom Schema (.json)</option>';
+        forms.forEach(f => {
+            select.innerHTML += `<option value="${f.id}">${f.name}</option>`;
+        });
+        
+        select.onchange = (e) => {
+            if (e.target.value === 'custom') {
+                document.getElementById('custom-schema-file').click();
+            } else {
+                document.getElementById('custom-schema-preview').style.display = 'none';
+                customSchemaContent = null;
+            }
+        };
+    } catch (e) {
+        console.error('Error fetching forms:', e);
+    }
+}
+
+function handleCustomSchemaUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        try {
+            customSchemaContent = JSON.parse(e.target.result);
+            document.getElementById('custom-schema-preview').style.display = 'block';
+            document.getElementById('custom-schema-name').textContent = file.name;
+        } catch (err) {
+            alert("Invalid JSON schema file.");
+            input.value = '';
+        }
+    };
+    reader.readAsText(file);
+}
+
+function clearCustomSchema() {
+    customSchemaContent = null;
+    document.getElementById('custom-schema-preview').style.display = 'none';
+    document.getElementById('target-form-select').value = '';
+    document.getElementById('custom-schema-file').value = '';
+}
+
+async function generateMapping() {
+    const formId = document.getElementById('target-form-select').value;
+    if (!formId) { alert('Please select a target form.'); return; }
+    if (formId === 'custom' && !customSchemaContent) { alert('Please upload a custom schema.'); return; }
+
+    const loader = document.getElementById('mapping-loader');
+    const resultContainer = document.getElementById('mapping-result-container');
+    const btn = document.getElementById('generate-map-btn');
+
+    loader.style.display = 'block';
+    resultContainer.style.display = 'none';
+    btn.style.display = 'none';
+
+    try {
+        let endpoint = `/api/map_form/${activeJobId}?form_id=${formId}`;
+        let body = null;
+        let headers = {};
+
+        if (formId === 'custom') {
+            endpoint = `/api/map_custom_form/${activeJobId}`;
+            body = JSON.stringify({ schema: customSchemaContent });
+            headers = { 'Content-Type': 'application/json' };
+        }
+
+        const res = await fetch(endpoint, {
+            method: formId === 'custom' ? 'POST' : 'GET',
+            headers: headers,
+            body: body
+        });
+        const result = await res.json();
+        
+        if (result.success) {
+            document.getElementById('mapping-json-display').textContent = JSON.stringify(result.mapped_data, null, 2);
+            resultContainer.style.display = 'block';
+            window._lastMappedData = result.mapped_data;
+            // Refresh jobs list to show EXPORTED status
+            if (document.getElementById('view-validation').style.display !== 'none') loadValidationJobs();
+        } else {
+            alert('Mapping failed: ' + result.error);
+            btn.style.display = 'block';
+        }
+    } catch (e) {
+        alert('Error: ' + e);
+        btn.style.display = 'block';
+    } finally {
+        loader.style.display = 'none';
+    }
+}
+
+function downloadMappedJson() {
+    if (!window._lastMappedData) return;
+    const blob = new Blob([JSON.stringify(window._lastMappedData, null, 2)], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `mapped_form_${valCurrentJobId}.json`;
+    a.click();
+}
+
+// -- Download Verified JSON (always works, uses in-memory data) --
+function downloadVerifiedJson() {
+    const data = window._verifiedJson || valJsonData;
+    if (!data) { alert('No verified data available. Please save first.'); return; }
+
+    const jsonStr = JSON.stringify(data, null, 2);
+    const blob = new Blob([jsonStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `verified_${valCurrentJobId || 'output'}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+
+function showAuditModal() {
+    const audit = window._lastAudit;
+    if (!audit) { alert('No audit data. Please save first.'); return; }
+
+    const statsRow = document.getElementById('audit-stats-row');
+    statsRow.innerHTML = [
+        { label: 'Total Fields', val: audit.total_fields, color: '#f8fafc' },
+        { label: 'Matched (AI Correct)', val: audit.matches, color: '#34d399' },
+        { label: 'Human Corrections', val: audit.corrections, color: '#f87171' },
+        { label: 'Accuracy', val: ((audit.matches / audit.total_fields) * 100).toFixed(1) + '%', color: '#e8a020' }
+    ].map(s => `
+        <div style="flex:1;padding:20px;text-align:center;border-right:1px solid rgba(255,255,255,0.07);">
+            <div style="font-size:1.5rem;font-weight:900;color:${s.color};font-family:'Outfit',sans-serif;">${s.val}</div>
+            <div style="font-size:0.65rem;color:#64748b;text-transform:uppercase;margin-top:4px;">${s.label}</div>
+        </div>`).join('');
+
+    const tbody = document.getElementById('audit-table-body');
+    if (!audit.trail || audit.trail.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="padding:40px;text-align:center;color:#64748b;">No audit data available.</td></tr>`;
+    } else {
+        tbody.innerHTML = audit.trail.map(row => {
+            const isCorrected = row.status === 'corrected';
+            const statusBadge = isCorrected 
+                ? '<span style="padding:3px 8px;background:rgba(248,113,113,0.1);color:#f87171;border-radius:6px;font-size:0.68rem;font-weight:800;">CORRECTED</span>'
+                : '<span style="padding:3px 8px;background:rgba(52,211,153,0.1);color:#34d399;border-radius:6px;font-size:0.68rem;font-weight:800;">MATCHED</span>';
+                
+            const accuracyVal = isCorrected ? '0%' : '100%';
+            const accColor = isCorrected ? '#f87171' : '#34d399';
+
+            return `
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                <td style="padding:12px 16px;vertical-align:top;color:#94a3b8;font-family:monospace;font-size:0.75rem;">${row.field}</td>
+                <td style="padding:12px 16px;vertical-align:top;color:#cbd5e1;font-size:0.8rem;">${row.machine || '<em style="color:#475569">empty</em>'}</td>
+                <td style="padding:12px 16px;vertical-align:top;color:#cbd5e1;font-size:0.8rem;">${isCorrected ? `<span style="color:#34d399">${row.human}</span>` : `<span style="color:#64748b">-</span>`}</td>
+                <td style="padding:12px 16px;vertical-align:top;">
+                    <div style="display:flex;align-items:center;gap:12px;">
+                        ${statusBadge}
+                        <span style="font-weight:800;font-size:0.75rem;color:${accColor};">${accuracyVal}</span>
+                    </div>
+                </td>
+            </tr>`;
+        }).join('');
+    }
+    document.getElementById('audit-modal').style.display = 'flex';
+}
+
+function closeAuditModal() {
+    document.getElementById('audit-modal').style.display = 'none';
+}
+
+
+function setNestedValue(obj, path, value) {
+    // Basic path parser (e.g. "personal_information.name" or "skills[0]")
+    const parts = path.replace(/\[(\w+)\]/g, '.$1').split('.');
+    let current = obj;
+    for (let i = 0; i < parts.length - 1; i++) {
+        current = current[parts[i]];
+    }
+    
+    // Convert string back to number if original was number
+    let finalKey = parts[parts.length - 1];
+    if (typeof current[finalKey] === 'number') {
+        current[finalKey] = Number(value);
+    } else {
+        current[finalKey] = value;
+    }
+}
+
+// -- Zoom & Pan Logic --
+const imgContainer = document.getElementById('val-img-container');
+const docImg = document.getElementById('val-doc-img');
+let valScale = 1;
+let valTranslateX = 0;
+let valTranslateY = 0;
+let isDragging = false;
+let startX, startY;
+
+imgContainer.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const zoomFactor = 0.1;
+    if (e.deltaY < 0) valScale += zoomFactor;
+    else valScale = Math.max(0.5, valScale - zoomFactor);
+    applyTransform();
+});
+
+imgContainer.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.clientX - valTranslateX;
+    startY = e.clientY - valTranslateY;
+    imgContainer.style.cursor = 'grabbing';
+});
+
+window.addEventListener('mouseup', () => {
+    isDragging = false;
+    imgContainer.style.cursor = 'default';
+});
+
+window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    valTranslateX = e.clientX - startX;
+    valTranslateY = e.clientY - startY;
+    applyTransform();
+});
+
+function applyTransform() {
+    docImg.style.transform = `translate(${valTranslateX}px, ${valTranslateY}px) scale(${valScale})`;
+}
+
+function valZoom(factor) {
+    valScale = Math.max(0.5, valScale + factor);
+    applyTransform();
+}
+
+function valZoomReset() {
+    valScale = 1;
+    valTranslateX = 0;
+    valTranslateY = 0;
+    applyTransform();
+}
+
+function toggleValPanel() {
+    const rightPanel = document.getElementById('val-right-panel');
+    if (rightPanel.style.display === 'none') {
+        rightPanel.style.display = 'flex';
+    } else {
+        rightPanel.style.display = 'none';
+    }
+}
+
+</script>
+<style>
+@keyframes pulseDot { 0%,100%{transform:scale(1);} 50%{transform:scale(1.4);} }
+</style>
+</body>
+</html>

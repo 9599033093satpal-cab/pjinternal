@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | Aether AI Solutions</title>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+    --primary: #e8a020;
+    --primary-light: #f5c842;
+    --bg-deep: #07090f;
+    --bg-card: #111827;
+    --text-main: #f8fafc;
+    --text-dim: #64748b;
+    --border: rgba(255,255,255,0.08);
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg-deep);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: stretch;
+    color: var(--text-main);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+/* ── LEFT BRAND PANEL ── */
+.brand-panel {
+    width: 480px;
+    flex-shrink: 0;
+    background: var(--bg-card);
+    border-right: 1px solid rgba(255,255,255,0.05);
+    padding: 64px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+.brand-panel::before {
+    content:'';
+    position:absolute; top:-100px; left:-100px;
+    width:400px; height:400px;
+    background: radial-gradient(circle, rgba(232,160,32,0.08) 0%, transparent 70%);
+    pointer-events:none;
+}
+
+.logo { display:flex; align-items:center; gap:12px; margin-bottom: 60px; }
+.logo-dot { width:12px; height:12px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--primary-light)); box-shadow:0 0 15px rgba(232,160,32,0.4); }
+.logo-text { font-family:'Outfit',sans-serif; font-weight:800; font-size:1.6rem; letter-spacing:-0.03em; }
+
+.brand-content h2 { 
+    font-family:'Outfit',sans-serif; 
+    font-size:2.8rem; 
+    font-weight:900; 
+    line-height:1.1; 
+    margin-bottom:20px; 
+    letter-spacing:-0.03em; 
+}
+.brand-content h2 span { background:linear-gradient(135deg,var(--primary),var(--primary-light)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.brand-content p { color:var(--text-dim); font-size:0.95rem; line-height:1.6; margin-bottom: 40px; max-width: 340px; }
+
+.feat-list { display: flex; flex-direction: column; gap: 12px; }
+.feat-item {
+    display:flex; align-items:center; gap:16px;
+    background:rgba(255,255,255,0.02); border:1px solid var(--border);
+    border-radius:16px; padding:18px 20px;
+    transition: transform 0.2s;
+}
+.feat-item:hover { transform: translateX(8px); background: rgba(255,255,255,0.04); }
+.feat-icon { width:40px; height:40px; border-radius:12px; display:grid; place-items:center; flex-shrink:0; background: rgba(232,160,32,0.1); color: var(--primary); }
+.feat-title { font-weight:700; font-size:0.85rem; color:var(--text-main); }
+.feat-sub { font-size:0.75rem; color:var(--text-dim); margin-top:2px; }
+
+.brand-stats { display:flex; gap:40px; margin-top: 60px; }
+.stat-item .stat-num { font-family:'Outfit',sans-serif; font-size:1.8rem; font-weight:800; color:var(--primary); }
+.stat-item .stat-lbl { font-size:0.65rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.12em; font-weight: 600; }
+
+@media(max-width:1024px) { .brand-panel { display:none; } }
+
+/* ── RIGHT FORM PANEL ── */
+.form-panel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 48px;
+    position: relative;
+    background: var(--bg-deep);
+}
+
+.back-btn {
+    position:absolute; top:32px; left:32px;
+    display:flex; align-items:center; gap:8px;
+    text-decoration:none; color:var(--text-dim);
+    font-size:0.85rem; font-weight:600;
+    padding:10px 20px; border-radius:100px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    transition:all 0.2s;
+}
+.back-btn:hover { color:var(--primary); border-color:rgba(232,160,32,0.3); transform: translateX(-4px); }
+
+.form-container { width:100%; max-width:440px; }
+
+.form-header { margin-bottom: 40px; }
+.form-header h1 { font-family:'Outfit',sans-serif; font-size:2.5rem; font-weight:800; color:var(--text-main); margin-bottom:12px; letter-spacing:-0.02em; }
+.form-header p { color:var(--text-dim); font-size:0.95rem; line-height: 1.5; }
+
+/* ── ROLE SELECTOR ── */
+.label-group { font-size:0.7rem; font-weight:800; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.15em; display:block; margin-bottom:12px; }
+
+.role-selector { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:32px; }
+.role-card {
+    background:var(--bg-card); border:1px solid var(--border);
+    border-radius:16px; padding:20px 12px; text-align:center;
+    cursor:pointer; transition:all 0.2s cubic-bezier(0.4, 0, 0.2, 1); color:var(--text-dim);
+}
+.role-card i { display:block; margin:0 auto 10px; width:22px; height:22px; stroke-width: 2.5; }
+.role-label { font-size:0.8rem; font-weight:700; }
+
+.role-card:hover { border-color:rgba(232,160,32,0.4); color:var(--primary); transform: translateY(-2px); }
+.role-card.active { background:rgba(232,160,32,0.08); border-color:var(--primary); color:var(--primary); box-shadow: 0 8px 20px rgba(232,160,32,0.1); }
+
+/* ── INPUT SYSTEM ── */
+.input-wrapper { margin-bottom: 24px; position: relative; }
+.mobile-box { display:flex; gap:12px; }
+.prefix {
+    padding:18px 20px; background:var(--bg-card);
+    border:1px solid var(--border); border-radius:16px;
+    font-weight:700; color:var(--text-dim); font-size:1rem;
+}
+.main-input {
+    flex:1; background:var(--bg-card);
+    border:1px solid var(--border); border-radius:16px;
+    padding:18px 24px; font-size:1.1rem; color:var(--text-main);
+    outline:none; transition:all 0.2s; font-family: inherit;
+    font-weight: 500;
+}
+.main-input:focus { border-color:var(--primary); background:rgba(255,255,255,0.02); box-shadow: 0 0 0 4px rgba(232,160,32,0.1); }
+.main-input::placeholder { color: #334155; }
+
+/* ── OTP SECTION (Inline) ── */
+.otp-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    margin-top: 0;
+}
+.otp-container.visible {
+    max-height: 300px;
+    opacity: 1;
+    margin-top: 32px;
+}
+
+.otp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 12px;
+}
+
+.otp-grid { 
+    display: grid; 
+    grid-template-columns: repeat(6, 1fr); 
+    gap: 12px; 
+    width: 100%;
+}
+.otp-field {
+    height: 60px; 
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border); 
+    border-radius: 14px;
+    text-align: center; 
+    font-size: 1.4rem; 
+    font-weight: 800;
+    font-family: 'Outfit', sans-serif; 
+    color: var(--text-main);
+    outline: none; 
+    transition: all 0.2s;
+    padding: 0;
+}
+.otp-field:focus { border-color: var(--primary); background: rgba(255,255,255,0.02); box-shadow: 0 0 0 4px rgba(232,160,32,0.1); }
+.otp-field.filled { border-color: rgba(232,160,32,0.5); }
+
+/* ── ACTION BUTTON ── */
+.submit-btn {
+    width:100%; padding:20px; margin-top: 32px;
+    background:linear-gradient(135deg,var(--primary),var(--primary-light));
+    color:#07090f; font-weight:800; font-size:1rem;
+    border:none; border-radius:16px;
+    cursor:pointer; transition:all 0.3s;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.submit-btn:hover { transform:translateY(-2px); box-shadow:0 12px 30px rgba(232,160,32,0.3); }
+.submit-btn:active { transform: translateY(0); }
+.submit-btn:disabled { opacity: 0.6; cursor: not-allowed; filter: grayscale(1); }
+
+/* ── FOOTER & EXTRA ── */
+.form-footer { text-align:center; margin-top:32px; font-size:0.9rem; color:var(--text-dim); }
+.form-footer a { color:var(--primary); font-weight:700; text-decoration:none; margin-left: 4px; }
+.form-footer a:hover { text-decoration: underline; }
+
+.error-hint { color:#f87171; font-size:0.8rem; font-weight: 500; margin-top:12px; display:none; text-align: center; }
+
+.security-badge {
+    position: absolute; bottom: 40px;
+    display:flex; align-items:center; gap:8px; color:#334155; font-size:0.75rem; font-weight: 600;
+}
+.security-badge i { width:14px; height:14px; }
+
+</style>
+</head>
+<body>
+
+<!-- LEFT PANEL -->
+<div class="brand-panel">
+    <div class="logo">
+        <div class="logo-dot"></div>
+        <span class="logo-text">Aether AI</span>
+    </div>
+
+    <div class="brand-content">
+        <h2>Document digitization, <span>done right.</span></h2>
+        <p>Harness the power of neural-link OCR to transform complex documents into structured intelligence in seconds.</p>
+
+        <div class="feat-list">
+            <div class="feat-item">
+                <div class="feat-icon"><i data-lucide="brain-circuit"></i></div>
+                <div>
+                    <div class="feat-title">Neural Engine V4.0</div>
+                    <div class="feat-sub">Advanced LSTM sequence recognition</div>
+                </div>
+            </div>
+            <div class="feat-item">
+                <div class="feat-icon"><i data-lucide="layers"></i></div>
+                <div>
+                    <div class="feat-title">Multi-Modal Sync</div>
+                    <div class="feat-sub">Seamless JSON & Text synthesis</div>
+                </div>
+            </div>
+            <div class="feat-item">
+                <div class="feat-icon"><i data-lucide="lock"></i></div>
+                <div>
+                    <div class="feat-title">Enterprise Shield</div>
+                    <div class="feat-sub">Military-grade encryption & RBAC</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="brand-stats">
+        <div class="stat-item"><div class="stat-num">99.9%</div><div class="stat-lbl">Accuracy</div></div>
+        <div class="stat-item"><div class="stat-num">500+</div><div class="stat-lbl">Pages/Min</div></div>
+    </div>
+</div>
+
+<!-- RIGHT FORM PANEL -->
+<div class="form-panel">
+    <a href="/" class="back-btn"><i data-lucide="arrow-left"></i> Back to Home</a>
+
+    <div class="form-container">
+        <div class="form-header">
+            <h1 id="mainTitle">Access Console</h1>
+            <p id="mainSub">Securely enter your workspace via verification code.</p>
+        </div>
+
+        <div id="loginForm">
+            <span class="label-group">Select Access Level</span>
+            <div class="role-selector" style="grid-template-columns: repeat(2, 1fr);">
+                <div class="role-card active" data-role="admin" onclick="selectRole(this, 'admin')">
+                    <i data-lucide="shield-check"></i>
+                    <span class="role-label">Super Admin</span>
+                </div>
+                <div class="role-card" data-role="user" onclick="selectRole(this, 'user')">
+                    <i data-lucide="building-2"></i>
+                    <span class="role-label">Client Portal</span>
+                </div>
+            </div>
+
+            <div id="phoneSection">
+                <span class="label-group">Mobile Number</span>
+                <div class="input-wrapper">
+                    <div class="mobile-box">
+                        <div class="prefix">+91</div>
+                        <input type="tel" id="phoneInput" class="main-input" placeholder="9876543210" maxlength="10">
+                    </div>
+                </div>
+            </div>
+
+            <!-- OTP SECTION (Inline) -->
+            <div id="otpSection" class="otp-container">
+                <div class="otp-header">
+                    <span class="label-group" style="margin-bottom:0;">Verification Code</span>
+                    <a href="#" onclick="resetForm()" style="font-size:0.75rem; color:var(--primary); font-weight:700; text-decoration:none;">Change Number</a>
+                </div>
+                <div class="otp-grid">
+                    <input type="text" class="otp-field" id="o1" maxlength="1" inputmode="numeric">
+                    <input type="text" class="otp-field" id="o2" maxlength="1" inputmode="numeric">
+                    <input type="text" class="otp-field" id="o3" maxlength="1" inputmode="numeric">
+                    <input type="text" class="otp-field" id="o4" maxlength="1" inputmode="numeric">
+                    <input type="text" class="otp-field" id="o5" maxlength="1" inputmode="numeric">
+                    <input type="text" class="otp-field" id="o6" maxlength="1" inputmode="numeric">
+                </div>
+            </div>
+
+            <button id="mainBtn" class="submit-btn" onclick="handleAction()">
+                <span id="btnText">Send Verification Code</span>
+                <i data-lucide="arrow-right" id="btnIcon"></i>
+            </button>
+
+            <div id="errorMessage" class="error-hint"></div>
+
+            <p class="form-footer">New here? <a href="/">Explore the platform first</a></p>
+        </div>
+
+        <div class="security-badge">
+            <i data-lucide="shield-check"></i>
+            SECURED BY AETHER TRUST PROTOCOL
+        </div>
+    </div>
+</div>
+
+<script>
+lucide.createIcons();
+
+let currentRole = 'admin';
+let isOtpSent = false;
+const otpIds = ['o1','o2','o3','o4','o5','o6'];
+
+function selectRole(el, role) {
+    if (isOtpSent) return; // Lock role once OTP is sent
+    currentRole = role;
+    document.querySelectorAll('.role-card').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+}
+
+// OTP Auto-focus & Handling
+otpIds.forEach((id, idx) => {
+    const el = document.getElementById(id);
+    el.addEventListener('input', (e) => {
+        const val = e.target.value;
+        if (val) {
+            el.classList.add('filled');
+            if (idx < 5) document.getElementById(otpIds[idx+1]).focus();
+        } else {
+            el.classList.remove('filled');
+        }
+        checkOtpComplete();
+    });
+
+    el.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !el.value && idx > 0) {
+            const prev = document.getElementById(otpIds[idx-1]);
+            prev.focus();
+            prev.value = '';
+            prev.classList.remove('filled');
+        }
+        if (e.key === 'Enter' && isOtpSent) {
+            verifyOtp();
+        }
+    });
+});
+
+function checkOtpComplete() {
+    const otp = otpIds.map(id => document.getElementById(id).value).join('');
+    if (otp.length === 6) {
+        verifyOtp();
+    }
+}
+
+function handleAction() {
+    if (!isOtpSent) {
+        sendOtp();
+    } else {
+        verifyOtp();
+    }
+}
+
+async function sendOtp() {
+    const phone = document.getElementById('phoneInput').value;
+    const error = document.getElementById('errorMessage');
+    
+    if (!/^\d{10}$/.test(phone)) {
+        error.innerText = "Please enter a valid 10-digit mobile number.";
+        error.style.display = "block";
+        return;
+    }
+
+    error.style.display = "none";
+    const btn = document.getElementById('mainBtn');
+    btn.disabled = true;
+    const btnText = document.getElementById('btnText');
+    const originalText = btnText.innerText;
+    btnText.innerText = "Sending code...";
+
+    try {
+        const response = await fetch('/api/send_otp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ phone: phone })
+        });
+        
+        if (!response.ok) throw new Error("Failed to send OTP");
+
+        isOtpSent = true;
+        btn.disabled = false;
+        
+        // UI Transition
+        document.getElementById('mainTitle').innerText = "Verify Identity";
+        document.getElementById('mainSub').innerHTML = `Enter the code sent to <b style="color:var(--primary)">+91 ${phone}</b><br><small style="color:var(--text-dim);font-weight:400;">(Tip: Use <b>123456</b> to login)</small>`;
+        document.getElementById('phoneSection').style.display = "none";
+        document.getElementById('otpSection').classList.add('visible');
+        btnText.innerText = "Authorize Access";
+        
+        // Focus first OTP box
+        document.getElementById('o1').focus();
+    } catch (err) {
+        error.innerText = "Error sending verification code. Please try again.";
+        error.style.display = "block";
+        btn.disabled = false;
+        btnText.innerText = originalText;
+    }
+}
+
+async function verifyOtp() {
+    const otp = otpIds.map(id => document.getElementById(id).value).join('');
+    const error = document.getElementById('errorMessage');
+    const btn = document.getElementById('mainBtn');
+
+    if (otp.length < 6) return;
+
+    btn.disabled = true;
+    document.getElementById('btnText').innerText = "Authenticating...";
+    error.style.display = "none";
+
+    try {
+        const phone = document.getElementById('phoneInput').value;
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ role: currentRole, phone: phone, otp: otp })
+        });
+        const data = await response.json();
+
+        if (data.success) {
+            sessionStorage.setItem('userName', data.user_name);
+            localStorage.setItem('role', currentRole);
+            document.getElementById('btnText').innerText = "✓ Success";
+            btn.style.background = "linear-gradient(135deg, #10b981, #059669)";
+            setTimeout(() => {
+                window.location.href = data.redirect || '/dashboard';
+            }, 500);
+        } else {
+            throw new Error("Invalid OTP");
+        }
+    } catch (err) {
+        error.innerText = "Invalid verification code. Please try again.";
+        error.style.display = "block";
+        btn.disabled = false;
+        document.getElementById('btnText').innerText = "Authorize Access";
+        otpIds.forEach(id => {
+            document.getElementById(id).value = '';
+            document.getElementById(id).classList.remove('filled');
+        });
+        document.getElementById('o1').focus();
+    }
+}
+
+function resetForm() {
+    isOtpSent = false;
+    document.getElementById('mainTitle').innerText = "Access Console";
+    document.getElementById('mainSub').innerText = "Securely enter your workspace via verification code.";
+    document.getElementById('phoneSection').style.display = "block";
+    document.getElementById('otpSection').classList.remove('visible');
+    document.getElementById('btnText').innerText = "Send Verification Code";
+    document.getElementById('errorMessage').style.display = "none";
+    otpIds.forEach(id => {
+        document.getElementById(id).value = '';
+        document.getElementById(id).classList.remove('filled');
+    });
+}
+</script>
+</body>
+</html>

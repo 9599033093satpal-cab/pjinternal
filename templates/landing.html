@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aether | Enterprise Document Digitization Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .feat-card {
+            background: var(--ink-mid);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .feat-card:hover {
+            border-color: var(--border-gold);
+            transform: translateY(-4px);
+        }
+
+        .step-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--gold);
+            opacity: 0.15;
+            line-height: 1;
+        }
+
+        /* Animated terminal */
+        .terminal {
+            background: var(--ink-mid);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.72rem;
+        }
+
+        .terminal-bar {
+            background: var(--ink-soft);
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .terminal-body {
+            padding: 14px;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .t-line {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 7px;
+            opacity: 0;
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .t-ts {
+            color: var(--text-dim);
+        }
+
+        .t-ok {
+            color: #34d399;
+        }
+
+        .t-info {
+            color: #93c5fd;
+        }
+
+        .t-warn {
+            color: var(--gold);
+        }
+
+        /* Pipeline */
+        .pipeline {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .p-node {
+            background: var(--ink-mid);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 8px;
+            text-align: center;
+            transition: all 0.4s;
+        }
+
+        .p-node.active {
+            border-color: var(--gold);
+            background: var(--gold-pale);
+        }
+
+        .p-node.done {
+            border-color: rgba(52, 211, 153, 0.4);
+        }
+
+        .p-node svg {
+            display: block;
+            margin: 0 auto 6px;
+            width: 20px;
+            height: 20px;
+            color: var(--text-dim);
+        }
+
+        .p-node.active svg {
+            color: var(--gold);
+        }
+
+        .p-node.done svg {
+            color: #34d399;
+        }
+
+        .p-label {
+            font-size: 0.58rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-dim);
+        }
+
+        .p-node.active .p-label {
+            color: var(--gold);
+        }
+
+        .p-node.done .p-label {
+            color: #34d399;
+        }
+
+        .p-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--ink-soft);
+            margin: 6px auto 0;
+        }
+
+        .p-node.active .p-dot {
+            background: var(--gold);
+            animation: pdot 1s infinite;
+        }
+
+        .p-node.done .p-dot {
+            background: #34d399;
+        }
+
+        @keyframes pdot {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.5);
+            }
+        }
+
+        /* Floating badge */
+        .fbadge {
+            position: absolute;
+            background: var(--ink-mid);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Dropdown Menu */
+        .lang-dropdown:hover .lang-menu {
+            display: block !important;
+        }
+        .lang-menu a:hover {
+            background: var(--ink-soft);
+            color: var(--text-bright) !important;
+        }
+
+        /* AI Core Animation */
+        .ai-core-container {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .ai-brain {
+            position: relative;
+            z-index: 10;
+            width: 64px;
+            height: 64px;
+            background: rgba(232, 160, 32, 0.15);
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 25px rgba(232, 160, 32, 0.3);
+            animation: pulseBrain 2s infinite alternate;
+        }
+
+        .ai-brain svg {
+            color: var(--gold);
+            width: 32px;
+            height: 32px;
+        }
+
+        .orbit-ring {
+            position: absolute;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+        }
+
+        .orbit-1 {
+            width: 140px;
+            height: 140px;
+            animation: spin 30s linear infinite;
+        }
+
+        .orbit-2 {
+            width: 210px;
+            height: 210px;
+            animation: spin-reverse 30s linear infinite;
+        }
+
+        .orbit-node {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        
+        .spin {
+            animation: spin 1s linear infinite;
+        }
+
+        .node-1 {
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #34d399;
+            box-shadow: 0 0 15px #34d399;
+        }
+
+        .node-2 {
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #818cf8;
+            box-shadow: 0 0 15px #818cf8;
+        }
+
+        .node-3 {
+            left: -5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #f87171;
+            box-shadow: 0 0 15px #f87171;
+        }
+
+        .node-label {
+            position: absolute;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.55rem;
+            font-weight: 800;
+            color: #fff;
+            transform: translate(-50%, -50%);
+            top: -14px;
+            left: 50%;
+            white-space: nowrap;
+            opacity: 0.9;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            animation: counter-spin 30s linear infinite;
+        }
+
+        .orbit-2 .node-label {
+            animation: counter-spin-reverse 30s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin-reverse {
+            100% {
+                transform: rotate(-360deg);
+            }
+        }
+
+        @keyframes counter-spin {
+            100% {
+                transform: translate(-50%, -50%) rotate(-360deg);
+            }
+        }
+
+        @keyframes counter-spin-reverse {
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        @keyframes pulseBrain {
+            0% {
+                box-shadow: 0 0 15px rgba(232, 160, 32, 0.2);
+                transform: scale(1);
+            }
+
+            100% {
+                box-shadow: 0 0 40px rgba(232, 160, 32, 0.6), inset 0 0 15px rgba(232, 160, 32, 0.4);
+                transform: scale(1.08);
+            }
+        }
+
+        @media(max-width:900px) {
+            .hero-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .hero-visual {
+                display: none !important;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="landing-body">
+
+    <nav class="floating-nav">
+        <div style="display:flex;align-items:center;gap:10px;">
+            <div class="brand-dot"></div>
+            <span class="brand-name">Aether AI Solutions</span>
+        </div>
+        <div class="nav-links" style="display:flex;align-items:center;">
+            <a href="#pain">The Problem</a>
+            <a href="#features">Features</a>
+            <a href="#how">How It Works</a>
+            <div style="position:relative;display:inline-block;margin:0 10px;" class="lang-dropdown">
+                <button style="background:transparent;border:none;color:var(--text-dim);font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;padding:8px 0;">
+                    <i data-lucide="globe" style="width:16px;"></i> English <i data-lucide="chevron-down" style="width:14px;"></i>
+                </button>
+                <div class="lang-menu" style="display:none;position:absolute;top:100%;right:0;background:var(--ink-mid);border:1px solid var(--border);border-radius:12px;padding:8px;min-width:160px;box-shadow:0 10px 40px rgba(0,0,0,0.5);z-index:100;max-height:300px;overflow-y:auto;">
+                    <a href="#" style="display:block;padding:8px 12px;color:var(--text-bright);text-decoration:none;font-size:0.8rem;border-radius:6px;background:var(--ink-soft);">🇬🇧 English</a>
+                    <a href="#" style="display:block;padding:8px 12px;color:var(--text-dim);text-decoration:none;font-size:0.8rem;border-radius:6px;">🇮🇳 हिंदी (Hindi)</a>
+                    <a href="#" style="display:block;padding:8px 12px;color:var(--text-dim);text-decoration:none;font-size:0.8rem;border-radius:6px;">🇮🇳 বাংলা (Bengali)</a>
+                    <a href="#" style="display:block;padding:8px 12px;color:var(--text-dim);text-decoration:none;font-size:0.8rem;border-radius:6px;">🇮🇳 मराठी (Marathi)</a>
+                    <a href="#" style="display:block;padding:8px 12px;color:var(--text-dim);text-decoration:none;font-size:0.8rem;border-radius:6px;">🇮🇳 தமிழ் (Tamil)</a>
+                    <a href="#" style="display:block;padding:8px 12px;color:var(--text-dim);text-decoration:none;font-size:0.8rem;border-radius:6px;">🇸🇦 العربية (Arabic)</a>
+                    <a href="#" style="display:block;padding:8px 12px;color:var(--text-dim);text-decoration:none;font-size:0.8rem;border-radius:6px;">🇪🇸 Español</a>
+                    <a href="#" style="display:block;padding:8px 12px;color:var(--text-dim);text-decoration:none;font-size:0.8rem;border-radius:6px;">🇫🇷 Français</a>
+                </div>
+            </div>
+            <a href="#" class="btn-outline" onclick="openDemoModal(event)">Book Demo</a>
+            <a href="/login" class="btn-fill">Sign In</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div style="max-width:1300px;margin:0 auto;padding:170px 5% 100px;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:80px;"
+        class="hero-grid">
+        <div class="reveal">
+            <div
+                style="display:inline-flex;align-items:center;gap:8px;background:var(--gold-pale);border:1px solid var(--border-gold);border-radius:100px;padding:5px 14px;font-size:0.65rem;font-weight:900;color:var(--gold);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:28px;">
+                <div
+                    style="width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pdot 1.5s infinite;">
+                </div>
+                AI OCR Engine · Online
+            </div>
+            <h1
+                style="font-family:'Outfit',sans-serif;font-size:3.4rem;font-weight:800;line-height:1.15;letter-spacing:-0.03em;color:var(--text-bright);margin-bottom:24px;">
+                Your paper files.<br><span
+                    style="background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Now.
+                    Alive. Digital.</span>
+            </h1>
+            <p style="font-size:1.1rem;color:var(--text-mid);line-height:1.75;margin-bottom:40px;max-width:500px;">
+                Decades of paper records — invoices, contracts, forms — transformed into verified, searchable,
+                intelligent data. Aether doesn't just read documents. It <strong
+                    style="color:var(--text-bright);">digitizes your entire knowledge base</strong> in minutes.
+            </p>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;">
+                <a href="/login" class="btn-fill" style="padding:18px 40px;font-size:0.95rem;">Upload Your PDF</a>
+                <a href="#how" class="btn-ghost" style="padding:18px 40px;font-size:0.95rem;">See How It Works</a>
+                <button onclick="sharePlatform()" class="btn-ghost"
+                    style="padding:18px 24px;display:flex;align-items:center;gap:8px;" title="Share this platform"><i
+                        data-lucide="share-2" style="width:18px;"></i> Share</button>
+            </div>
+            <div style="margin-top:40px;display:flex;gap:32px;">
+                <div>
+                    <div
+                        style="font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:800;color:var(--text-bright);">
+                        99.9%</div>
+                    <div style="font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;">
+                        Accuracy</div>
+                </div>
+                <div style="width:1px;background:var(--border);"></div>
+                <div>
+                    <div
+                        style="font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:800;color:var(--text-bright);">
+                        500</div>
+                    <div style="font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;">
+                        Pages Handled</div>
+                </div>
+                <div style="width:1px;background:var(--border);"></div>
+                <div>
+                    <div
+                        style="font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:800;color:var(--text-bright);">
+                        100+</div>
+                    <div style="font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;">
+                        Languages</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Animated visual -->
+        <div class="reveal hero-visual" style="position:relative;">
+            <div style="position:absolute;top:-20px;right:-20px;z-index:20;" class="fbadge">
+                <div style="width:7px;height:7px;border-radius:50%;background:#34d399;animation:pdot 2s infinite;">
+                </div>
+                AI Engine Active
+            </div>
+
+            <!-- AI Core Animation -->
+            <div class="ai-core-container">
+                <div class="ai-brain">
+                    <i data-lucide="brain-circuit"></i>
+                </div>
+                <div class="orbit-ring orbit-1">
+                    <div class="orbit-node node-1">
+                        <div class="node-label">OCR</div>
+                    </div>
+                    <div class="orbit-node node-3">
+                        <div class="node-label">VISION</div>
+                    </div>
+                </div>
+                <div class="orbit-ring orbit-2">
+                    <div class="orbit-node node-2">
+                        <div class="node-label">NLP Core</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pipeline -->
+            <div class="pipeline" id="pipeline">
+                <div class="p-node" id="pn0"><i data-lucide="file-up"></i>
+                    <div class="p-label">Upload</div>
+                    <div class="p-dot"></div>
+                </div>
+                <div class="p-node" id="pn1"><i data-lucide="image"></i>
+                    <div class="p-label">Convert</div>
+                    <div class="p-dot"></div>
+                </div>
+                <div class="p-node" id="pn2"><i data-lucide="scan-text"></i>
+                    <div class="p-label">OCR</div>
+                    <div class="p-dot"></div>
+                </div>
+                <div class="p-node" id="pn3"><i data-lucide="file-check"></i>
+                    <div class="p-label">Structure</div>
+                    <div class="p-dot"></div>
+                </div>
+                <div class="p-node" id="pn4" style="border-color:var(--gold);background:var(--gold-pale);"><i
+                        data-lucide="user-check" style="color:var(--gold);"></i>
+                    <div class="p-label" style="color:var(--gold);">Verify</div>
+                    <div class="p-dot"></div>
+                </div>
+                <div class="p-node" id="pn5"><i data-lucide="download"></i>
+                    <div class="p-label">Export</div>
+                    <div class="p-dot"></div>
+                </div>
+            </div>
+
+            <!-- Live terminal -->
+            <div class="terminal">
+                <div class="terminal-bar">
+                    <div style="width:8px;height:8px;border-radius:50%;background:#ef4444;"></div>
+                    <div style="width:8px;height:8px;border-radius:50%;background:#f59e0b;"></div>
+                    <div style="width:8px;height:8px;border-radius:50%;background:#10b981;"></div>
+                    <span
+                        style="font-family:'Inter';font-size:0.65rem;color:var(--text-dim);margin-left:8px;">aether-ocr
+                        · live</span>
+                    <div
+                        style="margin-left:auto;display:inline-flex;align-items:center;gap:5px;background:var(--gold-pale);border:1px solid var(--border-gold);border-radius:100px;padding:2px 8px;font-size:0.55rem;font-weight:900;color:var(--gold);">
+                        <div
+                            style="width:5px;height:5px;border-radius:50%;background:var(--gold);animation:pdot 1s infinite;">
+                        </div>LIVE
+                    </div>
+                </div>
+                <div class="terminal-body" id="term"></div>
+            </div>
+
+            <!-- Stat strip -->
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px;">
+                <div
+                    style="background:var(--ink-mid);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center;">
+                    <div style="font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:800;color:var(--text-bright);"
+                        id="stat-acc">99.9%</div>
+                    <div
+                        style="font-size:0.55rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em;">
+                        Accuracy</div>
+                </div>
+                <div
+                    style="background:var(--ink-mid);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center;">
+                    <div style="font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:800;color:var(--gold);"
+                        id="stat-pgs">0</div>
+                    <div
+                        style="font-size:0.55rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em;">
+                        Pages/Min</div>
+                </div>
+                <div
+                    style="background:var(--ink-mid);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center;">
+                    <div style="font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:800;color:#818cf8;">100+
+                    </div>
+                    <div
+                        style="font-size:0.55rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em;">
+                        Languages</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW PROCESSING STYLE SECTION (LAYMAN - PROMINENT AT TOP) -->
+    <section id="process-style"
+        style="padding:100px 5%;background:linear-gradient(180deg, var(--ink) 0%, var(--ink-mid) 100%);text-align:center;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+        <div style="max-width:1100px;margin:0 auto;">
+            <div
+                style="display:inline-flex;align-items:center;gap:8px;background:rgba(232,160,32,0.1);border:1px solid rgba(232,160,32,0.2);border-radius:100px;padding:6px 16px;font-size:0.7rem;font-weight:900;color:var(--gold);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:24px;">
+                Our Core Processing DNA</div>
+            <h2
+                style="font-family:'Outfit',sans-serif;font-size:2.8rem;font-weight:900;color:var(--text-bright);margin-bottom:20px;">
+                Neural Process DNA.</h2>
+            <p style="color:var(--text-mid);font-size:1.1rem;max-width:700px;margin:0 auto 60px;line-height:1.8;">We
+                utilize advanced semantic understanding to decode complex document hierarchies. Here is our neural orchestration workflow.</p>
+
+            <div
+                style="display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:30px;text-align:left;">
+                <div class="reveal"
+                    style="background:var(--ink-mid);border:1px solid var(--border);border-radius:32px;padding:40px;position:relative;overflow:hidden;">
+                    <div
+                        style="position:absolute;top:-20px;right:-20px;font-size:8rem;opacity:0.03;font-weight:900;color:var(--text-bright);">
+                        1</div>
+                    <div
+                        style="width:60px;height:60px;background:var(--gold-pale);border-radius:16px;display:grid;place-items:center;margin-bottom:24px;">
+                        <i data-lucide="camera" style="width:28px;color:var(--gold);"></i>
+                    </div>
+                    <h3 style="font-size:1.4rem;font-weight:800;color:var(--text-bright);margin-bottom:12px;">Human-Like
+                        Vision</h3>
+                    <p style="color:var(--text-mid);font-size:0.95rem;line-height:1.7;">Aether "sees" your document like
+                        a human does. We capture every tiny detail and complex layout perfectly, so no data is ever
+                        lost.</p>
+                </div>
+
+                <div class="reveal"
+                    style="background:var(--ink-mid);border:2px solid var(--gold);border-radius:32px;padding:40px;position:relative;overflow:hidden;transform:scale(1.05);z-index:2;">
+                    <div
+                        style="position:absolute;top:-20px;right:-20px;font-size:8rem;opacity:0.03;font-weight:900;color:var(--gold);">
+                        2</div>
+                    <div
+                        style="width:60px;height:60px;background:var(--gold-pale);border-radius:16px;display:grid;place-items:center;margin-bottom:24px;">
+                        <i data-lucide="brain-circuit" style="width:28px;color:var(--gold);"></i>
+                    </div>
+                    <h3 style="font-size:1.4rem;font-weight:800;color:var(--text-bright);margin-bottom:12px;">The
+                        Contextual Brain</h3>
+                    <p style="color:var(--text-mid);font-size:0.95rem;line-height:1.7;">Our AI doesn't just read
+                        letters; it understands <strong>meaning</strong>. It knows which number is a "Total" and which
+                        one is an "ID", organizing your data instantly.</p>
+                </div>
+
+                <div class="reveal"
+                    style="background:var(--ink-mid);border:1px solid var(--border);border-radius:32px;padding:40px;position:relative;overflow:hidden;">
+                    <div
+                        style="position:absolute;top:-20px;right:-20px;font-size:8rem;opacity:0.03;font-weight:900;color:var(--text-bright);">
+                        3</div>
+                    <div
+                        style="width:60px;height:60px;background:var(--gold-pale);border-radius:16px;display:grid;place-items:center;margin-bottom:24px;">
+                        <i data-lucide="user-check" style="width:28px;color:var(--gold);"></i>
+                    </div>
+                    <h3 style="font-size:1.4rem;font-weight:800;color:var(--text-bright);margin-bottom:12px;">Trusted
+                        Verification</h3>
+                    <p style="color:var(--text-mid);font-size:0.95rem;line-height:1.7;">Technology is fast, but you have
+                        the final say. We let you review and "lock" the data yourself, ensuring 100% accuracy for your
+                        business.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAIN SECTION -->
+    <section id="pain" style="padding:100px 5%;text-align:center;background:var(--ink);">
+        <div style="max-width:1200px;margin:0 auto;">
+            <div
+                style="display:inline-flex;align-items:center;gap:8px;background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.25);border-radius:100px;padding:5px 14px;font-size:0.65rem;font-weight:900;color:#f87171;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:20px;">
+                😩 The Real Pain</div>
+            <h2 style="font-family:'Outfit',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-bright);margin-bottom:16px;"
+                class="reveal">Things that happen in<br>every office. Every. Day.</h2>
+            <p style="color:var(--text-mid);font-size:0.95rem;max-width:600px;margin:0 auto 60px;line-height:1.75;"
+                class="reveal">We didn't invent these problems. We just finally solved them.</p>
+
+            <div
+                style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px;text-align:left;">
+                {% for item in [
+                ('file-stack','Mountain of Physical Files','500 pages of scanned invoices. Boss needs the Excel by EOD. The intern is seriously contemplating quitting.','Aether reads all 500 pages in minutes while your team takes a tea break.'),
+                ('file-search','The "Unsearchable" PDF','You have the PDF, but Ctrl+F finds nothing because it\'s a scanned image. You have to manually retype everything.','Aether turns any scanned photo or PDF into 100% searchable, copy-pasteable text.'),
+                ('languages','Hindi + English Mix','Document has half English, half Hindi. Normal OCR tools crash or output random garbage symbols like "$#".','Select your languages. Aether perfectly understands mixed-language documents across 100+ languages.'),
+                ('cpu','The PC Crash','You upload a heavy 800-page file. Your laptop fan sounds like a helicopter, and the browser crashes.','Aether runs on the cloud and splits output into clean 100-page chunks. Your laptop stays cool.'),
+                ('loader','The Endless Loading Screen','Screen says "Processing... please wait". 45 minutes later, there\'s zero update. Is it stuck? Nobody knows.','Live terminal tracking. Watch exactly which page and line is being processed in real-time.'),
+                ('file-warning','Garbage In, Garbage Out','After hours of waiting, the output is full of mistakes like "1nv0ic3 d4t3". You still have to manually correct it.','Aether uses AI confidence scoring. We deliver clean text, and let you easily verify any tricky words.')
+                ] %}
+                <div class="reveal"
+                    style="background:var(--ink-mid);border:1px solid var(--border);border-radius:24px;padding:28px;transition:all 0.3s ease;"
+                    onmouseover="this.style.borderColor='rgba(232,160,32,0.3)'"
+                    onmouseout="this.style.borderColor='rgba(255,255,255,0.07)'">
+                    <div style="width:44px;height:44px;background:rgba(248,113,113,0.05);border:1px solid rgba(248,113,113,0.2);border-radius:12px;display:grid;place-items:center;margin-bottom:18px;color:#f87171;">
+                        <i data-lucide="{{ item[0] }}" style="width:24px;height:24px;"></i>
+                    </div>
+                    <span
+                        style="font-size:0.6rem;font-weight:900;color:#f87171;text-transform:uppercase;letter-spacing:0.15em;">The
+                        Pain</span>
+                    <h3 style="font-size:1.05rem;font-weight:800;color:var(--text-bright);margin:8px 0 10px;">{{ item[1]
+                        }}</h3>
+                    <p style="font-size:0.82rem;color:var(--text-mid);line-height:1.65;margin-bottom:20px;">{{ item[2]
+                        }}</p>
+                    <div
+                        style="background:rgba(52,211,153,0.05);border:1px solid rgba(52,211,153,0.2);border-radius:12px;padding:14px;">
+                        <span
+                            style="font-size:0.6rem;font-weight:900;color:#34d399;text-transform:uppercase;letter-spacing:0.15em;">✓
+                            Aether Fix</span>
+                        <p
+                            style="font-size:0.8rem;color:var(--text-bright);font-weight:600;margin-top:6px;line-height:1.55;">
+                            {{ item[3] }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features"
+        style="padding:100px 5%;background:var(--ink-mid);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+        <div style="max-width:1200px;margin:0 auto;text-align:center;">
+            <div
+                style="display:inline-flex;align-items:center;gap:8px;background:var(--gold-pale);border:1px solid var(--border-gold);border-radius:100px;padding:5px 14px;font-size:0.65rem;font-weight:900;color:var(--gold);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:20px;">
+                What's Inside</div>
+            <h2 style="font-family:'Outfit',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-bright);margin-bottom:16px;"
+                class="reveal">Everything you need for<br>large-scale OCR.</h2>
+            <p style="color:var(--text-mid);font-size:0.95rem;max-width:600px;margin:0 auto 60px;line-height:1.75;"
+                class="reveal">Built specifically for enterprise document digitization — not a demo, not a wrapper. Real
+                AI engine, real parallel processing, real output.</p>
+
+            <div
+                style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;text-align:left;">
+                {% for f in [
+                ('scan-text','AI-Powered Character Recognition','Neural network engine with LSTM architecture for
+                best-in-class accuracy on printed, scanned, and handwritten text.'),
+                ('zap','Parallel Processing','4–8 worker threads process pages simultaneously. A 500-page PDF completes
+                in minutes, not hours.'),
+                ('image','Native PDF Rendering','PDF pages rendered to high-DPI images natively — no extra software
+                required on Windows.'),
+                ('globe','100+ Languages','English, Hindi, French, German, Arabic, Chinese, Japanese and more. Select
+                before upload.'),
+                ('file-text','Chunked Output','Output split into 100-page text files for easy management. Plus metadata
+                for each job.'),
+                ('activity','Real-Time Progress','Live page counter updates every 1.5 seconds. Watch your PDF being
+                digitized page by page.'),
+                ('check-circle','Confidence Checking','Every page output is validated using character confidence scoring
+                before being written to file.'),
+                ('sliders-horizontal','Quality Control','Choose Fast / Balanced / High Quality scan mode per job
+                depending on your document type.'),
+                ('trash-2','Job Management','View history, download outputs, and delete jobs from the dashboard at any
+                time.')
+                ] %}
+                <div class="feat-card reveal">
+                    <div
+                        style="width:44px;height:44px;background:var(--gold-pale);border:1px solid var(--border-gold);border-radius:12px;display:grid;place-items:center;margin-bottom:18px;">
+                        <i data-lucide="{{ f[0] }}" style="width:20px;color:var(--gold);"></i>
+                    </div>
+                    <h3 style="font-size:1rem;font-weight:800;color:var(--text-bright);margin-bottom:8px;">{{ f[1] }}
+                    </h3>
+                    <p style="font-size:0.82rem;color:var(--text-mid);line-height:1.65;">{{ f[2] }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+    <!-- ENTERPRISE ADVANTAGE -->
+    <section id="enterprise" style="padding:120px 5%;background:var(--ink);text-align:center;">
+        <div style="max-width:1200px;margin:0 auto;">
+            <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.2);border-radius:100px;padding:6px 16px;font-size:0.7rem;font-weight:900;color:#34d399;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:24px;">The Neural Advantage</div>
+            <h2 style="font-family:'Outfit',sans-serif;font-size:3rem;font-weight:900;color:var(--text-bright);margin-bottom:20px;">Built for the Enterprise.</h2>
+            <p style="color:var(--text-mid);font-size:1.1rem;max-width:700px;margin:0 auto 80px;line-height:1.8;">High-volume document digitization requires more than just OCR. It requires a resilient, secure, and intelligent ecosystem.</p>
+            
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;text-align:left;align-items:center;">
+                <div class="reveal">
+                    <div style="display:flex;flex-direction:column;gap:32px;">
+                        <div style="display:flex;gap:24px;">
+                            <div style="width:56px;height:56px;background:var(--ink-mid);border:1px solid var(--border);border-radius:16px;display:grid;place-items:center;flex-shrink:0;color:var(--gold);">
+                                <i data-lucide="shield-check" style="width:28px;"></i>
+                            </div>
+                            <div>
+                                <h4 style="font-size:1.2rem;font-weight:800;color:var(--text-bright);margin-bottom:8px;">Bank-Grade Security</h4>
+                                <p style="color:var(--text-dim);font-size:0.9rem;line-height:1.6;">Your data is encrypted end-to-end. We follow strict zero-knowledge protocols, ensuring your sensitive business documents stay private.</p>
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:24px;">
+                            <div style="width:56px;height:56px;background:var(--ink-mid);border:1px solid var(--border);border-radius:16px;display:grid;place-items:center;flex-shrink:0;color:var(--gold);">
+                                <i data-lucide="layers" style="width:28px;"></i>
+                            </div>
+                            <div>
+                                <h4 style="font-size:1.2rem;font-weight:800;color:var(--text-bright);margin-bottom:8px;">Multi-Layered Processing</h4>
+                                <p style="color:var(--text-dim);font-size:0.9rem;line-height:1.6;">From raw pixel scanning to semantic neural understanding, every document passes through 4 layers of validation before output.</p>
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:24px;">
+                            <div style="width:56px;height:56px;background:var(--ink-mid);border:1px solid var(--border);border-radius:16px;display:grid;place-items:center;flex-shrink:0;color:var(--gold);">
+                                <i data-lucide="workflow" style="width:28px;"></i>
+                            </div>
+                            <div>
+                                <h4 style="font-size:1.2rem;font-weight:800;color:var(--text-bright);margin-bottom:8px;">Agentic Export Workflows</h4>
+                                <p style="color:var(--text-dim);font-size:0.9rem;line-height:1.6;">Instantly map your processed data into any custom database, ERP, or CRM system with our intelligent agentic mapping engine.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reveal" style="background:var(--ink-mid);border:1px solid var(--border);border-radius:40px;padding:40px;position:relative;">
+                    <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--grad-gold);border-radius:40px 40px 0 0;"></div>
+                    <div style="font-family:'Outfit',sans-serif;font-size:1.8rem;font-weight:800;color:var(--text-bright);margin-bottom:24px;">Neural Roadmap</div>
+                    <div style="display:flex;flex-direction:column;gap:12px;">
+                        <div style="background:var(--ink);padding:16px;border-radius:16px;border:1px solid var(--border);display:flex;align-items:center;gap:12px;">
+                            <div style="width:24px;height:24px;border-radius:50%;background:#34d399;display:grid;place-items:center;color:var(--ink);font-weight:900;font-size:0.7rem;">1</div>
+                            <span style="font-size:0.85rem;font-weight:700;color:var(--text-bright);">High-DPI Scan Capture</span>
+                        </div>
+                        <div style="width:2px;height:20px;background:var(--border);margin-left:27px;"></div>
+                        <div style="background:var(--ink);padding:16px;border-radius:16px;border:1px solid var(--border);display:flex;align-items:center;gap:12px;">
+                            <div style="width:24px;height:24px;border-radius:50%;background:#34d399;display:grid;place-items:center;color:var(--ink);font-weight:900;font-size:0.7rem;">2</div>
+                            <span style="font-size:0.85rem;font-weight:700;color:var(--text-bright);">Neural Entity Recognition</span>
+                        </div>
+                        <div style="width:2px;height:20px;background:var(--border);margin-left:27px;"></div>
+                        <div style="background:var(--ink);padding:16px;border-radius:16px;border:1px solid var(--gold);display:flex;align-items:center;gap:12px;box-shadow:0 0 20px rgba(232,160,32,0.1);">
+                            <div style="width:24px;height:24px;border-radius:50%;background:var(--gold);display:grid;place-items:center;color:var(--ink);font-weight:900;font-size:0.7rem;">3</div>
+                            <span style="font-size:0.85rem;font-weight:700;color:var(--text-bright);">Agentic Schema Mapping</span>
+                        </div>
+                        <div style="width:2px;height:20px;background:var(--border);margin-left:27px;border-style:dashed;"></div>
+                        <div style="background:rgba(255,255,255,0.02);padding:16px;border-radius:16px;border:1px dashed var(--border);display:flex;align-items:center;gap:12px;opacity:0.5;">
+                            <div style="width:24px;height:24px;border-radius:50%;background:var(--text-dim);display:grid;place-items:center;color:var(--ink);font-weight:900;font-size:0.7rem;">4</div>
+                            <span style="font-size:0.85rem;font-weight:700;color:var(--text-dim);">Final Human Verification</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+    <section id="how" style="padding:100px 5%;text-align:center;background:var(--ink);">
+        <div style="max-width:1100px;margin:0 auto;">
+            <div
+                style="display:inline-flex;align-items:center;gap:8px;background:var(--gold-pale);border:1px solid var(--border-gold);border-radius:100px;padding:5px 14px;font-size:0.65rem;font-weight:900;color:var(--gold);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:20px;">
+                How It Works</div>
+            <h2 style="font-family:'Outfit',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-bright);margin-bottom:60px;"
+                class="reveal">Five steps. Fully automated.</h2>
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:20px;text-align:left;">
+                {% for s in [
+                ('01','Easy Upload','Drop any document. Any size, any language. We handle the heavy lifting while you
+                focus on your work.','upload-cloud'),
+                ('02','HD Vision Rendering','Our system "looks" at your document like a human expert, creating
+                crystal-clear digital snapshots for perfect accuracy.','image'),
+                ('03','Contextual Brain','Aether doesn\'t just see letters; it understands context. It knows the
+                difference between a date, a name, and a price.','brain'),
+                ('04','Human Verified Seal','We combine AI speed with human precision. You get to double-check and
+                "lock" the data for 100% peace of mind.','check-circle'),
+                ('05','Actionable Results','No more messy text. Get clean, structured data that is ready to be used in
+                your office forms or databases instantly.','zap')
+                ] %}
+                <div class="reveal">
+                    <div
+                        style="background:var(--ink-mid);border:1px solid var(--border);border-radius:16px;padding:24px;">
+                        <div class="step-num">{{ s[0] }}</div>
+                        <div
+                            style="width:40px;height:40px;background:var(--gold-pale);border:1px solid var(--border-gold);border-radius:10px;display:grid;place-items:center;margin:-10px 0 16px;">
+                            <i data-lucide="{{ s[3] }}" style="width:18px;color:var(--gold);"></i>
+                        </div>
+                        <h3 style="font-size:0.95rem;font-weight:800;color:var(--text-bright);margin-bottom:8px;">{{
+                            s[1] }}</h3>
+                        <p style="font-size:0.78rem;color:var(--text-mid);line-height:1.6;">{{ s[2] }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- LANGUAGES -->
+    <section id="languages"
+        style="padding:80px 5%;background:var(--ink-mid);border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center;">
+        <div style="max-width:900px;margin:0 auto;">
+            <div
+                style="display:inline-flex;align-items:center;gap:8px;background:var(--gold-pale);border:1px solid var(--border-gold);border-radius:100px;padding:5px 14px;font-size:0.65rem;font-weight:900;color:var(--gold);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:20px;">
+                Supported Languages</div>
+            <h2 style="font-family:'Outfit',sans-serif;font-size:2.2rem;font-weight:800;color:var(--text-bright);margin-bottom:40px;"
+                class="reveal">Reads what your team needs.</h2>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;" class="reveal">
+                {% for lang in
+                ['English','Hindi','French','German','Spanish','Italian','Portuguese','Russian','Arabic','Chinese
+                (Simplified)','Chinese
+                (Traditional)','Japanese','Korean','Thai','Vietnamese','Greek','Dutch','Swedish','Polish','Turkish'] %}
+                <span
+                    style="background:var(--ink-card);border:1px solid var(--border);border-radius:100px;padding:8px 18px;font-size:0.8rem;font-weight:700;color:var(--text-mid);">{{
+                    lang }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section style="padding:100px 5%;text-align:center;">
+        <div style="max-width:700px;margin:0 auto;">
+            <h2 style="font-family:'Outfit',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-bright);margin-bottom:20px;"
+                class="reveal">Ready to digitize<br>your documents?</h2>
+            <p style="color:var(--text-mid);font-size:1rem;margin-bottom:40px;line-height:1.75;" class="reveal">Login,
+                upload your PDF, and get clean text output in minutes. No credit card, no setup.</p>
+            <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;" class="reveal">
+                <a href="/login" class="btn-fill" style="padding:18px 48px;font-size:0.95rem;">Sign In</a>
+                <a href="/dashboard" class="btn-ghost" style="padding:18px 48px;font-size:0.95rem;">View Dashboard</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="padding:60px 5%;border-top:1px solid var(--border);">
+        <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:60px;"
+            class="footer-grid">
+            <div>
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+                    <div class="brand-dot"></div><span class="brand-name">Aether AI Solutions</span>
+                </div>
+                <p style="color:var(--text-dim);font-size:0.85rem;line-height:1.65;">Enterprise PDF digitization with
+                    AI-grade accuracy. Real output, no fluff.</p>
+            </div>
+            <div>
+                <h4
+                    style="font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:16px;">
+                    Platform</h4>
+                <a href="/dashboard"
+                    style="display:block;color:var(--text-dim);text-decoration:none;font-size:0.88rem;margin-bottom:10px;">OCR
+                    Console</a>
+                <a href="#" onclick="openDemoModal(event)"
+                    style="display:block;color:var(--text-dim);text-decoration:none;font-size:0.88rem;margin-bottom:10px;">Book Demo</a>
+                <a href="#languages"
+                    style="display:block;color:var(--text-dim);text-decoration:none;font-size:0.88rem;">Supported
+                    Languages</a>
+            </div>
+            <div>
+                <h4
+                    style="font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:16px;">
+                    Resources</h4>
+                <a href="#pain"
+                    style="display:block;color:var(--text-dim);text-decoration:none;font-size:0.88rem;margin-bottom:10px;">Pain
+                    Points</a>
+                <a href="#how"
+                    style="display:block;color:var(--text-dim);text-decoration:none;font-size:0.88rem;margin-bottom:10px;">How
+                    It Works</a>
+                <a href="#features"
+                    style="display:block;color:var(--text-dim);text-decoration:none;font-size:0.88rem;">All Features</a>
+            </div>
+        </div>
+        <div
+            style="max-width:1200px;margin:40px auto 0;padding-top:28px;border-top:1px solid var(--border);text-align:center;color:var(--text-dim);font-size:0.78rem;">
+            &copy; 2025 Aether AI Solutions. Enterprise Document Intelligence.</div>
+    </footer>
+
+    <!-- Demo Modal -->
+    <div id="demoModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;place-items:center;">
+        <div style="background:var(--ink-mid);border:1px solid var(--border-gold);border-radius:24px;width:90%;max-width:400px;padding:36px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
+            <button onclick="closeDemoModal()" style="position:absolute;top:24px;right:24px;background:var(--ink-soft);border:1px solid var(--border);border-radius:50%;width:32px;height:32px;display:grid;place-items:center;color:var(--text-dim);cursor:pointer;transition:all 0.2s;"><i data-lucide="x" style="width:16px;"></i></button>
+            <h3 style="font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:800;color:var(--text-bright);margin-bottom:8px;">Request Demo</h3>
+            <p style="font-size:0.85rem;color:var(--text-mid);margin-bottom:28px;line-height:1.5;">See Aether AI in action. Leave your details and we will schedule a live demonstration.</p>
+            
+            <form id="demoForm" onsubmit="submitDemo(event)">
+                <div style="margin-bottom:16px;">
+                    <label style="display:block;font-size:0.7rem;font-weight:800;color:var(--text-dim);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em;">Full Name</label>
+                    <input type="text" id="demoName" required style="width:100%;background:var(--ink);border:1px solid var(--border);border-radius:12px;padding:14px;color:var(--text-bright);font-family:'Inter',sans-serif;font-size:0.9rem;outline:none;transition:all 0.2s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+                </div>
+                <div style="margin-bottom:16px;">
+                    <label style="display:block;font-size:0.7rem;font-weight:800;color:var(--text-dim);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em;">Email Address</label>
+                    <input type="email" id="demoEmail" required style="width:100%;background:var(--ink);border:1px solid var(--border);border-radius:12px;padding:14px;color:var(--text-bright);font-family:'Inter',sans-serif;font-size:0.9rem;outline:none;transition:all 0.2s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+                </div>
+                <div style="margin-bottom:28px;">
+                    <label style="display:block;font-size:0.7rem;font-weight:800;color:var(--text-dim);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em;">Contact Number</label>
+                    <input type="tel" id="demoContact" required style="width:100%;background:var(--ink);border:1px solid var(--border);border-radius:12px;padding:14px;color:var(--text-bright);font-family:'Inter',sans-serif;font-size:0.9rem;outline:none;transition:all 0.2s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+                </div>
+                <button type="submit" class="btn-fill" style="width:100%;padding:16px;font-size:0.95rem;display:flex;justify-content:center;align-items:center;gap:8px;" id="demoSubmitBtn">
+                    Submit Request <i data-lucide="arrow-right" style="width:18px;"></i>
+                </button>
+                <div id="demoMsg" style="display:none;margin-top:16px;font-size:0.85rem;text-align:center;font-weight:600;"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Reveal
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
+
+        // Pipeline animation
+        const nodes = ['pn0', 'pn1', 'pn2', 'pn3', 'pn4', 'pn5'];
+        let cur = 0;
+        function advancePipeline() {
+            nodes.forEach((id, i) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.classList.remove('active', 'done');
+                if (i < cur) el.classList.add('done');
+                else if (i === cur) el.classList.add('active');
+            });
+            cur++;
+            if (cur > nodes.length) {
+                cur = 0;
+                nodes.forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('active', 'done'); });
+                setTimeout(advancePipeline, 800);
+            } else {
+                setTimeout(advancePipeline, 1000);
+            }
+        }
+        advancePipeline();
+
+        // Counter
+        let pg = 0;
+        setInterval(() => {
+            pg = (pg + Math.floor(Math.random() * 20 + 5)) % 9999;
+            const el = document.getElementById('stat-pgs');
+            if (el) el.textContent = pg;
+            const badge = document.getElementById('badge-pages');
+            if (badge) badge.querySelector('span').textContent = pg;
+        }, 1800);
+
+        // Terminal
+        const termLogs = [
+            ['INFO ', 'Loading document.pdf (342 pages)', 't-info'],
+            ['OCR  ', 'Page 1 extracted · 247 characters', 't-ok'],
+            ['OCR  ', 'Page 2 extracted · 1,024 characters', 't-ok'],
+            ['INFO ', 'Worker threads: 4 active', 't-info'],
+            ['OCR  ', 'Pages 3-10 batch complete', 't-ok'],
+            ['INFO ', 'DPI: 200 · Language: eng+hin', 't-info'],
+            ['OCR  ', 'Hindi text detected on page 14', 't-warn'],
+            ['OCR  ', 'Pages 11-50 batch complete', 't-ok'],
+            ['INFO ', 'Progress: 50/342 pages · 14%', 't-info'],
+            ['OCR  ', 'Pages 51-100 complete · saving chunk 1', 't-ok'],
+            ['INFO ', 'Output: document_pages_1_100.txt written', 't-info'],
+            ['OCR  ', 'Pages 101-200 complete · saving chunk 2', 't-ok'],
+            ['OCR  ', 'Pages 201-300 complete · saving chunk 3', 't-ok'],
+            ['DONE ', '342 pages · 3 output files · metadata.json', 't-ok'],
+        ];
+        const term = document.getElementById('term');
+        let li = 0;
+        function addLog() {
+            if (!term) return;
+            const log = termLogs[li % termLogs.length];
+            const line = document.createElement('div');
+            line.className = 't-line';
+            const now = new Date();
+            const ts = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+            line.innerHTML = `<span class="t-ts">${ts}</span><span class="${log[2]}">[${log[0]}]</span><span style="color:var(--text-mid)">${log[1]}</span>`;
+            term.appendChild(line);
+            while (term.children.length > 10) term.removeChild(term.firstChild);
+            li++;
+            setTimeout(addLog, 1200 + Math.random() * 600);
+        }
+        addLog();
+
+        async function sharePlatform() {
+            const shareData = {
+                title: 'Aether AI Solutions',
+                text: 'Turn scanned PDFs into searchable text in minutes with Aether OCR Engine.',
+                url: window.location.href
+            };
+            try {
+                if (navigator.share) {
+                    await navigator.share(shareData);
+                } else {
+                    await navigator.clipboard.writeText(window.location.href);
+                    alert('Link copied to clipboard!');
+                }
+            } catch (err) {
+                console.error('Error sharing:', err);
+            }
+        }
+
+        // Demo Modal Logic
+        function openDemoModal(e) {
+            if(e) e.preventDefault();
+            document.getElementById('demoModal').style.display = 'grid';
+            setTimeout(() => document.getElementById('demoName').focus(), 100);
+        }
+
+        function closeDemoModal() {
+            document.getElementById('demoModal').style.display = 'none';
+            document.getElementById('demoForm').reset();
+            document.getElementById('demoMsg').style.display = 'none';
+        }
+
+        async function submitDemo(e) {
+            e.preventDefault();
+            const btn = document.getElementById('demoSubmitBtn');
+            const msg = document.getElementById('demoMsg');
+            const name = document.getElementById('demoName').value;
+            const email = document.getElementById('demoEmail').value;
+            const contact = document.getElementById('demoContact').value;
+            
+            btn.disabled = true;
+            btn.innerHTML = '<i data-lucide="loader" class="spin"></i> Submitting...';
+            lucide.createIcons();
+            
+            try {
+                const res = await fetch('/api/demo-request', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({name, email, contact})
+                });
+                const data = await res.json();
+                
+                msg.style.display = 'block';
+                if(data.success) {
+                    msg.style.color = '#34d399';
+                    msg.innerHTML = '<i data-lucide="check-circle" style="width:16px;vertical-align:middle;margin-right:6px;"></i>' + data.message;
+                    lucide.createIcons();
+                    setTimeout(closeDemoModal, 2500);
+                } else {
+                    msg.style.color = '#f87171';
+                    msg.textContent = data.message || 'Failed to send request.';
+                }
+            } catch (err) {
+                msg.style.display = 'block';
+                msg.style.color = '#f87171';
+                msg.textContent = 'An error occurred. Please try again.';
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = 'Submit Request <i data-lucide="arrow-right" style="width:18px;"></i>';
+                lucide.createIcons();
+            }
+        }
+    </script>
+</body>
+
+</html>

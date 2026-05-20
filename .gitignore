@@ -1,0 +1,49 @@
+# Aether — Solar-Pro Agentic Suite
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+venv/
+venv*/
+.venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# Uploads & Outputs (user data, don't commit)
+uploads/
+outputs/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Database (runtime, not committed)
+instance/*.db
+
+# Logs & runtime
+*.log
+out.log
+stdout.log
+stderr.log
+server.log
+
+# Test images/temp
+test_img.jpg
+scratch/test_page.jpg
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

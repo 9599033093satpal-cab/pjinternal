@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  ocr-agent:
+    build: .
+    container_name: enterprise-ocr-agent
+    volumes:
+      # Mount input/output directories
+      - ./input:/app/input
+      - ./output:/app/output
+      - ./ocr_agent.log:/app/ocr_agent.log
+    environment:
+      # OCR Configuration
+      - OCR_ENGINE=tesseract
+      - OCR_LANGUAGE=eng
+      - OCR_DPI=300
+      - OCR_WORKERS=4
+      - OCR_SPLIT_FILES=2
+    # Resource limits (adjust based on your needs)
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 8G
+        reservations:
+          cpus: '2'
+          memory: 4G
+    # Override command to process specific file
+    command: python ocr_agent.py /app/input/document.pdf --output /app/output/
+    
+  # Optional: GPU-enabled version
+  ocr-agent-gpu:
+    build:
+      context: .
+      dockerfile: Dockerfile.gpu
+    container_name: enterprise-ocr-agent-gpu
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - OCR_ENGINE=easyocr
+      - OCR_DPI=300
+    volumes:
+      - ./input:/app/input
+      - ./output:/app/output
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    profiles:
+      - gpu
+
+# Volume for persistent data (optional)
+volumes:
+  ocr_data:
+    driver: local

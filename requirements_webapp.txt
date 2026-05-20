@@ -1,0 +1,39 @@
+# Core OCR dependencies
+pytesseract==0.3.10
+pdf2image==1.16.3
+Pillow==10.2.0
+pypdf==4.0.1
+
+# OCR engines (optional but recommended)
+easyocr==1.7.1
+paddleocr==2.7.3
+paddlepaddle==2.6.0
+
+# Image processing
+numpy==1.26.3
+opencv-python==4.9.0.80
+
+# Progress tracking
+tqdm==4.66.1
+
+# Web Framework
+Flask==3.0.0
+Flask-CORS==4.0.0
+Werkzeug==3.0.1
+
+# System dependencies needed (install via apt/brew):
+# - poppler-utils (for pdf2image)
+# - tesseract-ocr (for pytesseract)
+# - tesseract-ocr-eng (English language data)
+# - tesseract-ocr-hin (Hindi language data, if needed)
+# 
+# Ubuntu/Debian:
+#   sudo apt-get update
+#   sudo apt-get install -y poppler-utils tesseract-ocr tesseract-ocr-eng tesseract-ocr-hin
+#
+# macOS:
+#   brew install poppler tesseract tesseract-lang
+#
+# For GPU acceleration (optional, significantly faster):
+#   torch>=2.0.0
+#   torchvision>=0.15.0
