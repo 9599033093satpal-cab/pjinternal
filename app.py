@@ -239,9 +239,6 @@ class DemoRequest(db.Model):
             'created_at': self.created_at
         }
 
-with app.app_context():
-    db.create_all()
-
 # Helper function to get job safely (since we use threading)
 def get_job_by_id(job_id):
     with app.app_context():
