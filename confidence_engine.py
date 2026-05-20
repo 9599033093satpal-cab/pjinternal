@@ -97,7 +97,8 @@ def compute_field_confidence(
         score = min(score + 0.10, 1.0)
 
     # Penalty: Empty or placeholder value
-    if not field_value or field_value.strip() in ["", "null", "N/A", "none", "unknown"]:
+    val_str = str(field_value).strip() if field_value is not None else ""
+    if not val_str or val_str.lower() in ["", "null", "n/a", "none", "unknown", "[]", "{}"]:
         score = 0.0
 
     score = round(score, 3)

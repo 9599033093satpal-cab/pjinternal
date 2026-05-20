@@ -133,50 +133,42 @@ class NeuralStructurer:
             YOUR RESPONSE (JSON object only, no markdown, no explanation):
             """
             
-        return f"""You are an enterprise legal and financial document intelligence AI system.
+        return f"""You are an enterprise document intelligence AI system.
 Analyze the following document bundle and perform document segmentation, classification, and entity/clause extraction.
 
 1. SEGMENTATION & CLASSIFICATION:
-   Identify all logical sub-documents in the text (e.g. Leave and License Agreements, Loan Agreements, Offer Letters, Insurance Policies, Schedules, Financial Clauses, and Court Orders).
+   Identify all logical sub-documents in the text (e.g. Leave and License Agreements, Loan Agreements, Offer Letters, Insurance Policies, Resumes/CVs, KYC documents, Schedules, Financial Clauses, and Court Orders).
    For each document, define its type and approximate page range or section within the text.
 
 2. ENTITY EXTRACTION:
-   Extract these entities for each identified document segment:
-   - licensor, licensee, borrower, co_borrower, loan_account_number, property_address, emi, interest_rate, loan_amount, policy_number, agreement_dates.
-   For each field, return its extracted value.
+   - For standard financial/legal agreements (Loan, Lease, Mortgage, Insurance, etc.), extract: licensor, licensee, borrower, co_borrower, loan_account_number, property_address, emi, interest_rate, loan_amount, policy_number, agreement_dates.
+   - For other document types (e.g. Resume, Offer Letter, KYC, Bank Statement, Court Order), dynamically extract the most relevant entities (e.g. candidate_name, skills, company_name, date of birth, case number, account holder, etc.).
 
 3. SEMANTIC CLAUSE GROUPING:
-   Group key clauses into:
-   - repayment_terms, loan_conditions, agreement_clauses, insurance_terms, legal_notices.
+   Group key clauses or sections (if applicable) into logical categories (e.g. repayment_terms, loan_conditions, agreement_clauses, insurance_terms, legal_notices, or work_experience, education for resumes).
 
 4. MASTER CASE CONSOLIDATION:
-   Consolidate all extracted values into a global 'master_case' object matching:
-   {{
-     "borrower": {{"name": "", "address": ""}},
-     "loan": {{"loan_account_number": "", "loan_amount": "", "interest_rate": "", "emi": ""}},
-     "property": {{"property_address": ""}},
-     "insurance": {{"policy_number": ""}},
-     "agreements": {{"agreement_dates": ""}}
-   }}
+   - For standard financial/legal agreements, consolidate into a global 'master_case' matching:
+     {{
+       "borrower": {{"name": "", "address": ""}},
+       "loan": {{"loan_account_number": "", "loan_amount": "", "interest_rate": "", "emi": ""}},
+       "property": {{"property_address": ""}},
+       "insurance": {{"policy_number": ""}},
+       "agreements": {{"agreement_dates": ""}}
+     }}
+   - For other document types (Resume, KYC, Offer Letter, etc.), dynamically construct the most logical structured JSON for the 'master_case' to represent the primary entities and metadata of the document.
 
 Return ONLY a valid JSON object matching the target enterprise schema:
 {{
   "documents": [
     {{
-      "document_type": "loan_agreement",
+      "document_type": "...",
       "page_range": [1, 5],
       "entities": {{
-        "borrower": "...",
-        "co_borrower": "...",
-        "loan_account_number": "...",
-        "loan_amount": "...",
-        "interest_rate": "...",
-        "emi": "...",
-        "agreement_dates": "..."
+        // Key-value pairs of extracted entities (either standard or dynamically determined)
       }},
       "clauses": {{
-        "repayment_terms": ["..."],
-        "loan_conditions": ["..."]
+        // Grouped clauses/sections
       }},
       "confidence": {{
         "ocr_confidence": 0.95,
@@ -186,11 +178,7 @@ Return ONLY a valid JSON object matching the target enterprise schema:
     }}
   ],
   "master_case": {{
-     "borrower": {{ "name": "...", "address": "..." }},
-     "loan": {{ "loan_account_number": "...", "loan_amount": "...", "interest_rate": "...", "emi": "..." }},
-     "property": {{ "property_address": "..." }},
-     "insurance": {{ "policy_number": "..." }},
-     "agreements": {{ "agreement_dates": "..." }}
+     // The consolidated master case (either standard or dynamically structured for resumes/other types)
   }}
 }}
 

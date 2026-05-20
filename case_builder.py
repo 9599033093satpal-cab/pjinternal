@@ -157,58 +157,39 @@ class MasterCaseBuilder:
                 "semantic_confidence": 0.5
             }
             
-        prompt = f"""You are an enterprise legal and financial document intelligence AI system.
+        from document_classifier import TYPE_FIELD_MAP
+        fields = TYPE_FIELD_MAP.get(doc_type, [])
+        if not fields:
+            fields = ["content_summary"]
+            
+        fields_str = "\n".join(f"   - {f}: Value or description of {f}" for f in fields)
+        json_entities_format = ",\n".join(f'    "{f}": {{"value": "", "source_section": ""}}' for f in fields)
+
+        prompt = f"""You are an enterprise document intelligence AI system.
 Analyze the following document of type '{doc_type}' (covering pages {page_range[0]} to {page_range[1]}).
 
 Extract the following information. If a field is not present or mentioned, leave it empty/null or empty array. Do not hallucinate or guess.
 
 1. ENTITIES TO EXTRACT:
-   - licensor: Name of licensor (for rental/lease agreements)
-   - licensee: Name of licensee (for rental/lease agreements)
-   - borrower: Name of primary borrower (for loan agreements/demands)
-   - co_borrower: Name of co-borrower
-   - loan_account_number: Loan account number
-   - property_address: Address of property under agreement / collateral
-   - emi: Equated Monthly Installment amount (financial amount)
-   - interest_rate: Annual interest rate percentage
-   - loan_amount: Total loan principal amount
-   - policy_number: Insurance policy number
-   - agreement_dates: Key agreement date(s) (e.g. execution date)
+{fields_str}
 
-2. CLAUSES TO EXTRACT (Extract the full text or summary of relevant clauses under these exact semantic categories):
-   - repayment_terms: Clauses relating to repayment schedule, EMIs, tenure, or payment modes.
-   - loan_conditions: Conditions precedent, collateral, default, rate of interest reviews, or borrower obligations.
-   - agreement_clauses: Governing clauses of the contract, dispute resolution, terminations, or tenant/landlord covenants.
-   - insurance_terms: Policy terms, premium payments, sum assured, coverage conditions, or nominee clauses.
-   - legal_notices: Demands, non-compliance notices, SARFAESI section 13(2)/13(4) terms, or legal actions.
+2. CLAUSES OR SECTIONS TO EXTRACT:
+   - For standard agreements, extract clauses under: repayment_terms, loan_conditions, agreement_clauses, insurance_terms, legal_notices.
+   - For non-agreement documents (like Resumes, KYC, bank statements, etc.), extract the relevant key sections (e.g. work_experience, education details, etc.) under appropriate semantic category names.
 
 CRITICAL INSTRUCTIONS:
 - You must return ONLY a valid JSON object. No markdown, no triple backticks, no explanatory text.
 - Clean up any raw OCR noise (like extra spaces, strange symbols, or stamp marks) from the extracted values.
 - For each extracted field in entities, return a dictionary with two keys: "value" (the extracted string) and "source_section" (the section header/context where it was found in the text).
-- For clauses, return a dictionary where the keys are the categories above and values are arrays of strings (each representing a specific clause block/paragraph found).
+- For clauses/sections, return a dictionary where the keys are the semantic categories and values are arrays of strings (each representing a specific block/paragraph found).
 
 Required JSON format:
 {{
   "entities": {{
-    "licensor": {{"value": "", "source_section": ""}},
-    "licensee": {{"value": "", "source_section": ""}},
-    "borrower": {{"value": "", "source_section": ""}},
-    "co_borrower": {{"value": "", "source_section": ""}},
-    "loan_account_number": {{"value": "", "source_section": ""}},
-    "property_address": {{"value": "", "source_section": ""}},
-    "emi": {{"value": "", "source_section": ""}},
-    "interest_rate": {{"value": "", "source_section": ""}},
-    "loan_amount": {{"value": "", "source_section": ""}},
-    "policy_number": {{"value": "", "source_section": ""}},
-    "agreement_dates": {{"value": "", "source_section": ""}}
+{json_entities_format}
   }},
   "clauses": {{
-    "repayment_terms": [],
-    "loan_conditions": [],
-    "agreement_clauses": [],
-    "insurance_terms": [],
-    "legal_notices": []
+    // Grouped clauses/sections
   }},
   "semantic_confidence": 0.0
 }}
@@ -223,7 +204,7 @@ JSON RESPONSE:"""
                 resp = self.client.chat.completions.create(
                     model=self.model,
                     messages=[
-                        {"role": "system", "content": "You are a precise enterprise legal document intelligence engine. Output only valid JSON. Never hallucinate values."},
+                        {"role": "system", "content": "You are a precise enterprise document intelligence engine. Output only valid JSON. Never hallucinate values."},
                         {"role": "user", "content": prompt},
                     ],
                     temperature=0.0,
@@ -266,6 +247,54 @@ JSON RESPONSE:"""
         if pattern:
             return bool(re.search(pattern, value))
         return len(value) > 2  # Any non-trivial value is a weak pass
+
+    def _consolidate_dynamic_master_case(self, processed_docs: list, primary_type: str) -> dict:
+        """
+        Consolidates dynamic entities from processed documents into a clean master_case structure.
+        """
+        # Collect all non-empty fields
+        merged_entities = {}
+        for doc in processed_docs:
+            for k, v in doc["entities"].items():
+                if v and str(v).strip() not in ["", "null", "N/A"]:
+                    # Keep the first non-empty value or list them if different
+                    if k not in merged_entities:
+                        merged_entities[k] = v
+                        
+        if not merged_entities:
+            return {}
+            
+        if not self.client:
+            return merged_entities
+            
+        # Ask LLM to consolidate and clean the structure
+        prompt = f"""You are an enterprise document intelligence consolidator.
+We have extracted fields from a document bundle classified as '{primary_type}'.
+Consolidate these fields into a clean, well-organized JSON object representing the 'master_case' for this document.
+
+Raw Extracted Fields:
+{json.dumps(merged_entities, indent=2)}
+
+Rules:
+- Organize related fields into logical sub-objects (e.g. for Resume: personal_details, education, experience, skills; for Offer Letter: candidate, compensation, job_details).
+- Ensure key names are clean, lowercase, and descriptive.
+- Return ONLY valid JSON, with no markdown, no triple backticks, and no explanations.
+"""
+        try:
+            resp = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": "You are a precise document intelligence consolidator. Output only valid JSON."},
+                    {"role": "user", "content": prompt},
+                ],
+                temperature=0.0,
+                max_tokens=1500,
+            )
+            content = re.sub(r"```json|```", "", resp.choices[0].message.content).strip()
+            return json.loads(content)
+        except Exception as e:
+            logger.error(f"Error consolidating dynamic master case: {e}")
+            return merged_entities
 
     def build(self, job_id: str, filename: str, pages: list, output_dir: str) -> dict:
         """
@@ -357,41 +386,62 @@ JSON RESPONSE:"""
             extracted_entities_by_type[doc_type].append(entities_simple)
             
         # 2. Build master_case fields by merging segment extractions
-        def get_global_entity(keys):
-            for doc in processed_docs:
-                for k in keys:
-                    val = doc["entities"].get(k)
-                    if val and str(val).strip() not in ["", "null", "N/A"]:
-                        return str(val).strip()
-            return ""
-            
-        master_case_obj = {
-            "borrower": {
-                "name": get_global_entity(["borrower", "licensor", "licensee"]),
-                "address": get_global_entity(["property_address"])
-            },
-            "loan": {
-                "loan_account_number": get_global_entity(["loan_account_number"]),
-                "loan_amount": get_global_entity(["loan_amount"]),
-                "interest_rate": get_global_entity(["interest_rate"]),
-                "emi": get_global_entity(["emi"])
-            },
-            "property": {
-                "property_address": get_global_entity(["property_address"])
-            },
-            "insurance": {
-                "policy_number": get_global_entity(["policy_number"])
-            },
-            "agreements": {
-                "agreement_dates": get_global_entity(["agreement_dates"])
+        type_dist = {}
+        for doc in processed_docs:
+            t = doc["document_type"]
+            if t != "blank_page":
+                type_dist[t] = type_dist.get(t, 0) + 1
+        primary_type = max(type_dist, key=type_dist.get) if type_dist else "other"
+
+        is_standard_agreement = primary_type in [
+            "loan_agreement", 
+            "leave_license_agreement", 
+            "sarfaesi_notice", 
+            "insurance_policy", 
+            "mortgage_deed", 
+            "sale_deed",
+            "property_deed"
+        ]
+
+        if is_standard_agreement:
+            def get_global_entity(keys):
+                for doc in processed_docs:
+                    for k in keys:
+                        val = doc["entities"].get(k)
+                        if val and str(val).strip() not in ["", "null", "N/A"]:
+                            return str(val).strip()
+                return ""
+                
+            master_case_obj = {
+                "borrower": {
+                    "name": get_global_entity(["borrower", "licensor", "licensee"]),
+                    "address": get_global_entity(["property_address"])
+                },
+                "loan": {
+                    "loan_account_number": get_global_entity(["loan_account_number"]),
+                    "loan_amount": get_global_entity(["loan_amount"]),
+                    "interest_rate": get_global_entity(["interest_rate"]),
+                    "emi": get_global_entity(["emi"])
+                },
+                "property": {
+                    "property_address": get_global_entity(["property_address"])
+                },
+                "insurance": {
+                    "policy_number": get_global_entity(["policy_number"])
+                },
+                "agreements": {
+                    "agreement_dates": get_global_entity(["agreement_dates"])
+                }
             }
-        }
+        else:
+            master_case_obj = self._consolidate_dynamic_master_case(processed_docs, primary_type)
         
         # 3. Detect contradictions
         anomalies = self._detect_contradictions(processed_docs)
         
         # Check for missing expected fields
         missing_fields = []
+        from document_classifier import TYPE_FIELD_MAP
         for doc in processed_docs:
             doc_type = doc["document_type"]
             expected = TYPE_FIELD_MAP.get(doc_type, [])
@@ -442,20 +492,19 @@ JSON RESPONSE:"""
             }
             pages_compat.append(page_entry)
             
-        type_dist = {}
-        for p in pages_compat:
-            t = p["doc_type"]
-            if t != "blank_page":
-                type_dist[t] = type_dist.get(t, 0) + 1
-        primary_type = max(type_dist, key=type_dist.get) if type_dist else "other"
-        
         # Build confidence map
         confidence_map = {}
-        for sec, fields in master_case_obj.items():
-            for f, val in fields.items():
-                confidence_map[f"{sec}.{f}"] = compute_field_confidence(
-                    val, f, 0.85
-                )
+        if isinstance(master_case_obj, dict):
+            for sec, val_obj in master_case_obj.items():
+                if isinstance(val_obj, dict):
+                    for f, val in val_obj.items():
+                        confidence_map[f"{sec}.{f}"] = compute_field_confidence(
+                            val, f, 0.85
+                        )
+                else:
+                    confidence_map[sec] = compute_field_confidence(
+                        val_obj, sec, 0.85
+                    )
                 
         overall_conf = round(sum(d["confidence"]["semantic_confidence"] for d in processed_docs) / len(processed_docs), 3) if processed_docs else 0.85
         

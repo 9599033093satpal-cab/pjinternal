@@ -36,6 +36,7 @@ DOCUMENT_TYPES = [
     "mortgage_deed",
     "sale_deed",
     "power_of_attorney",
+    "resume",
     "blank_page",
     "other",
 ]
@@ -57,6 +58,7 @@ TYPE_FIELD_MAP = {
     "possession_notice":["borrower_name", "property_address", "possession_date", "authorized_officer"],
     "auction_notice":  ["property_description", "reserve_price", "auction_date", "contact_officer"],
     "mortgage_deed":   ["mortgagor", "mortgagee", "property", "loan_amount", "date"],
+    "resume":          ["full_name", "email", "phone", "skills", "education", "experience", "current_location"],
     "other":           ["content_summary"],
 }
 
@@ -173,6 +175,9 @@ JSON:"""
             ("possession", "possession_notice"),
             ("court", "court_order"),
             ("survey", "property_deed"),
+            ("resume", "resume"),
+            ("curriculum vitae", "resume"),
+            ("education", "resume"),
         ]
         for keyword, doc_type in rules:
             if keyword in text_lower:
