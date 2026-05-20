@@ -1,64 +1,63 @@
-# Aether OCR Platform — GCP Cloud Run Dockerfile
-# Optimized for production deployment
+# Enterprise OCR Agent - Dockerfile
+# Multi-stage build for optimized image size
 
-FROM python:3.11-slim
+FROM python:3.11-slim as builder
 
-# Install system dependencies for OCR and PDF processing
+# Install build dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     g++ \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create virtual environment
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Final stage
+FROM python:3.11-slim
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    # PDF and OCR tools
     poppler-utils \
     tesseract-ocr \
     tesseract-ocr-eng \
+    tesseract-ocr-hin \
+    tesseract-ocr-fra \
+    tesseract-ocr-deu \
+    tesseract-ocr-spa \
+    # Image processing libraries
     libglib2.0-0 \
     libsm6 \
     libxext6 \
     libxrender-dev \
     libgomp1 \
-    curl \
+    # Cleanup
     && rm -rf /var/lib/apt/lists/*
 
-# Set working directory
+# Copy virtual environment from builder
+COPY --from=builder /opt/venv /opt/venv
+
+# Set environment variables
+ENV PATH="/opt/venv/bin:$PATH" \
+    PYTHONUNBUFFERED=1 \
+    TESSDATA_PREFIX=/usr/share/tesseract-ocr/5/tessdata
+
+# Create working directory
 WORKDIR /app
 
-# Copy requirements first (layer caching)
-COPY requirements.txt .
-
-# Install Python dependencies
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
-
-# Copy all application files
-COPY app.py .
-COPY tasks.py .
+# Copy application files
 COPY ocr_agent.py .
-COPY ocr_router.py .
-COPY ocr_engine.py .
-COPY neural_structurer.py .
-COPY document_classifier.py .
-COPY case_builder.py .
-COPY confidence_engine.py .
-COPY blank_page_detector.py .
-COPY form_mapper.py .
-COPY draft_generator.py .
-COPY excel_exporter.py .
-COPY migrate_db.py .
+COPY examples.py .
+COPY README.md .
 
-# Copy web assets
-COPY templates/ templates/
-COPY static/ static/
+# Create directories for input/output
+RUN mkdir -p /app/input /app/output
 
-# Create required runtime directories
-RUN mkdir -p /app/uploads /app/outputs /app/instance
-
-# Environment variables
-ENV PYTHONUNBUFFERED=1 \
-    TESSDATA_PREFIX=/usr/share/tesseract-ocr/5/tessdata \
-    FLASK_ENV=production
-
-# GCP Cloud Run: PORT is injected automatically (default 8080)
-# app.py reads PORT env var via os.environ.get('PORT', 5000)
-EXPOSE 8080
-
-# Initialize DB and start the Flask server
-CMD ["sh", "-c", "python -c 'from app import app, db; app.app_context().__enter__(); db.create_all()' && python app.py"]
+# Default command
+CMD ["python", "ocr_agent.py", "--help"]
