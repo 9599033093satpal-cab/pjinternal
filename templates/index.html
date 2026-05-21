@@ -369,6 +369,7 @@
                                 <span id="accuracy-badge" style="display:none;padding:4px 10px;border-radius:100px;font-size:0.68rem;font-weight:900;background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.25);"></span>
                                 
                                 <button id="download-raw-btn" class="btn-solar" style="padding:6px 16px;font-size:0.75rem;background:rgba(232,160,32,0.12);color:var(--gold);border:1px solid rgba(232,160,32,0.3);" onclick="window.open('/api/download_raw/'+valCurrentJobId)">⬇ RAW File</button>
+                                <button id="download-excel-btn" class="btn-solar" style="padding:6px 16px;font-size:0.75rem;background:rgba(16,185,129,0.12);color:#10b981;border:1px solid rgba(16,185,129,0.3);" onclick="window.open('/api/download_excel/'+valCurrentJobId)">⬇ Excel</button>
                                 <button id="download-semantic-btn" class="btn-solar" style="padding:6px 16px;font-size:0.75rem;background:rgba(59,130,246,0.12);color:#60a5fa;border:1px solid rgba(59,130,246,0.3);" onclick="window.open('/api/download_semantic/'+valCurrentJobId)">⬇ JSON</button>
 
                                 <button id="audit-btn" class="btn-solar" style="display:none;padding:6px 16px;font-size:0.75rem;background:rgba(168,85,247,0.1);color:#a855f7;border:1px solid rgba(168,85,247,0.25);" onclick="showAuditForJob(valCurrentJobId)">Audit</button>
@@ -659,13 +660,15 @@ function onJobComplete(job) {
         sessionPages += job.total_pages;
         document.getElementById('stat-pages').textContent = sessionPages.toLocaleString();
 
-        // Show download buttons for TXT, Raw JSON, and Semantic JSON
+        // Show download buttons for TXT, Excel, Raw JSON, and Semantic JSON
         const files = document.getElementById('prog-files');
-        files.innerHTML = job.output_files.filter(f => f.endsWith('.txt') || f.endsWith('.json') && !f.includes('metadata')).map(f => {
+        files.innerHTML = job.output_files.filter(f => (f.endsWith('.txt') || f.endsWith('.json') || f.endsWith('.xlsx')) && !f.includes('metadata')).map(f => {
             let label = f;
             let style = "background:var(--ink);color:var(--text-bright);";
             if (f.endsWith('_semantic.json')) { label = 'Neural Insight JSON'; style = "background:var(--grad-gold);color:var(--ink);font-weight:900;"; }
             else if (f.endsWith('_combined.json')) { label = 'Raw JSON'; style = "background:var(--ink-soft);color:var(--text-mid);"; }
+            else if (f.endsWith('.txt')) { label = 'TXT File'; }
+            else if (f.endsWith('.xlsx')) { label = 'Excel'; style = "background:rgba(16,185,129,0.15);color:#10b981;font-weight:900;border:1px solid rgba(16,185,129,0.3);"; }
             return `<a href="/api/download/${job.job_id}/${f}" class="btn-solar" style="padding:10px 20px;font-size:0.78rem;${style}">${label}</a>`;
         }).join('');
 
@@ -705,9 +708,9 @@ async function loadJobs() {
             </div>
             <div style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
                 <span style="padding:4px 12px;border-radius:100px;font-size:0.68rem;font-weight:900;background:${job.status==='completed'?'rgba(52,211,153,0.1)':job.status==='processing'?'var(--gold-pale)':'rgba(248,113,113,0.1)'};color:${job.status==='completed'?'#34d399':job.status==='processing'?'var(--gold)':'#f87171'};">${job.status.toUpperCase()}</span>
-                ${job.status==='completed' ? job.output_files.filter(f=>f.endsWith('.txt') || f.endsWith('.json') && !f.includes('metadata')).map(f=> {
-                    let label = f.endsWith('_semantic.json') ? 'INSIGHT' : f.endsWith('_combined.json') ? 'JSON' : f;
-                    let style = f.endsWith('_semantic.json') ? "background:var(--gold);color:var(--ink);" : "background:var(--ink);color:var(--text-bright);";
+                ${job.status==='completed' ? job.output_files.filter(f=> (f.endsWith('.txt') || f.endsWith('.json') || f.endsWith('.xlsx')) && !f.includes('metadata')).map(f=> {
+                    let label = f.endsWith('_semantic.json') ? 'INSIGHT' : f.endsWith('_combined.json') ? 'JSON' : f.endsWith('.txt') ? 'TXT' : f.endsWith('.xlsx') ? 'EXCEL' : f;
+                    let style = f.endsWith('_semantic.json') ? "background:var(--gold);color:var(--ink);" : f.endsWith('.xlsx') ? "background:rgba(16,185,129,0.15);color:#10b981;border:1px solid rgba(16,185,129,0.3);" : "background:var(--ink);color:var(--text-bright);";
                     return `<a href="/api/download/${job.job_id}/${f}" class="btn-solar" style="padding:8px 16px;font-size:0.72rem;${style}">⬇ ${label}</a>`;
                 }).join('') : ''}
                 <button onclick="deleteJob('${job.job_id}')" style="background:none;border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text-dim);cursor:pointer;font-size:0.72rem;transition:all 0.2s;" onmouseover="this.style.borderColor='#f87171';this.style.color='#f87171'" onmouseout="this.style.borderColor='';this.style.color='';">✕</button>
@@ -929,6 +932,9 @@ async function loadValidationJobs() {
             if (rawJsonFile) {
                 actionsHtml += `<a href="/api/download/${job.job_id}/${rawJsonFile}" target="_blank" style="padding:4px 10px;font-size:0.75rem;background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;cursor:pointer;font-weight:700;text-decoration:none;">Raw JSON</a>`;
             }
+
+            // Excel button
+            actionsHtml += `<a href="/api/download_excel/${job.job_id}" target="_blank" style="padding:4px 10px;font-size:0.75rem;background:rgba(16,185,129,0.15);color:#10b981;border:1px solid rgba(16,185,129,0.3);border-radius:6px;cursor:pointer;font-weight:700;text-decoration:none;">Excel</a>`;
 
             // Audited / Verified JSON and Audit buttons
             if (job.audit_summary && job.audit_summary.edit_count > 0) {

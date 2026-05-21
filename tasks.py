@@ -204,6 +204,19 @@ def run_ocr_celery(self, job_id: str, pdf_path: str, output_dir: str,
                 if (Path(output_dir) / fname).exists():
                     output_files.append(fname)
 
+            # Add Excel file automatically
+            try:
+                master_case_path = Path(output_dir) / "master_case.json"
+                if master_case_path.exists():
+                    with open(master_case_path, "r", encoding="utf-8") as mc_f:
+                        master_case = json.load(mc_f)
+                    from excel_exporter import export_to_excel
+                    xlsx_path = export_to_excel(master_case, output_dir)
+                    if xlsx_path:
+                        output_files.append(Path(xlsx_path).name)
+            except Exception as ex_err:
+                logger.error(f"Auto Excel export failed in run_ocr_celery: {ex_err}")
+
             job.output_files = output_files
             job.status = "completed"
             job.progress = 100

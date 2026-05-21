@@ -57,6 +57,10 @@ def export_to_excel(master_case: dict, output_dir: str) -> str:
     ws4 = wb.create_sheet("Audit Trail")
     _write_audit_sheet(ws4, master_case)
 
+    # ── Sheet 5: Raw OCR Text ──
+    ws5 = wb.create_sheet("Raw OCR Text")
+    _write_raw_text_sheet(ws5, master_case)
+
     # Save
     case_id = master_case.get("case_id", "case")[:8]
     filename = f"aether_export_{case_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
@@ -253,3 +257,18 @@ def _get_nested_value(obj, path):
         else:
             return ""
     return obj
+
+
+def _write_raw_text_sheet(ws, case: dict):
+    """Sheet 5: Raw OCR text page-by-page."""
+    _set_header_row(ws, ["Page", "Raw OCR Text"], row=1)
+    
+    wrap_alignment = Alignment(horizontal="left", vertical="top", wrap_text=True)
+    
+    for i, page in enumerate(case.get("pages", []), start=2):
+        ws.cell(row=i, column=1, value=f"Page {page.get('page_num', '')}")
+        cell_text = ws.cell(row=i, column=2, value=page.get("text", ""))
+        cell_text.alignment = wrap_alignment
+        
+    ws.column_dimensions['A'].width = 12
+    ws.column_dimensions['B'].width = 100

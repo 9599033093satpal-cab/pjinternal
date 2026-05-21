@@ -349,6 +349,19 @@ def run_ocr_job(job_id: str, pdf_path: str, output_dir: str, language: str, dpi:
                     f.write(f"\nPAGE {p['page_num']}\n{p.get('text', '')}\n")
             output_files.append(f"{pdf_stem}.txt")
 
+            # Add Excel file automatically
+            try:
+                master_path = os.path.join(output_dir, 'master_case.json')
+                if os.path.exists(master_path):
+                    with open(master_path, 'r', encoding='utf-8') as mc_f:
+                        master_case = json.load(mc_f)
+                    from excel_exporter import export_to_excel
+                    xlsx_path = export_to_excel(master_case, output_dir)
+                    if xlsx_path:
+                        output_files.append(Path(xlsx_path).name)
+            except Exception as ex_err:
+                logger.error(f"Auto Excel export failed in run_ocr_job: {ex_err}")
+
             job.output_files = output_files
             job.status = 'completed'
             job.completed_at = datetime.utcnow()
@@ -794,6 +807,45 @@ def download_semantic(job_id):
         return jsonify({'error': 'Semantic JSON not found'}), 404
         
     return send_file(semantic_path, as_attachment=True, download_name=f"{pdf_name}_semantic.json")
+
+@app.route('/api/download_excel/<job_id>')
+def download_excel(job_id):
+    job = Job.query.get(job_id)
+    if not job:
+        return jsonify({'error': 'Job not found'}), 404
+        
+    output_dir = os.path.join(app.config['OUTPUT_FOLDER'], job_id)
+    
+    # Find any .xlsx file in the output directory
+    xlsx_files = glob.glob(os.path.join(output_dir, "*.xlsx"))
+    if xlsx_files:
+        # Sort by modification time to get the latest one
+        xlsx_files.sort(key=os.path.getmtime, reverse=True)
+        return send_file(xlsx_files[0], as_attachment=True, download_name=os.path.basename(xlsx_files[0]))
+        
+    # Generate on the fly if not exists
+    master_path = os.path.join(output_dir, "master_case.json")
+    if not os.path.exists(master_path):
+        return jsonify({'error': 'Master case JSON not found'}), 404
+        
+    try:
+        with open(master_path, 'r', encoding='utf-8') as f:
+            master_case = json.load(f)
+        from excel_exporter import export_to_excel
+        xlsx_path = export_to_excel(master_case, output_dir)
+        if xlsx_path and os.path.exists(xlsx_path):
+            xlsx_name = Path(xlsx_path).name
+            files = job.output_files or []
+            if xlsx_name not in files:
+                files.append(xlsx_name)
+            job.output_files = files
+            db.session.commit()
+            return send_file(xlsx_path, as_attachment=True, download_name=xlsx_name)
+    except Exception as e:
+        logger.error(f"Failed to generate Excel on the fly for job {job_id}: {e}")
+        return jsonify({'error': f'Failed to generate Excel: {str(e)}'}), 500
+        
+    return jsonify({'error': 'Excel file not found'}), 404
 
 @app.route('/api/raw_text/<job_id>')
 def get_raw_text(job_id):
