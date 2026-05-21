@@ -244,7 +244,7 @@ def _get_nested_value(obj, path):
 
 
 def _write_raw_text_sheet(ws, case: dict):
-    """Sheet 1: Raw OCR text distributed across cells."""
+    """Sheet 1: Raw OCR text line by line."""
     current_row = 1
     
     for page in case.get("pages", []):
@@ -257,9 +257,8 @@ def _write_raw_text_sheet(ws, case: dict):
                 line = line.strip()
                 if not line:
                     continue
-                words = line.split()
-                for col_idx, word in enumerate(words, start=1):
-                    ws.cell(row=current_row, column=col_idx, value=word)
+                # Put each line into its own cell in Column A
+                ws.cell(row=current_row, column=1, value=line)
                 current_row += 1
         
         current_row += 1
