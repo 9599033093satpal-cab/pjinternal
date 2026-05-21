@@ -40,26 +40,10 @@ def export_to_excel(master_case: dict, output_dir: str) -> str:
 
     wb = openpyxl.Workbook()
 
-    # ── Sheet 1: Case Summary ──
-    ws1 = wb.active
-    ws1.title = "Case Summary"
-    _write_summary_sheet(ws1, master_case)
-
-    # ── Sheet 2: Page Results ──
-    ws2 = wb.create_sheet("Page Results")
-    _write_page_sheet(ws2, master_case)
-
-    # ── Sheet 3: Extracted Fields ──
-    ws3 = wb.create_sheet("Extracted Fields")
-    _write_fields_sheet(ws3, master_case)
-
-    # ── Sheet 4: Audit Trail ──
-    ws4 = wb.create_sheet("Audit Trail")
-    _write_audit_sheet(ws4, master_case)
-
-    # ── Sheet 5: Raw OCR Text ──
-    ws5 = wb.create_sheet("Raw OCR Text")
-    _write_raw_text_sheet(ws5, master_case)
+    # ── Single Sheet: OCR Text ──
+    ws = wb.active
+    ws.title = "OCR Text"
+    _write_raw_text_sheet(ws, master_case)
 
     # Save
     case_id = master_case.get("case_id", "case")[:8]
