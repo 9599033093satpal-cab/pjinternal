@@ -244,15 +244,22 @@ def _get_nested_value(obj, path):
 
 
 def _write_raw_text_sheet(ws, case: dict):
-    """Sheet 5: Raw OCR text page-by-page."""
-    _set_header_row(ws, ["Page", "Raw OCR Text"], row=1)
+    """Sheet 1: Raw OCR text distributed across cells."""
+    current_row = 1
     
-    wrap_alignment = Alignment(horizontal="left", vertical="top", wrap_text=True)
-    
-    for i, page in enumerate(case.get("pages", []), start=2):
-        ws.cell(row=i, column=1, value=f"Page {page.get('page_num', '')}")
-        cell_text = ws.cell(row=i, column=2, value=page.get("text", ""))
-        cell_text.alignment = wrap_alignment
+    for page in case.get("pages", []):
+        ws.cell(row=current_row, column=1, value=f"PAGE {page.get('page_num', '')}")
+        current_row += 1
         
-    ws.column_dimensions['A'].width = 12
-    ws.column_dimensions['B'].width = 100
+        text = page.get("text", "")
+        if text:
+            for line in text.split("\n"):
+                line = line.strip()
+                if not line:
+                    continue
+                words = line.split()
+                for col_idx, word in enumerate(words, start=1):
+                    ws.cell(row=current_row, column=col_idx, value=word)
+                current_row += 1
+        
+        current_row += 1
