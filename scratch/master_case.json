@@ -1,0 +1,2526 @@
+{
+  "case_id": "test_job_123",
+  "documents": [
+    {
+      "document_type": "leave_license_agreement",
+      "page_range": [
+        1,
+        6
+      ],
+      "entities": {
+        "licensor": "MRS. BHAVIKA B. KUDU",
+        "licensee": "MR. PREMNATH AAHUJA",
+        "borrower": "",
+        "co_borrower": "",
+        "loan_account_number": "",
+        "property_address": "Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+        "emi": "",
+        "interest_rate": "",
+        "loan_amount": "",
+        "policy_number": "",
+        "agreement_dates": "01/05/2008 to 31/03/2009"
+      },
+      "clauses": {
+        "repayment_terms": [],
+        "loan_conditions": [],
+        "agreement_clauses": [
+          "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+          "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+          "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+          "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+          "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+          "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+          "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+          "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+          "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+          "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+        ],
+        "insurance_terms": [],
+        "legal_notices": []
+      },
+      "confidence": {
+        "ocr_confidence": 0.666,
+        "semantic_confidence": 0.95,
+        "validation_confidence": 1.0
+      },
+      "source_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "source_pages_map": {
+        "licensor": {
+          "source_page": 1,
+          "source_section": "ARTICLES OF AGREEMENT made at Boisar on this 28th July 2008 between MRS. BHAVIKA B. KUDU"
+        },
+        "licensee": {
+          "source_page": 1,
+          "source_section": "AND MR. PREMNATH AAHUJA Working in M/s. Sapaikar MIDC, Indl. Area Boisar"
+        },
+        "borrower": {
+          "source_page": 1,
+          "source_section": ""
+        },
+        "co_borrower": {
+          "source_page": 1,
+          "source_section": ""
+        },
+        "loan_account_number": {
+          "source_page": 1,
+          "source_section": ""
+        },
+        "property_address": {
+          "source_page": 1,
+          "source_section": "WHEREAS the Licensor is the Owner of the premises of the At. Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane."
+        },
+        "emi": {
+          "source_page": 1,
+          "source_section": ""
+        },
+        "interest_rate": {
+          "source_page": 1,
+          "source_section": ""
+        },
+        "loan_amount": {
+          "source_page": 1,
+          "source_section": ""
+        },
+        "policy_number": {
+          "source_page": 1,
+          "source_section": ""
+        },
+        "agreement_dates": {
+          "source_page": 3,
+          "source_section": "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009."
+        }
+      }
+    },
+    {
+      "document_type": "leave_license_agreement",
+      "page_range": [
+        7,
+        12
+      ],
+      "entities": {
+        "licensor": "MRS. BHAVIKA B. KUDU",
+        "licensee": "MR. DHANASING AAHUJA",
+        "borrower": "",
+        "co_borrower": "",
+        "loan_account_number": "",
+        "property_address": "Room No. 3, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+        "emi": "",
+        "interest_rate": "",
+        "loan_amount": "",
+        "policy_number": "",
+        "agreement_dates": "01/05/2008 to 31/03/2009"
+      },
+      "clauses": {
+        "repayment_terms": [],
+        "loan_conditions": [],
+        "agreement_clauses": [
+          "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 3, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+          "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+          "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+          "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs.",
+          "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+          "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side."
+        ],
+        "insurance_terms": [],
+        "legal_notices": []
+      },
+      "confidence": {
+        "ocr_confidence": 0.666,
+        "semantic_confidence": 0.95,
+        "validation_confidence": 1.0
+      },
+      "source_pages": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "source_pages_map": {
+        "licensor": {
+          "source_page": 7,
+          "source_section": "ARTICLES OF AGREEMENT made at Boisar on this 28th July 2008 between MRS. BHAVIKA B. KUDU"
+        },
+        "licensee": {
+          "source_page": 7,
+          "source_section": "AND MR. DHANASING AAHUJA Working in M/s. Pantalool MIDC, Indl. Area Boisar"
+        },
+        "borrower": {
+          "source_page": 7,
+          "source_section": ""
+        },
+        "co_borrower": {
+          "source_page": 7,
+          "source_section": ""
+        },
+        "loan_account_number": {
+          "source_page": 7,
+          "source_section": ""
+        },
+        "property_address": {
+          "source_page": 7,
+          "source_section": "WHEREAS the Licensor is the Owner of the premises of the At. Room No. 3, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane."
+        },
+        "emi": {
+          "source_page": 7,
+          "source_section": ""
+        },
+        "interest_rate": {
+          "source_page": 7,
+          "source_section": ""
+        },
+        "loan_amount": {
+          "source_page": 7,
+          "source_section": ""
+        },
+        "policy_number": {
+          "source_page": 7,
+          "source_section": ""
+        },
+        "agreement_dates": {
+          "source_page": 9,
+          "source_section": "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 3, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009."
+        }
+      }
+    },
+    {
+      "document_type": "leave_license_agreement",
+      "page_range": [
+        13,
+        15
+      ],
+      "entities": {
+        "licensor": "MRS. BHAVIKA B. KUDU",
+        "licensee": "MRS. SUDHAKAR LALMANI SHARMA",
+        "borrower": "",
+        "co_borrower": "",
+        "loan_account_number": "",
+        "property_address": "Room No. 2, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+        "emi": "",
+        "interest_rate": "",
+        "loan_amount": "",
+        "policy_number": "",
+        "agreement_dates": "01/05/2008 to 31/03/2009"
+      },
+      "clauses": {
+        "repayment_terms": [],
+        "loan_conditions": [],
+        "agreement_clauses": [
+          "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 2, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+          "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+          "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+          "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+          "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+          "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+          "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+          "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+          "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+          "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+          "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+        ],
+        "insurance_terms": [],
+        "legal_notices": []
+      },
+      "confidence": {
+        "ocr_confidence": 0.766,
+        "semantic_confidence": 0.95,
+        "validation_confidence": 1.0
+      },
+      "source_pages": [
+        13,
+        14,
+        15
+      ],
+      "source_pages_map": {
+        "licensor": {
+          "source_page": 13,
+          "source_section": "ARTICLES OF AGREEMENT made at Boisar on this 28th July 2008 between MRS. BHAVIKA B. KUDU"
+        },
+        "licensee": {
+          "source_page": 13,
+          "source_section": "AND MRS. SUDHAKAR LALMANI SHARMA (Salun) Pam, Boisar, Tal. Palghar, Dist. Thane"
+        },
+        "borrower": {
+          "source_page": 13,
+          "source_section": ""
+        },
+        "co_borrower": {
+          "source_page": 13,
+          "source_section": ""
+        },
+        "loan_account_number": {
+          "source_page": 13,
+          "source_section": ""
+        },
+        "property_address": {
+          "source_page": 13,
+          "source_section": "WHEREAS the Licensor is the Owner of the premises of the At. Room No. 2, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane."
+        },
+        "emi": {
+          "source_page": 13,
+          "source_section": ""
+        },
+        "interest_rate": {
+          "source_page": 13,
+          "source_section": ""
+        },
+        "loan_amount": {
+          "source_page": 13,
+          "source_section": ""
+        },
+        "policy_number": {
+          "source_page": 13,
+          "source_section": ""
+        },
+        "agreement_dates": {
+          "source_page": 14,
+          "source_section": "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 2, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009."
+        }
+      }
+    },
+    {
+      "document_type": "leave_license_agreement",
+      "page_range": [
+        16,
+        20
+      ],
+      "entities": {
+        "licensor": "MRS. BHAVIKA B. KUDU",
+        "licensee": "MR. MUKESH LALMANI SHARMA",
+        "borrower": "",
+        "co_borrower": "",
+        "loan_account_number": "",
+        "property_address": "Room No. 1, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+        "emi": "",
+        "interest_rate": "",
+        "loan_amount": "",
+        "policy_number": "",
+        "agreement_dates": "01/05/2008 to 31/03/2009"
+      },
+      "clauses": {
+        "repayment_terms": [],
+        "loan_conditions": [],
+        "agreement_clauses": [
+          "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 1, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+          "This License is created only for residential occupation by the Licensee and not for any other Purpose.",
+          "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+          "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+          "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+          "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+          "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+          "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+          "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+          "The agreement is made and signed by the both parties at Boisar.",
+          "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+          "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+          "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+        ],
+        "insurance_terms": [],
+        "legal_notices": []
+      },
+      "confidence": {
+        "ocr_confidence": 0.686,
+        "semantic_confidence": 0.95,
+        "validation_confidence": 1.0
+      },
+      "source_pages": [
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "source_pages_map": {
+        "licensor": {
+          "source_page": 16,
+          "source_section": "ARTICLES OF AGREEMENT made at Boisar on this 28th July 2008 between MRS. BHAVIKA B. KUDU"
+        },
+        "licensee": {
+          "source_page": 16,
+          "source_section": "AND MR. MUKESH LALMANI SHARMA (Salun) Pam, Boisar, Tal. Palghar, Dist. Thane"
+        },
+        "borrower": {
+          "source_page": 16,
+          "source_section": ""
+        },
+        "co_borrower": {
+          "source_page": 16,
+          "source_section": ""
+        },
+        "loan_account_number": {
+          "source_page": 16,
+          "source_section": ""
+        },
+        "property_address": {
+          "source_page": 16,
+          "source_section": "WHEREAS the Licensor is the Owner of the premises of the At. Room No. 1, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane."
+        },
+        "emi": {
+          "source_page": 16,
+          "source_section": ""
+        },
+        "interest_rate": {
+          "source_page": 16,
+          "source_section": ""
+        },
+        "loan_amount": {
+          "source_page": 16,
+          "source_section": ""
+        },
+        "policy_number": {
+          "source_page": 16,
+          "source_section": ""
+        },
+        "agreement_dates": {
+          "source_page": 18,
+          "source_section": "for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009."
+        }
+      }
+    },
+    {
+      "document_type": "leave_license_agreement",
+      "page_range": [
+        21,
+        25
+      ],
+      "entities": {
+        "licensor": "MRS. BHAVIKA B. KUDU",
+        "licensee": "MR. KARAN PREMSING",
+        "borrower": "",
+        "co_borrower": "",
+        "loan_account_number": "",
+        "property_address": "Room No. 4, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+        "emi": "",
+        "interest_rate": "",
+        "loan_amount": "",
+        "policy_number": "",
+        "agreement_dates": "01/05/2008 to 31/03/2009"
+      },
+      "clauses": {
+        "repayment_terms": [],
+        "loan_conditions": [],
+        "agreement_clauses": [
+          "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 4, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+          "This License is created only for residential occupation by the Licensee and not for any other Purpose.",
+          "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+          "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+          "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+          "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+          "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+          "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+          "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+          "The agreement is made and signed by the both parties at Boisar.",
+          "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+          "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+          "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+        ],
+        "insurance_terms": [],
+        "legal_notices": []
+      },
+      "confidence": {
+        "ocr_confidence": 0.686,
+        "semantic_confidence": 0.95,
+        "validation_confidence": 1.0
+      },
+      "source_pages": [
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "source_pages_map": {
+        "licensor": {
+          "source_page": 21,
+          "source_section": "ARTICLES OF AGREEMENT made at Boisar on this 28th July 2008 between MRS. BHAVIKA B. KUDU"
+        },
+        "licensee": {
+          "source_page": 21,
+          "source_section": "AND MR. KARAN PREMSING Working in M/s. Sapaikar MIDC, Indl. Area Boisar"
+        },
+        "borrower": {
+          "source_page": 21,
+          "source_section": ""
+        },
+        "co_borrower": {
+          "source_page": 21,
+          "source_section": ""
+        },
+        "loan_account_number": {
+          "source_page": 21,
+          "source_section": ""
+        },
+        "property_address": {
+          "source_page": 21,
+          "source_section": "WHEREAS the Licensor is the Owner of the premises of the At. Room No. 4, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane."
+        },
+        "emi": {
+          "source_page": 21,
+          "source_section": ""
+        },
+        "interest_rate": {
+          "source_page": 21,
+          "source_section": ""
+        },
+        "loan_amount": {
+          "source_page": 21,
+          "source_section": ""
+        },
+        "policy_number": {
+          "source_page": 21,
+          "source_section": ""
+        },
+        "agreement_dates": {
+          "source_page": 23,
+          "source_section": "for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009."
+        }
+      }
+    },
+    {
+      "document_type": "leave_license_agreement",
+      "page_range": [
+        26,
+        31
+      ],
+      "entities": {
+        "licensor": "MRS. BHAVIKA B. KUDU",
+        "licensee": "MR. SHANKAR AAHUJA",
+        "borrower": "",
+        "co_borrower": "",
+        "loan_account_number": "",
+        "property_address": "Room No. 5, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+        "emi": "",
+        "interest_rate": "",
+        "loan_amount": "",
+        "policy_number": "",
+        "agreement_dates": "01/05/2008 to 31/03/2009"
+      },
+      "clauses": {
+        "repayment_terms": [],
+        "loan_conditions": [],
+        "agreement_clauses": [
+          "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 5, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+          "This License is created only for residential occupation by the Licensee and not for any other Purpose.",
+          "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+          "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+          "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+          "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+          "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+          "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+          "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+          "The agreement is made and signed by the both parties at Boisar.",
+          "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+          "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+          "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+        ],
+        "insurance_terms": [],
+        "legal_notices": []
+      },
+      "confidence": {
+        "ocr_confidence": 0.666,
+        "semantic_confidence": 0.95,
+        "validation_confidence": 1.0
+      },
+      "source_pages": [
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "source_pages_map": {
+        "licensor": {
+          "source_page": 26,
+          "source_section": "ARTICLES OF AGREEMENT made at Boisar on this 28th July 2008 between MRS. BHAVIKA B. KUDU"
+        },
+        "licensee": {
+          "source_page": 26,
+          "source_section": "AND MR. SHANKAR AAHUJA Working in M/s. Sapaikar MIDC, Indl. Area Boisar"
+        },
+        "borrower": {
+          "source_page": 26,
+          "source_section": ""
+        },
+        "co_borrower": {
+          "source_page": 26,
+          "source_section": ""
+        },
+        "loan_account_number": {
+          "source_page": 26,
+          "source_section": ""
+        },
+        "property_address": {
+          "source_page": 26,
+          "source_section": "WHEREAS the Licensor is the Owner of the premises of the At. Room No. 5, Ram, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane."
+        },
+        "emi": {
+          "source_page": 26,
+          "source_section": ""
+        },
+        "interest_rate": {
+          "source_page": 26,
+          "source_section": ""
+        },
+        "loan_amount": {
+          "source_page": 26,
+          "source_section": ""
+        },
+        "policy_number": {
+          "source_page": 26,
+          "source_section": ""
+        },
+        "agreement_dates": {
+          "source_page": 28,
+          "source_section": "for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009."
+        }
+      }
+    },
+    {
+      "document_type": "leave_license_agreement",
+      "page_range": [
+        32,
+        35
+      ],
+      "entities": {
+        "licensor": "MRS. BHAVIKA B. KUDU",
+        "licensee": "MR. LAXMAN AAHUJA",
+        "borrower": "",
+        "co_borrower": "",
+        "loan_account_number": "",
+        "property_address": "Room No. 6, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+        "emi": "",
+        "interest_rate": "",
+        "loan_amount": "",
+        "policy_number": "",
+        "agreement_dates": "01/05/2008 to 31/03/2009"
+      },
+      "clauses": {
+        "repayment_terms": [],
+        "loan_conditions": [],
+        "agreement_clauses": [
+          "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 6, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+          "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+          "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+          "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+          "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+          "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+          "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+          "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+          "The agreement is made and signed by the both parties at Boisar.",
+          "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+          "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+          "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+        ],
+        "insurance_terms": [],
+        "legal_notices": []
+      },
+      "confidence": {
+        "ocr_confidence": 0.716,
+        "semantic_confidence": 0.95,
+        "validation_confidence": 1.0
+      },
+      "source_pages": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "source_pages_map": {
+        "licensor": {
+          "source_page": 32,
+          "source_section": "ARTICLES OF AGREEMENT made at Boisar on this 28th July 2008 between MRS. BHAVIKA B. KUDU"
+        },
+        "licensee": {
+          "source_page": 32,
+          "source_section": "AND MR. LAXMAN AAHUJA Working in M/s. Sapaikar MIDC, Indl. Area Boisar"
+        },
+        "borrower": {
+          "source_page": 32,
+          "source_section": ""
+        },
+        "co_borrower": {
+          "source_page": 32,
+          "source_section": ""
+        },
+        "loan_account_number": {
+          "source_page": 32,
+          "source_section": ""
+        },
+        "property_address": {
+          "source_page": 32,
+          "source_section": "WHEREAS the Licensor is the Owner of the premises of the At. Room No. 6, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane."
+        },
+        "emi": {
+          "source_page": 32,
+          "source_section": ""
+        },
+        "interest_rate": {
+          "source_page": 32,
+          "source_section": ""
+        },
+        "loan_amount": {
+          "source_page": 32,
+          "source_section": ""
+        },
+        "policy_number": {
+          "source_page": 32,
+          "source_section": ""
+        },
+        "agreement_dates": {
+          "source_page": 33,
+          "source_section": "for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009."
+        }
+      }
+    }
+  ],
+  "master_case": {
+    "borrower": {
+      "name": "MRS. BHAVIKA B. KUDU",
+      "address": "Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane"
+    },
+    "loan": {
+      "loan_account_number": "",
+      "loan_amount": "",
+      "interest_rate": "",
+      "emi": ""
+    },
+    "property": {
+      "property_address": "Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane"
+    },
+    "insurance": {
+      "policy_number": ""
+    },
+    "agreements": {
+      "agreement_dates": "01/05/2008 to 31/03/2009"
+    }
+  },
+  "filename": "Bhavika.pdf",
+  "created_at": "2026-05-20T13:08:53.707606",
+  "document_bundle": {
+    "total_pages": 35,
+    "blank_pages": 14,
+    "processed_pages": 21,
+    "primary_type": "leave_license_agreement",
+    "type_distribution": {
+      "leave_license_agreement": 35
+    }
+  },
+  "pages": [
+    {
+      "page_num": 1,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. PREMNATH AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "भारतीय गैर न्यायिक\nबीस रुपये\nरु.20\nRs.20\nTWENTY\nRUPEES\nसत्यमेव जयते\nINDIA\nINDIA NON JUDICIAL\nमहाराष्ट्र MAHARASHTRA\nCUB TREASURY OFFICEE WIS\n12 8. JUL 2008\n24 JUN 2008\n(श्री. किगार अ. वडे)\nAGREEMENT FOR LEAVE AND LICENSE\nARTICLES OF AGREEMENT made at Boisar on this 28th July 2008 between\nMRS. BHAVIKA B. KUDU, adult, Indian inhabitant, Residing at. Pam, Post. Navapur,\nTal. Palghar, Dist. Thane, Pin No. 401501, hereinafter referred to as the\n\"LICENSOR\" (Which expression shall unless repugnant to the context or meaning\nthereof deemed to mean include his heirs, executors, administrators and assignee)\nof the ONE PART.\nAND MR. PREMNATH AAHUJA Working in M/s. Sapaikar MIDC, Indl. Area\nBoisar, Tal. Palghar, Dist. Thane, hereinafter referred to as the \"LICENSEE\" (which\nexpression shall mean and include it's successors and assignees) of the OTHER\nPART.\nWHEREAS the Licensor is the Owner of the premises of the At. Room No. 8,\nPam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane. And\nwhereas the Licensee approached the Licensor for allowing the Licensee for\nTemporary use and occupation for said premises admeasuring about\nSq. ft. for residential purpose.\n.. 2\n.. 3\n1\nของรินทร์\nपालघर अ\n936.\nकिशन रु.\n21AA 111211\nगा जा हस्ते सन्नन\nPALGHAR\nरॅॅ म्प वेंडर"
+    },
+    {
+      "page_num": 2,
+      "doc_type": "leave_license_agreement",
+      "is_blank": true,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.566,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. PREMNATH AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": ""
+    },
+    {
+      "page_num": 3,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. PREMNATH AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "-\n// 2 //\nNOW THIS AGREEMENT WITNESSETH AND IT IS HEREBY AGREED BY\nAND BETWEEN THE PARTIES AS UNDER :\n1)\nThe Licensee hereby agree with Licensor to occupy the said premises\nsituated At. Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal.\nPalghar, Dist. Thane, for the period of 11 Months which is commencing\nfrom dated 01/05/2008 to 31/03/2009.\n2)\nThis License is created only for residential occupation by the Licensee\nand not for any other Purpose.\n3)\nOn the period of expiration the Licensee shall vacate peacefully the\npremises and handover the key of Room/Flat to the Licensor with all\nmentioned fixtures & fittings in proper working conditions.\n4)\nThe Licensee shall pay License Fee @ Rs. 1,000/- (Rupees One Thousand\nonly) to Licensor payment as rent per months. Licensee paid to\nLicensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid\nas security deposit.\n5)\nSociety maintenance charges, Water, Panchayat, and such all taxes are\npayable by the Licensor, Licensor will also attend the same maintenance job\ndone by Licensee, the expenses will be recovered from the Licensor.\n6)\nElectricity bill will be paid by Licensee. In case of faulty electric meter the\nzLicensor shall approach to M.S.E.D. for rectifying the same. In case of\nfaulty working excess billing etc. the Licensee shall approach the Licensor for\nrepairs. The Licensee will not be responsible for the payment of previous\noutstanding bills.\n7)\nDuring the terms of this agreement any damage, incurred/occurred by\nhouse breaking etc., the Licensee shall be responsible for the loss or\nrepairs of the Room/Flat whatsoever.\n8)\nThe day to day repairs such as fuse, replacement of Bulbs, Tubes lights,\nleakages of water pipes, etc. inside the premises, are to be done by the\nLicensee at its own cost and keep it in good and tenantable conditions.\n9)\nThe Licensee shall not assign any rights to any third party in respect of the\npremises or any part of the premises should be sublet.\n10) The agreement is made and signed by he both parties at Boisar.\n.. 3"
+    },
+    {
+      "page_num": 4,
+      "doc_type": "leave_license_agreement",
+      "is_blank": true,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.566,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. PREMNATH AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": ""
+    },
+    {
+      "page_num": 5,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. PREMNATH AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "// 3 //\n11)\nThe Licensee or Licensor can terminate this Leave and License after giving\none month notice from either side.\n12)\nLicensee shall at the time of going to the native place shall lock the room\nin well good condition and while on the outdoor or outstation the Licensor\nshall not be responsible for the material gone for lost, misplace, robbery,\ndecocted or may of the incident if so occured.\n13)\nIn case of termination the paid amount in advance shall be refunded after\nproper adjustmet.\nIN WITNESS WHEREOF THE LICENSOR AND the Licensor have hereunto set\nand subscribed their respective signatures with witness this day and year first\nherein-above written.\nSIGNED & DELIVERED by the\n)\nBudy\nwithin named \"LICENSOR\"\n)\nLICENSOR\nMRS. BHAVIKA B. KUDU\n)\nin the presence of\n)\n-\nBaudy\nश्री. भगवान पा. कुछ\n1)\nSIGNED SEALED & DELIVERED by the\n)\nP.A. AHUJA\nwithin named \"LICENSEE\"\n)\nMR. PREMNATH AAHUJA\n)\nLICENSEE\nin the presence of ..\n)\nPAAHUJA\nMarbelA\n1)"
+    },
+    {
+      "page_num": 6,
+      "doc_type": "leave_license_agreement",
+      "is_blank": true,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.566,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. PREMNATH AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": ""
+    },
+    {
+      "page_num": 7,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. DHANASING AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 3, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 3, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "IPXXX\nभारतीय गैर न्यायिक\nबीस रुपये\nRs.20\nरु.20\nTWENTY\nRUPEES\nसत्यमेव जयते\nINDIA\nINDIA NON JUDICIAL\nHELLE MAHARASHTRA\n8\nSUB TREASURY OFFICER\nPALGHAR\nविकीचे ठिकाण\n0\n21AA 111205\nपालघर अ. जं ... ५४०\nक्षिमन रु२४\nSA. 2010155.33\n...\nदिनांक\n2 8 JUL 2008\nस्टम्प वेंडर\"\nLA JAGREEMENT FOR LEAVE AND LICENSE\nARTICLES OF AGREEMENT made at Boisar on this 28th July 2008 between\nMRS. BHAVIKA B. KUDU, adult, Indian inhabitant, Residing at. Pam, Post. Navapur,\nTal. Palghar, Dist. Thane, Pin No. 401501, hereinafter referred to as the\n\"LICENSOR\" (Which expression shall unless repugnant to the context or meaning\nthereof deemed to mean include his heirs, executors, administrators and assignee)\nof the ONE PART.\nAND MR. DHANASING AAHUJA Working in M/s. Pantalool MIDC, Indl. Area\nBoisar, Tal. Palghar, Dist. Thane, hereinafter referred to as the \"LICENSEE\" (which\nexpression shall mean and include it's successors and assignees) of the OTHER\nPART.\nWHEREAS the Licensor is the Owner of the premises of the At. Room No. 3,\nPam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane. And\nwhereas the Licensee approached the Licensor for allowing the Licensee for\nTemporary use and occupation for said premises admeasuring about\nSq. ft. for residential purpose.\n.. 2\n...\n-"
+    },
+    {
+      "page_num": 8,
+      "doc_type": "leave_license_agreement",
+      "is_blank": true,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.566,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. DHANASING AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 3, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 3, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": ""
+    },
+    {
+      "page_num": 9,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. DHANASING AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 3, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 3, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "// 2 //\nNOW THIS AGREEMENT WITNESSETH AND IT IS HEREBY AGREED BY\nAND BETWEEN THE PARTIES AS UNDER :\n1)\nThe Licensee hereby agree with Licensor to occupy the said premises\nsituated At. Room No. 3, Pam, Aanadiali, Post. Navapur, Boisar, Tal.\nPalghar, Dist. Thane, for the period of 11 Months which is commencing\nfrom dated 01/05/2008 to 31/03/2009.\n2)\nThis License is created only for residential occupation by the Licensee\nand not for any other Purpose.\n3)\nOn the period of expiration the Licensee shall vacate peacefully the\npremises and handover the key of Room/Flat to the Licensor with all\nmentioned fixtures & fittings in proper working conditions.\n4)\nThe Licensee shall pay License Fee @ Rs. 1,000/- (Rupees One Thousand\nonly) to Licensor payment as rent per months. Licensee paid to\nLicensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid\nas security deposit.\n5)\nSociety maintenance charges, Water, Panchayat, and such all taxes are\npayable by the Licensor, Licensor will also attend the same maintenance job\ndone by Licensee, the expenses will be recovered from the Licensor.\n6)\nElectricity bill will be paid by Licensee. In case of faulty electric meter the\nzLicensor shall approach to M.S.E.D. for rectifying the same. In case of\nfaulty working excess billing etc. the Licensee shall approach the Licensor for\nrepairs. The Licensee will not be responsible for the payment of previous\noutstanding bills.\n7)\nDuring the terms of this agreement any damage, incurred/occurred by\nhouse breaking etc., the Licensee shall be responsible for the loss or\nrepairs of the Room/Flat whatsoever.\n8)\nThe day to day repairs such as fuse, replacement of Bulbs, Tubes lights,\nleakages of water pipes, etc. inside the premises, are to be done by the\nLicensee at its own cost and keep it in good and tenantable conditions.\n9)\nThe Licensee shall not assign any rights to any third party in respect of the\npremises or any part of the premises should be sublet.\n10) The agreement is made and signed by he both parties at Boisar.\n.. 3"
+    },
+    {
+      "page_num": 10,
+      "doc_type": "leave_license_agreement",
+      "is_blank": true,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.566,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. DHANASING AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 3, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 3, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": ""
+    },
+    {
+      "page_num": 11,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. DHANASING AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 3, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 3, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "// 3 //\n11)\nThe Licensee or Licensor can terminate this Leave and License after giving\none month notice from either side.\n12)\nLicensee shall at the time of going to the native place shall lock the room\nin well good condition and while on the outdoor or outstation the Licensor\nshall not be responsible for the material gone for lost, misplace, robbery,\ndecocted or may of the incident if so occured.\n13)\nIn case of termination the paid amount in advance shall be refunded after\nproper adjustmet.\nIN WITNESS WHEREOF THE LICENSOR AND the Licensor have hereunto set\nand subscribed their respective signatures with witness this day and year first\nherein-above written.\nSIGNED & DELIVERED by the\n)\nJuly\nwithin named \"LICENSOR\"\n)\nLICENSOR\nMRS. BHAVIKA B. KUDU\n)\nin the presence of\n)\nभी. भगवान पां .. कुदु\n1)\nSIGNED SEALED & DELIVERED by the\n)\nधनासग\nwithin named \"LICENSEE\"\n)\nMR. DHANASING AAHUJA\n)\nLICENSEE\nin the presence of ..\n)\n0.\nधनासग\nSambesi\n1)\n1"
+    },
+    {
+      "page_num": 12,
+      "doc_type": "leave_license_agreement",
+      "is_blank": true,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.566,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. DHANASING AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 3, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 3, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": ""
+    },
+    {
+      "page_num": 13,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MRS. SUDHAKAR LALMANI SHARMA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 2, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 2, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "XX921:\nभारतीय गैर न्यायिक\nबीस रुपये\nRs.20\nरु.20\nसत्यमेव जयते\nINDIA\nTWENTY\nRUPEES\nINDIA NON JUDICIAL\nविनाय ◌िकाग\nकिमन रु201\nमहाराष्ट्र MAHARASHTRA\nपालघर अ जं.५.०९.\n.2LAA 111204\nSA. 91695 91.83\nदिनांक\n28 JUL 2008 maicha5\nSUB TREASURY OFFICER\nPALGHAR.\n4 JUN 2005\nस्टॅम्प बैंडर\n(श्री. किशार अ. वडे)\nAGREEMENT FOR LEAVE AND LICENSE\nARTICLES OF AGREEMENT made at Boisar on this 28th July 2008 between\nMRS. BHAVIKA B. KUDU, adult, Indian inhabitant, Residing at. Pam, Post. Navapur,\nTal. Palghar, Dist. Thane, Pin No. 401501, hereinafter referred to as the\n\"LICENSOR\" (Which expression shall unless repugnant to the context or meaning\nthereof deemed to mean include his heirs, executors, administrators and assignee)\nof the ONE PART.\nAND MRS. SUDHAKAR LALMANI SHARMA (Salun) Pam, Boisar, Tal. Palghar,\nDist. Thane, hereinafter referred to as the \"LICENSEE\" (which expression shall\nmean and include it's successors and assignees) of the OTHER PART.\nWHEREAS the Licensor is the Owner of the premises of the At. Room No. 2,\nPam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane. And\nwhereas the Licensee approached the Licensor for allowing the Licensee for\nTemporary use and occupation for said premises admeasuring about\nSq. ft. for residential purpose.\n.. 2\n...\n1"
+    },
+    {
+      "page_num": 14,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MRS. SUDHAKAR LALMANI SHARMA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 2, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 2, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "// 2 //\nNOW THIS AGREEMENT WITNESSETH AND IT IS HEREBY AGREED BY\nAND BETWEEN THE PARTIES AS UNDER :\n1)\nThe Licensee hereby agree with Licensor to occupy the said premises\nsituated At. Room No. 2, Pam, Aanadiali, Post. Navapur, Boisar, Tal.\nPalghar, Dist. Thane, for the period of 11 Months which is commencing\nfrom dated 01/05/2008 to 31/03/2009.\n2)\nThis License is created only for residential occupation by the Licensee\nand not for any other Purpose.\n3)\nOn the period of expiration the Licensee shall vacate peacefully the\npremises and handover the key of Room/Flat to the Licensor with all\nmentioned fixtures & fittings in proper working conditions.\n4)\nThe Licensee shall pay License Fee @ Rs. 1,000/- (Rupees One Thousand\nonly) to Licensor payment as rent per months. Licensee paid to\nLicensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid\nas security deposit.\n5)\nSociety maintenance charges, Water, Panchayat, and such all taxes are\npayable by the Licensor, Licensor will also attend the same maintenance job\ndone by Licensee, the expenses will be recovered from the Licensor.\n6)\nElectricity bill will be paid by Licensee. In case of faulty electric meter the\nzLicensor shall approach to M.S.E.D. for rectifying the same. In case of\nfaulty working excess billing etc. the Licensee shall approach the Licensor for\nrepairs. The Licensee will not be responsible for the payment of previous\noutstanding bills.\n7)\nDuring the terms of this agreement any damage, incurred/occurred by\nhouse breaking etc., the Licensee shall be responsible for the loss or\nrepairs of the Room/Flat whatsoever.\n8)\nThe day to day repairs such as fuse, replacement of Bulbs, Tubes lights,\nleakages of water pipes, etc. inside the premises, are to be done by the\nLicensee at its own cost and keep it in good and tenantable conditions.\n9)\nThe Licensee shall not assign any rights to any third party in respect of the\npremises or any part of the premises should be sublet.\n10)\nThe agreement is made and signed by he both parties at Boisar.\n.. 3"
+    },
+    {
+      "page_num": 15,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MRS. SUDHAKAR LALMANI SHARMA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 2, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 2, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "// 3 //\n11)\nThe Licensee or Licensor can terminate this Leave and License after giving\none month notice from either side.\n12)\nLicensee shall at the time of going to the native place shall lock the room\nin well good condition and while on the outdoor or outstation the Licensor\nshall not be responsible for the material gone for lost, misplace, robbery,\ndecocted or may of the incident if so occured.\n13)\nIn case of termination the paid amount in advance shall be refunded after\nproper adjustmet.\nIN WITNESS WHEREOF THE LICENSOR AND the Licensor have hereunto set\nand subscribed their respective signatures with witness this day and year first\nherein-above written.\nBudy\nSIGNED & DELIVERED by the\nwithin named \"LICENSOR\"\n)\n)\nLICENSOR\nMRS. BHAVIKA B. KUDU\n)\nin the presence of\n)\nBandy\nभी. भगवान पा कुड\n1)\nSIGNED SEALED & DELIVERED by the\nwithin named \"LICENSEE\"\n)\nMRS. SUDHAKAR LALMANI SHARMA\n)\nLICENSEE\nin the presence of ..\n)\nS.L. Sharemy\n)\nS.D. Sharma\n1)\nSlaobedi"
+    },
+    {
+      "page_num": 16,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. MUKESH LALMANI SHARMA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 1, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 1, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "This License is created only for residential occupation by the Licensee and not for any other Purpose.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The agreement is made and signed by the both parties at Boisar.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "भारतीय गैर न्यायिक\nबीस रुपये\nRs.20\nरु.20\nसत्यमेव जयते\nINDIA\nTWENTY\nRUPEES\nINDIA NON JUDICIAL\nमहाराष्ट्र MAHARASHTRA\nतिकीसे ठिकाण\n21AA 111210\nपालघर अ अ. ५३५\nSUB TREASURY OFFICE :- दिनांक\nPALGHAR\n2 8 JUL 2008\nOstaLA\n4 JUN 2008\nस्ट म्प वेंडर\nAGREEMENT FOR LEAVE AND LICENSE\nARTICLES OF AGREEMENT made at Boisar on this 28th July 2008 between\nMRS. BHAVIKA B. KUDU, adult, Indian inhabitant, Residing at. Pam, Post. Navapur,\nTal. Palghar, Dist. Thane, Pin No. 401501, hereinafter referred to as the\n\"LICENSOR\" (Which expression shall unless repugnant to the context or meaning\nthereof deemed to mean include his heirs, executors, administrators and assignee)\nof the ONE PART.\nAND MR. MUKESH LALMANI SHARMA (Salun) Pam, Boisar, Tal. Palghar, Dist.\nThane, hereinafter referred to as the \"LICENSEE\" (which expression shall mean\nand include it's successors and assignees) of the OTHER PART.\nWHEREAS the Licensor is the Owner of the premises of the At. Room No. 1,\nPam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane. And\nwhereas the Licensee approached the Licensor for allowing the Licensee for Tempo-\nmary use and occupation for said premises admeasuring about\nSq. ft.\nfor residential purpose.\n.. 2\n1\n.. 3\n1\n(श्री. किशार अ. बड़े)"
+    },
+    {
+      "page_num": 17,
+      "doc_type": "leave_license_agreement",
+      "is_blank": true,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.566,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. MUKESH LALMANI SHARMA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 1, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 1, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "This License is created only for residential occupation by the Licensee and not for any other Purpose.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The agreement is made and signed by the both parties at Boisar.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": ""
+    },
+    {
+      "page_num": 18,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. MUKESH LALMANI SHARMA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 1, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 1, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "This License is created only for residential occupation by the Licensee and not for any other Purpose.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The agreement is made and signed by the both parties at Boisar.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "// 2 //\nNOW THIS AGREEMENT WITNESSETH AND IT IS HEREBY AGREED BY\nAND BETWEEN THE PARTIES AS UNDER :\n1)\nThe Licensee hereby agree with Licensor to occupy the said premises\nsituated At. Room No. 1, Pam, Aanadiali, Post. Navapur, Boisar, Tal.\nPalghar,\nDist.\nThane, for the period of 11 Months which is commencing from dated\n01/05/2008 to 31/03/2009.\n2)\nThis License is created only for residential occupation by the Licensee\nand not for any other Purpose.\n3)\nOn the period of expiration the Licensee shall vacate peacefully the\npremises and handover the key of Room/Flat to the Licensor with all\nmentioned fixtures & fittings in proper working conditions.\n4)\nThe Licensee shall pay License Fee @ Rs. 1,000/- (Rupees One Thousand\nonly) to Licensor payment as rent per months. Licensee paid to\nLicensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid\nas security deposit.\n5)\nSociety maintenance charges, Water, Panchayat, and such all taxes are\npayable by the Licensor, Licensor will also attend the same maintenance job\ndone by Licensee, the expenses will be recovered from the Licensor.\n6)\nElectricity bill will be paid by Licensee. In case of faulty electric meter the\nzLicensor shall approach to M.S.E.D. for rectifying the same. In case of\nfaulty working excess billing etc. the Licensee shall approach the Licensor for\nrepairs. The Licensee will not be responsible for the payment of previous\noutstanding bills.\n7)\nDuring the terms of this agreement any damage, incurred/occurred by\nhouse breaking etc., the Licensee shall be responsible for the loss or\nrepairs of the Room/Flat whatsoever.\n8)\nThe day to day repairs such as fuse, replacement of Bulbs, Tubes lights,\nleakages of water pipes, etc. inside the premises, are to be done by the\nLicensee at its own cost and keep it in good and tenantable conditions.\n9)\nThe Licensee shall not assign any rights to any third party in respect of the\npremises or any part of the premises should be sublet.\n10)\nThe agreement is made and signed by he both parties at Boisar.\n.. 3"
+    },
+    {
+      "page_num": 19,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. MUKESH LALMANI SHARMA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 1, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 1, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "This License is created only for residential occupation by the Licensee and not for any other Purpose.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The agreement is made and signed by the both parties at Boisar.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "// 3 //\n11)\nThe Licensee or Licensor can terminate this Leave and License after giving\none month notice from either side.\n12)\nLicensee shall at the time of going to the native place shall lock the room\nin well good condition and while on the outdoor or outstation the Licensor\nshall not be responsible for the material gone for lost, misplace, robbery,\ndecocted or may of the incident if so occured.\n13)\nIn case of termination the paid amount in advance shall be refunded after\nproper adjustmet.\nIN WITNESS WHEREOF THE LICENSOR AND the Licensor have hereunto set\nand subscribed their respective signatures with witness this day and year first\nherein-above written.\nSIGNED & DELIVERED by the\n)\nBandy\nwithin named \"LICENSOR\"\n)\nLICENSOR\nMRS. BHAVIKA B. KUDU\n)\nin the presence of\n)\nKudy\nशनि, भगवान पांडुड\n1)\nSIGNED SEALED & DELIVERED by the\nwithin named \"LICENSEE\"\n)\n)\nmushrmy\nMR. MUKESH LALMANI SHARMA\n)\nLICENSEE\nin the presence of ..\n)\nmsharma\n1)\nDiamboli"
+    },
+    {
+      "page_num": 20,
+      "doc_type": "leave_license_agreement",
+      "is_blank": true,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.566,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. MUKESH LALMANI SHARMA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 1, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 1, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "This License is created only for residential occupation by the Licensee and not for any other Purpose.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The agreement is made and signed by the both parties at Boisar.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": ""
+    },
+    {
+      "page_num": 21,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. KARAN PREMSING",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 4, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 4, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "This License is created only for residential occupation by the Licensee and not for any other Purpose.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The agreement is made and signed by the both parties at Boisar.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "भारतीय गैर न्यायिक\nबीस रुपये\nRs.20\nरु.20\nTWENTY\nRUPEES\nसत्यमेव जयते\nINDIA\nINDIA NON JUDICIAL\nबिवलीचे ठिकाण\nमहाराष्ट्र MAHARASHTRA\nपालघर म ओं. ५३१\nकिमन रु\n21AA 111206\nइस्ते स्वत:\nश्री. mar . बहू\nLUB TREADDRY OFFICER दिनांक\nPALGHAR.\n2 8 JUL 2008\nE4 JUN 2008\nस्टेम्प वेंडर\n(श्री. किशोर अ. बड़े)\nAGREEMENT FOR LEAVE AND LICENSE\nARTICLES OF AGREEMENT made at Boisar on this 28th July 2008 between\nMRS. BHAVIKA B. KUDU, adult, Indian inhabitant, Residing at. Pam, Post. Navapur,\nTal. Palghar, Dist. Thane, Pin No. 401501, hereinafter referred to as the\n\"LICENSOR\" (Which expression shall unless repugnant to the context or meaning\nthereof deemed to mean include his heirs, executors, administrators and assignee)\nof the ONE PART.\nAND MR. KARAN PREMSING Working in M/s. Sapaikar MIDC, Indl. Area Boisar,\nTal. Palghar, Dist. Thane, hereinafter referred to as the \"LICENSEE\" (which\nexpression shall mean and include it's successors and assignees) of the OTHER\nPART.\nWHEREAS the Licensor is the Owner of the premises of the At. Room No. 4,\nPam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane. And\nwhereas the Licensee approached the Licensor for allowing the Licensee for\nTemporary use and occupation for said premises admeasuring about\nSq. ft. for residential purpose.\n.. 2\n.. 3"
+    },
+    {
+      "page_num": 22,
+      "doc_type": "leave_license_agreement",
+      "is_blank": true,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.566,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. KARAN PREMSING",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 4, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 4, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "This License is created only for residential occupation by the Licensee and not for any other Purpose.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The agreement is made and signed by the both parties at Boisar.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": ""
+    },
+    {
+      "page_num": 23,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. KARAN PREMSING",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 4, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 4, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "This License is created only for residential occupation by the Licensee and not for any other Purpose.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The agreement is made and signed by the both parties at Boisar.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "// 2 //\nNOW THIS AGREEMENT WITNESSETH AND IT IS HEREBY AGREED BY\nAND BETWEEN THE PARTIES AS UNDER :\n1)\nThe Licensee hereby agree with Licensor to occupy the said premises\nsituated At. Room No. 4, Pam, Aanadiali, Post. Navapur, Boisar, Tal.\nPalghar, Dist. Thane, for the period of 11 Months which is commencing\nfrom dated 01/05/2008 to 31/03/2009.\n2)\nThis License is created only for residential occupation by the Licensee\nand not for any other Purpose.\n3)\nOn the period of expiration the Licensee shall vacate peacefully the\npremises and handover the key of Room/Flat to the Licensor with all\nmentioned fixtures & fittings in proper working conditions.\n4)\nThe Licensee shall pay License Fee @ Rs. 1,000/- (Rupees One Thousand\nonly) to Licensor payment as rent per months. Licensee paid to\nLicensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid\nas security deposit.\n5)\nSociety maintenance charges, Water, Panchayat, and such all taxes are\npayable by the Licensor, Licensor will also attend the same maintenance job\ndone by Licensee, the expenses will be recovered from the Licensor.\n6)\nElectricity bill will be paid by Licensee. In case of faulty electric meter the\nzLicensor shall approach to M.S.E.D. for rectifying the same. In case of\nfaulty working excess billing etc. the Licensee shall approach the Licensor for\nrepairs. The Licensee will not be responsible for the payment of previous\noutstanding bills.\n7)\nDuring the terms of this agreement any damage, incurred/occurred by\nhouse breaking etc., the Licensee shall be responsible for the loss or\nrepairs of the Room/Flat whatsoever.\n8)\nThe day to day repairs such as fuse, replacement of Bulbs, Tubes lights,\nleakages of water pipes, etc. inside the premises, are to be done by the\nLicensee at its own cost and keep it in good and tenantable conditions.\n9)\nThe Licensee shall not assign any rights to any third party in respect of the\npremises or any part of the premises should be sublet.\n10)\nThe agreement is made and signed by he both parties at Boisar.\n.. 3\n-"
+    },
+    {
+      "page_num": 24,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. KARAN PREMSING",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 4, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 4, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "This License is created only for residential occupation by the Licensee and not for any other Purpose.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The agreement is made and signed by the both parties at Boisar.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "// 3 //\n11)\nThe Licensee or Licensor can terminate this Leave and License after giving\none month notice from either side.\n12)\nLicensee shall at the time of going to the native place shall lock the room\nin well good condition and while on the outdoor or outstation the Licensor\nshall not be responsible for the material gone for lost, misplace, robbery,\ndecocted or may of the incident if so occured.\n13)\nIn case of termination the paid amount in advance shall be refunded after\nproper adjustmet.\nIN WITNESS WHEREOF THE LICENSOR AND the Licensor have hereunto set\nand subscribed their respective signatures with witness this day and year first\nherein-above written.\nStudy\nSIGNED & DELIVERED by the\n)\n)\nLICENSOR\nwithin named \"LICENSOR\"\n)\nMRS. BHAVIKA B. KUDU\n)\nin the presence of\nSudy भी. भगवान पापुडु\nकरणप्रेमसिंग\nSIGNED SEALED & DELIVERED by the\n)\nwithin named \"LICENSEE\"\n)\n)\nLICENSEE\nMR. KARAN PREMSING\n)\nin the presence of ..\nकरणप्रेमसिंग\n1)\n1)"
+    },
+    {
+      "page_num": 25,
+      "doc_type": "leave_license_agreement",
+      "is_blank": true,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.566,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. KARAN PREMSING",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 4, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 4, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "This License is created only for residential occupation by the Licensee and not for any other Purpose.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The agreement is made and signed by the both parties at Boisar.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": ""
+    },
+    {
+      "page_num": 26,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. SHANKAR AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 5, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 5, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "This License is created only for residential occupation by the Licensee and not for any other Purpose.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The agreement is made and signed by the both parties at Boisar.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "भारतीय गैर न्यायिक\nबीस रुपये\nRs.20\n6\nरु.20\nसत्यमेव जयते\nTWENTY\nRUPEES\nINDIA\nINDIA NON JUDICIAL\nविकीचे ठिकाण.\nमहाराष्ट्र MAHARASHTRA\nपालघर अजं. 432\nदिवा रु\n:21 AA 111207\nहस्ते 2-90%\nदिनांक\n2 8 JUL 2008\nSUB TREASURY OFFICER\nPALGHAR\nसॅम्प वेंडर\n(श्री. किशोर अ, बडे)\n4 AGREEMENT FOR LEAVE AND LICENSE\nARTICLES OF AGREEMENT made at Boisar on this 28th July 2008 between\nMRS. BHAVIKA B. KUDU, adult, Indian inhabitant, Residing at. Pam, Post. Navapur,\nTal. Palghar, Dist. Thane, Pin No. 401501, hereinafter referred to as the\n\"LICENSOR\" (Which expression shall unless repugnant to the context or meaning\nthereof deemed to mean include his heirs, executors, administrators and assignee)\nof the ONE PART.\nAND MR. SHANKAR AAHUJA Working in M/s. Sapaikar MIDC, Indl. Area Boisar,\nfal. Palghar, Dist. Thane, hereinafter referred to as the \"LICENSEE\" (which\nexpression shall mean and include it's successors and assignees) of the OTHER\nPART.\nWHEREAS the Licensor is the Owner of the premises of the At. Room No. 5,\nRam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane. And\nwhereas the Licensee approached the Licensor for allowing the Licensee for\nTemporary use and occupation for said premises admeasuring about\nSq. ft. for residential purpose.\n.. 2\n1"
+    },
+    {
+      "page_num": 27,
+      "doc_type": "leave_license_agreement",
+      "is_blank": true,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.566,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. SHANKAR AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 5, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 5, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "This License is created only for residential occupation by the Licensee and not for any other Purpose.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The agreement is made and signed by the both parties at Boisar.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": ""
+    },
+    {
+      "page_num": 28,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. SHANKAR AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 5, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 5, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "This License is created only for residential occupation by the Licensee and not for any other Purpose.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The agreement is made and signed by the both parties at Boisar.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "// 2 //\nNOW THIS AGREEMENT WITNESSETH AND IT IS HEREBY AGREED BY\nAND BETWEEN THE PARTIES AS UNDER :\n1)\nThe Licensee hereby agree with Licensor to occupy the said premises\nsituated At. Room No. 5, Pam, Aanadiali, Post. Navapur, Boisar, Tal.\nPalghar, Dist. Thane, for the period of 11 Months which is commencing\nfrom dated 01/05/2008 to 31/03/2009.\n2)\nThis License is created only for residential occupation by the Licensee\nand not for any other Purpose.\n3)\nOn the period of expiration the Licensee shall vacate peacefully the\npremises and handover the key of Room/Flat to the Licensor with all\nmentioned fixtures & fittings in proper working conditions.\n4)\nThe Licensee shall pay License Fee @ Rs. 1,000/- (Rupees One Thousand\nonly) to Licensor payment as rent per months. Licensee paid to\nLicensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid\nas security deposit.\n5)\nSociety maintenance charges, Water, Panchayat, and such all taxes are\npayable by the Licensor, Licensor will also attend the same maintenance job\ndone by Licensee, the expenses will be recovered from the Licensor.\n6)\nElectricity bill will be paid by Licensee. In case of faulty electric meter the\nzLicensor shall approach to M.S.E.D. for rectifying the same. In case of\nfaulty working excess billing etc. the Licensee shall approach the Licensor for\nrepairs. The Licensee will not be responsible for the payment of previous\noutstanding bills.\n7)\nDuring the terms of this agreement any damage, incurred/occurred by\nhouse breaking etc., the Licensee shall be responsible for the loss or\nrepairs of the Room/Flat whatsoever.\n8)\nThe day to day repairs such as fuse, replacement of Bulbs, Tubes lights,\nleakages of water pipes, etc. inside the premises, are to be done by the\nLicensee at its own cost and keep it in good and tenantable conditions.\n9)\nThe Licensee shall not assign any rights to any third party in respect of the\npremises or any part of the premises should be sublet.\n10) The agreement is made and signed by he both parties at Boisar.\n.. 3"
+    },
+    {
+      "page_num": 29,
+      "doc_type": "leave_license_agreement",
+      "is_blank": true,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.566,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. SHANKAR AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 5, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 5, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "This License is created only for residential occupation by the Licensee and not for any other Purpose.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The agreement is made and signed by the both parties at Boisar.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": ""
+    },
+    {
+      "page_num": 30,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. SHANKAR AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 5, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 5, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "This License is created only for residential occupation by the Licensee and not for any other Purpose.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The agreement is made and signed by the both parties at Boisar.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "// 3 //\n11)\nThe Licensee or Licensor can terminate this Leave and License after giving\none month notice from either side.\n12)\nLicensee shall at the time of going to the native place shall lock the room\nin well good condition and while on the outdoor or outstation the Licensor\nshall not be responsible for the material gone for lost, misplace, robbery,\ndecocted or may of the incident if so occured.\n13)\nIn case of termination the paid amount in advance shall be refunded after\nproper adjustmet.\nIN WITNESS WHEREOF THE LICENSOR AND the Licensor have hereunto set\nand subscribed their respective signatures with witness this day and year first\nherein-above written.\nSIGNED & DELIVERED by the\n)\n)\nLICENSOR\nwithin named \"LICENSOR\"\nMRS. BHAVIKA B. KUDU\n)\nin the presence of\nभी. भगवान पा कुड़\n1)\nSIGNED SEALED & DELIVERED by the\n)\nS. AAhuja\nwithin named \"LICENSEE\"\n)\n)\nLICENSEE\nMR. SHANKAR AAHUJA\n)\nin the presence of ..\nS. AAhusa\nSplanbad\n1)\n)\nBudy"
+    },
+    {
+      "page_num": 31,
+      "doc_type": "leave_license_agreement",
+      "is_blank": true,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.566,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. SHANKAR AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 5, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 5, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "This License is created only for residential occupation by the Licensee and not for any other Purpose.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The agreement is made and signed by the both parties at Boisar.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": ""
+    },
+    {
+      "page_num": 32,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. LAXMAN AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 6, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 6, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The agreement is made and signed by the both parties at Boisar.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "भारतीय गैर न्यायिक\nबीस रुपये\nRs.20\nरु.20\nसत्यमेव जयते\nTWENTY\nRUPEES\nINDIA\nINDIA NON JUDICIAL\nविकीचे ठिकाण\nHELLE MAHARASHTRA\nq0 0 433\n21:4A 111208\nहस्ले स्थ):\nfais 28 JUL 2008\nSUB TREASURY OFFICER\nPALGHAR\nIXNUE\n-4 JUN 2008\n(श्री. किशोर अ. बड़े)\nAGREEMENT FOR LEAVE AND LICENSE\nARTICLES OF AGREEMENT made at Boisar on this 28th July 2008 between\nMRS. BHAVIKA B. KUDU, adult, Indian inhabitant, Residing at. Pam, Post. Navapur,\nTal. Palghar, Dist. Thane, Pin No. 401501, hereinafter referred to as the\n'LICENSOR\" (Which expression shall unless repugnant to the context or meaning\nThereof deemed to mean include his heirs, executors, administrators and assignee)\nof the ONE PART.\nAND MR. LAXMAN AAHUJA Working in M/s. Sapaikar MIDC, Indl. Area Boisar,\nTal. Palghar, Dist. Thane, hereinafter referred to as the \"LICENSEE\" (which\nexpression shall mean and include it's successors and assignees) of the OTHER\nPART.\nWHEREAS the Licensor is the Owner of the premises of the At. Room No. 6,\nPam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane. And\nwhereas the Licensee approached the Licensor for allowing the Licensee for\nTemporary use and occupation for said premises admeasuring about\nSq. ft. for residential purpose.\n.. 2\n1"
+    },
+    {
+      "page_num": 33,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. LAXMAN AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 6, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 6, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The agreement is made and signed by the both parties at Boisar.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "// 2 //\nNOW THIS AGREEMENT WITNESSETH AND IT IS HEREBY AGREED BY\nAND BETWEEN THE PARTIES AS UNDER :\n1)\nThe Licensee hereby agree with Licensor to occupy the said premises\nsituated At. Room No. 6, Pam, Aanadiali, Post. Navapur, Boisar, Tal.\nPalghar, Dist. Thane, for the period of 11 Months which is commencing\nfrom dated 01/05/2008 to 31/03/2009.\n2)\nThis License is created only for residential occupation by the Licensee\nand not for any other Purpose.\n3)\nOn the period of expiration the Licensee shall vacate peacefully the\npremises and handover the key of Room/Flat to the Licensor with all\nmentioned fixtures & fittings in proper working conditions.\n4)\nThe Licensee shall pay License Fee @ Rs. 1,000/- (Rupees One Thousand\nonly) to Licensor payment as rent per months. Licensee paid to\nLicensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid\nas security deposit.\n5)\nSociety maintenance charges, Water, Panchayat, and such all taxes are\npayable by the Licensor, Licensor will also attend the same maintenance job\ndone by Licensee, the expenses will be recovered from the Licensor.\n6)\nElectricity bill will be paid by Licensee. In case of faulty electric meter the\nzLicensor shall approach to M.S.E.D. for rectifying the same. In case of\nfaulty working excess billing etc. the Licensee shall approach the Licensor for\nrepairs. The Licensee will not be responsible for the payment of previous\noutstanding bills.\n7)\nDuring the terms of this agreement any damage, incurred/occurred by\nhouse breaking etc., the Licensee shall be responsible for the loss or\nrepairs of the Room/Flat whatsoever.\n8)\nThe day to day repairs such as fuse, replacement of Bulbs, Tubes lights,\nleakages of water pipes, etc. inside the premises, are to be done by the\nLicensee at its own cost and keep it in good and tenantable conditions.\n9)\nThe Licensee shall not assign any rights to any third party in respect of the\npremises or any part of the premises should be sublet.\n10)\nThe agreement is made and signed by he both parties at Boisar.\n.. 3"
+    },
+    {
+      "page_num": 34,
+      "doc_type": "leave_license_agreement",
+      "is_blank": false,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.766,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. LAXMAN AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 6, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 6, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The agreement is made and signed by the both parties at Boisar.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": "// 3 //\n11)\nThe Licensee or Licensor can terminate this Leave and License after giving\none month notice from either side.\n12)\nLicensee shall at the time of going to the native place shall lock the room\nin well good condition and while on the outdoor or outstation the Licensor\nshall not be responsible for the material gone for lost, misplace, robbery,\ndecocted or may of the incident if so occured.\n13)\nIn case of termination the paid amount in advance shall be refunded after\nproper adjustmet.\nIN WITNESS WHEREOF THE LICENSOR AND the Licensor have hereunto set\nand subscribed their respective signatures with witness this day and year first\nherein-above written.\nSIGNED & DELIVERED by the\n)\nBaudy\nwithin named \"LICENSOR\"\n)\nLICENSOR\nMRS. BHAVIKA B. KUDU\n)\nin the presence of\n)\nश्री. भगवान पाचपुड्ड\n1)\nJudy\nSIGNED SEALED & DELIVERED by the\n)\nलक्ष्मण आहना\nwithin named \"LICENSEE\"\n)\nMR. LAXMAN AAHUJA\n)\nLICENSEE\nin the presence of ..\n)\nलक्षणा आहुजा\n1)"
+    },
+    {
+      "page_num": 35,
+      "doc_type": "leave_license_agreement",
+      "is_blank": true,
+      "ocr_engine": "azure",
+      "quality_score": 95.0,
+      "confidence": 0.566,
+      "extracted_fields": {
+        "entities": {
+          "licensor": "MRS. BHAVIKA B. KUDU",
+          "licensee": "MR. LAXMAN AAHUJA",
+          "borrower": "",
+          "co_borrower": "",
+          "loan_account_number": "",
+          "property_address": "Room No. 6, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "emi": "",
+          "interest_rate": "",
+          "loan_amount": "",
+          "policy_number": "",
+          "agreement_dates": "01/05/2008 to 31/03/2009"
+        },
+        "clauses": {
+          "repayment_terms": [],
+          "loan_conditions": [],
+          "agreement_clauses": [
+            "The Licensee hereby agree with Licensor to occupy the said premises situated At. Room No. 6, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane, for the period of 11 Months which is commencing from dated 01/05/2008 to 31/03/2009.",
+            "On the period of expiration the Licensee shall vacate peacefully the premises and handover the key of Room/Flat to the Licensor with all mentioned fixtures fittings in proper working conditions.",
+            "The Licensee shall pay License Fee Rs. 1,000/- (Rupees One Thousand only) to Licensor payment as rent per months. Licensee paid to Licensor the amount of Rs. 1,000/- (Rupees One Thousand only) paid as security deposit.",
+            "Society maintenance charges, Water, Panchayat, and such all taxes are payable by the Licensor, Licensor will also attend the same maintenance job done by Licensee, the expenses will be recovered from the Licensor.",
+            "Electricity bill will be paid by Licensee. In case of faulty electric meter the Licensor shall approach to M.S.E.D. for rectifying the same. In case of faulty working excess billing etc. the Licensee shall approach the Licensor for repairs. The Licensee will not be responsible for the payment of previous outstanding bills.",
+            "During the terms of this agreement any damage, incurred/occurred by house breaking etc., the Licensee shall be responsible for the loss or repairs of the Room/Flat whatsoever.",
+            "The day to day repairs such as fuse, replacement of Bulbs, Tubes lights, leakages of water pipes, etc. inside the premises, are to be done by the Licensee at its own cost and keep it in good and tenantable conditions.",
+            "The Licensee shall not assign any rights to any third party in respect of the premises or any part of the premises should be sublet.",
+            "The agreement is made and signed by the both parties at Boisar.",
+            "The Licensee or Licensor can terminate this Leave and License after giving one month notice from either side.",
+            "Licensee shall at the time of going to the native place shall lock the room in well good condition and while on the outdoor or outstation the Licensor shall not be responsible for the material gone for lost, misplace, robbery, decocted or may of the incident if so occurred.",
+            "In case of termination the paid amount in advance shall be refunded after proper adjustment."
+          ],
+          "insurance_terms": [],
+          "legal_notices": []
+        }
+      },
+      "text": ""
+    }
+  ],
+  "intelligence_report": {
+    "has_conflicts": true,
+    "conflicts": {
+      "property_address": {
+        "leave_license_agreement (Pgs 1-6)": "Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+        "leave_license_agreement (Pgs 7-12)": "Room No. 3, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+        "leave_license_agreement (Pgs 13-15)": "Room No. 2, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+        "leave_license_agreement (Pgs 16-20)": "Room No. 1, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+        "leave_license_agreement (Pgs 21-25)": "Room No. 4, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+        "leave_license_agreement (Pgs 26-31)": "Room No. 5, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+        "leave_license_agreement (Pgs 32-35)": "Room No. 6, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane"
+      }
+    },
+    "missing_fields": [
+      "leave_license_agreement.rent_amount",
+      "leave_license_agreement.deposit_amount",
+      "leave_license_agreement.agreement_date",
+      "leave_license_agreement.duration_months",
+      "leave_license_agreement.rent_amount",
+      "leave_license_agreement.deposit_amount",
+      "leave_license_agreement.agreement_date",
+      "leave_license_agreement.duration_months",
+      "leave_license_agreement.rent_amount",
+      "leave_license_agreement.deposit_amount",
+      "leave_license_agreement.agreement_date",
+      "leave_license_agreement.duration_months",
+      "leave_license_agreement.rent_amount",
+      "leave_license_agreement.deposit_amount",
+      "leave_license_agreement.agreement_date",
+      "leave_license_agreement.duration_months",
+      "leave_license_agreement.rent_amount",
+      "leave_license_agreement.deposit_amount",
+      "leave_license_agreement.agreement_date",
+      "leave_license_agreement.duration_months",
+      "leave_license_agreement.rent_amount",
+      "leave_license_agreement.deposit_amount",
+      "leave_license_agreement.agreement_date",
+      "leave_license_agreement.duration_months",
+      "leave_license_agreement.rent_amount",
+      "leave_license_agreement.deposit_amount",
+      "leave_license_agreement.agreement_date",
+      "leave_license_agreement.duration_months"
+    ],
+    "anomalies": [
+      {
+        "field": "property_address",
+        "type": "contradiction",
+        "severity": "high",
+        "message": "Mismatch in property address: 'Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane' in leave_license_agreement (Pgs 1-6), 'Room No. 3, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane' in leave_license_agreement (Pgs 7-12), 'Room No. 2, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane' in leave_license_agreement (Pgs 13-15), 'Room No. 1, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane' in leave_license_agreement (Pgs 16-20), 'Room No. 4, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane' in leave_license_agreement (Pgs 21-25), 'Room No. 5, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane' in leave_license_agreement (Pgs 26-31), 'Room No. 6, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane' in leave_license_agreement (Pgs 32-35)",
+        "variants": {
+          "leave_license_agreement (Pgs 1-6)": "Room No. 8, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "leave_license_agreement (Pgs 7-12)": "Room No. 3, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "leave_license_agreement (Pgs 13-15)": "Room No. 2, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "leave_license_agreement (Pgs 16-20)": "Room No. 1, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "leave_license_agreement (Pgs 21-25)": "Room No. 4, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "leave_license_agreement (Pgs 26-31)": "Room No. 5, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane",
+          "leave_license_agreement (Pgs 32-35)": "Room No. 6, Pam, Aanadiali, Post. Navapur, Boisar, Tal. Palghar, Dist. Thane"
+        }
+      },
+      {
+        "field": "leave_license_agreement.rent_amount",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'rent_amount' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.deposit_amount",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'deposit_amount' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.agreement_date",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'agreement_date' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.duration_months",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'duration_months' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.rent_amount",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'rent_amount' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.deposit_amount",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'deposit_amount' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.agreement_date",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'agreement_date' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.duration_months",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'duration_months' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.rent_amount",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'rent_amount' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.deposit_amount",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'deposit_amount' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.agreement_date",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'agreement_date' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.duration_months",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'duration_months' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.rent_amount",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'rent_amount' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.deposit_amount",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'deposit_amount' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.agreement_date",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'agreement_date' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.duration_months",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'duration_months' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.rent_amount",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'rent_amount' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.deposit_amount",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'deposit_amount' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.agreement_date",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'agreement_date' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.duration_months",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'duration_months' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.rent_amount",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'rent_amount' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.deposit_amount",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'deposit_amount' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.agreement_date",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'agreement_date' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.duration_months",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'duration_months' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.rent_amount",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'rent_amount' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.deposit_amount",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'deposit_amount' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.agreement_date",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'agreement_date' was not found in the leave_license_agreement segment."
+      },
+      {
+        "field": "leave_license_agreement.duration_months",
+        "type": "missing",
+        "severity": "medium",
+        "message": "Critical field 'duration_months' was not found in the leave_license_agreement segment."
+      }
+    ],
+    "validation_score": 0
+  },
+  "confidence_map": {
+    "borrower.name": {
+      "score": 0.93,
+      "status": "auto_approved",
+      "color": "green",
+      "needs_review": false
+    },
+    "borrower.address": {
+      "score": 0.93,
+      "status": "auto_approved",
+      "color": "green",
+      "needs_review": false
+    },
+    "loan.loan_account_number": {
+      "score": 0.0,
+      "status": "must_correct",
+      "color": "red",
+      "needs_review": true
+    },
+    "loan.loan_amount": {
+      "score": 0.0,
+      "status": "must_correct",
+      "color": "red",
+      "needs_review": true
+    },
+    "loan.interest_rate": {
+      "score": 0.0,
+      "status": "must_correct",
+      "color": "red",
+      "needs_review": true
+    },
+    "loan.emi": {
+      "score": 0.0,
+      "status": "must_correct",
+      "color": "red",
+      "needs_review": true
+    },
+    "property.property_address": {
+      "score": 0.93,
+      "status": "auto_approved",
+      "color": "green",
+      "needs_review": false
+    },
+    "insurance.policy_number": {
+      "score": 0.0,
+      "status": "must_correct",
+      "color": "red",
+      "needs_review": true
+    },
+    "agreements.agreement_dates": {
+      "score": 0.93,
+      "status": "auto_approved",
+      "color": "green",
+      "needs_review": false
+    }
+  },
+  "overall_confidence": 0.95,
+  "audit": {
+    "human_corrections": 0,
+    "accuracy_score": null,
+    "verified_by": null,
+    "verified_at": null,
+    "trail": []
+  },
+  "exports": {
+    "txt_path": "",
+    "json_path": "",
+    "semantic_json": "",
+    "excel_path": "",
+    "draft_docx": "",
+    "verified_json": ""
+  }
+}
