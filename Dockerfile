@@ -40,6 +40,7 @@ COPY form_mapper.py .
 COPY draft_generator.py .
 COPY excel_exporter.py .
 COPY migrate_db.py .
+COPY VERSION.txt .
 
 # Copy web assets
 COPY templates/ templates/

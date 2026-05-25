@@ -98,6 +98,17 @@ load_dotenv()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'aether-ocr-2035-secret'
 app.config['UPLOAD_FOLDER'] = 'uploads'
+
+def get_app_version():
+    try:
+        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "VERSION.txt"), "r") as f:
+            return f"v{f.read().strip()}"
+    except:
+        return "v1.0"
+
+@app.context_processor
+def inject_version():
+    return dict(app_version=get_app_version())
 app.config['OUTPUT_FOLDER'] = 'outputs'
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 1024  # 1 GB for massive 2000-page PDFs
 CORS(app)
