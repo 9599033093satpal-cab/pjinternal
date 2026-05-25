@@ -101,6 +101,7 @@ app.config['UPLOAD_FOLDER'] = 'uploads'
 
 def get_app_version():
     try:
+        # Reads the dynamic version file updated by git hooks
         with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "VERSION.txt"), "r") as f:
             return f"v{f.read().strip()}"
     except:
