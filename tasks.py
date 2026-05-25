@@ -9,7 +9,20 @@ Queue structure:
   export → File generation (docx, xlsx)
 """
 
+import sys
 import os
+
+# Inject workspace directory and virtual environment site-packages
+current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.insert(0, current_dir)
+venv_site_packages = os.path.join(current_dir, "venv12", "Lib", "site-packages")
+if os.path.exists(venv_site_packages) and venv_site_packages not in sys.path:
+    sys.path.insert(0, venv_site_packages)
+venv_standard = os.path.join(current_dir, "venv", "Lib", "site-packages")
+if os.path.exists(venv_standard) and venv_standard not in sys.path:
+    sys.path.insert(0, venv_standard)
+
 import gc
 import json
 import logging
@@ -44,6 +57,7 @@ def run_ocr_celery(self, job_id: str, pdf_path: str, output_dir: str,
             logger.error(f"Job {job_id} not found")
             return
 
+        pdf_doc = None
         try:
             import pypdfium2 as pdfium
             from ocr_router import route_page
@@ -53,10 +67,9 @@ def run_ocr_celery(self, job_id: str, pdf_path: str, output_dir: str,
 
             # ── Step 1: Validate PDF ──
             job.status = "processing"
-            doc = pdfium.PdfDocument(pdf_path)
-            total_pages = len(doc)
+            pdf_doc = pdfium.PdfDocument(pdf_path)
+            total_pages = len(pdf_doc)
             job.total_pages = total_pages
-            doc.close()
             db.session.commit()
             logger.info(f"Job {job_id}: {total_pages} pages detected")
 
@@ -93,7 +106,8 @@ def run_ocr_celery(self, job_id: str, pdf_path: str, output_dir: str,
                             page_index=page_index,
                             dpi=dpi,
                             language=language,
-                            azure_client=azure_client
+                            azure_client=azure_client,
+                            doc=pdf_doc
                         )
                         all_pages.append(page_result)
                         completed += 1
@@ -217,6 +231,42 @@ def run_ocr_celery(self, job_id: str, pdf_path: str, output_dir: str,
             except Exception as ex_err:
                 logger.error(f"Auto Excel export failed in run_ocr_celery: {ex_err}")
 
+            # Calculate token usage
+            total_prompt_tokens = 0
+            total_completion_tokens = 0
+            breakdown = {}
+
+            if 'classifier' in locals() and classifier:
+                total_prompt_tokens += getattr(classifier, 'prompt_tokens', 0)
+                total_completion_tokens += getattr(classifier, 'completion_tokens', 0)
+                breakdown['classifier'] = {
+                    'prompt_tokens': getattr(classifier, 'prompt_tokens', 0),
+                    'completion_tokens': getattr(classifier, 'completion_tokens', 0)
+                }
+            if 'structurer' in locals() and structurer:
+                total_prompt_tokens += getattr(structurer, 'prompt_tokens', 0)
+                total_completion_tokens += getattr(structurer, 'completion_tokens', 0)
+                breakdown['structurer'] = {
+                    'prompt_tokens': getattr(structurer, 'prompt_tokens', 0),
+                    'completion_tokens': getattr(structurer, 'completion_tokens', 0)
+                }
+            if 'builder' in locals() and builder:
+                total_prompt_tokens += getattr(builder, 'prompt_tokens', 0)
+                total_completion_tokens += getattr(builder, 'completion_tokens', 0)
+                breakdown['builder'] = {
+                    'prompt_tokens': getattr(builder, 'prompt_tokens', 0),
+                    'completion_tokens': getattr(builder, 'completion_tokens', 0)
+                }
+
+            current_summary = job.audit_summary or {}
+            current_summary["token_usage"] = {
+                "prompt_tokens": total_prompt_tokens,
+                "completion_tokens": total_completion_tokens,
+                "total_tokens": total_prompt_tokens + total_completion_tokens,
+                "breakdown": breakdown
+            }
+            job.audit_summary = current_summary
+
             job.output_files = output_files
             job.status = "completed"
             job.progress = 100
@@ -231,6 +281,12 @@ def run_ocr_celery(self, job_id: str, pdf_path: str, output_dir: str,
             job.completed_at = datetime.utcnow()
             db.session.commit()
             raise
+        finally:
+            if pdf_doc is not None:
+                try:
+                    pdf_doc.close()
+                except Exception as e:
+                    logger.error(f"Error closing pdf_doc in tasks: {e}")
 
 
 @celery_app.task(name="tasks.generate_draft_task", queue="export")

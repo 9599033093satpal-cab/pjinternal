@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     <div style="background:var(--ink-mid);border:1px solid var(--border);border-radius:20px;padding:24px;display:flex;align-items:center;gap:20px;transition:all 0.3s;" onmouseover="this.style.borderColor='var(--border-gold)'" onmouseout="this.style.borderColor='var(--border)'">
-                        <div style="width:50px;height:50px;background:rgba(59,130,246,0.1);border-radius:12px;display:grid;place-items:center;color:#3b82f6;"></div>
+                        <div style="width:50px;height:50px;background:rgba(232,160,32,0.1);border-radius:12px;display:grid;place-items:center;color:#e8a020;"></div>
                         <div>
                             <div style="font-size:0.7rem;font-weight:800;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px;">Pages Digitized</div>
                             <div id="stat-ov-pages" style="font-family:'Outfit',sans-serif;font-size:2rem;font-weight:900;color:var(--text-bright);line-height:1;">0</div>
@@ -182,40 +182,72 @@
             <h1 style="font-size:2rem;font-weight:900;color:var(--text-bright);margin-bottom:8px;">OCR Settings</h1>
             <p style="color:var(--text-mid);margin-bottom:40px;">System configuration and engine status.</p>
 
-            <div style="display:grid;gap:20px;max-width:700px;">
-                <div style="background:var(--ink-mid);border:1px solid var(--border);border-radius:20px;padding:28px;">
-                    <h3 style="font-size:1rem;font-weight:800;color:var(--text-bright);margin-bottom:20px;">Engine Status</h3>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:24px;max-width:900px;">
+                <!-- Engine Status Card -->
+                <div style="background:var(--ink-mid);border:1px solid var(--border);border-radius:20px;padding:28px;box-shadow:0 8px 32px rgba(0,0,0,0.15);">
+                    <h3 style="font-size:1.1rem;font-weight:800;color:var(--text-bright);margin-bottom:20px;display:flex;align-items:center;gap:8px;">
+                        <span>⚙️</span> Engine Status
+                    </h3>
                     <div style="display:flex;flex-direction:column;gap:14px;">
-                        <div style="display:flex;justify-content:space-between;">
+                        <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.03);padding-bottom:10px;">
                             <span style="font-size:0.85rem;color:var(--text-mid);">Tesseract Version</span>
                             <span style="font-size:0.85rem;font-weight:800;color:#34d399;">v5.5.0 ✓</span>
                         </div>
-                        <div style="display:flex;justify-content:space-between;">
+                        <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.03);padding-bottom:10px;">
                             <span style="font-size:0.85rem;color:var(--text-mid);">pypdfium2</span>
                             <span style="font-size:0.85rem;font-weight:800;color:#34d399;">Installed ✓</span>
                         </div>
-                        <div style="display:flex;justify-content:space-between;">
+                        <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.03);padding-bottom:10px;">
                             <span style="font-size:0.85rem;color:var(--text-mid);">Languages Available</span>
                             <span style="font-size:0.85rem;font-weight:800;color:var(--gold);">eng, hin (eng+hin)</span>
                         </div>
-                        <div style="display:flex;justify-content:space-between;">
+                        <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.03);padding-bottom:10px;">
                             <span style="font-size:0.85rem;color:var(--text-mid);">Max Upload Size</span>
                             <span style="font-size:0.85rem;font-weight:800;color:var(--text-bright);">500 MB</span>
                         </div>
-                        <div style="display:flex;justify-content:space-between;">
+                        <div style="display:flex;justify-content:space-between;padding-bottom:2px;">
                             <span style="font-size:0.85rem;color:var(--text-mid);">Parallel Processing</span>
                             <span style="font-size:0.85rem;font-weight:800;color:var(--text-bright);">Up to 8 threads</span>
                         </div>
                     </div>
                 </div>
-                <div style="background:var(--gold-pale);border:1px solid var(--border-gold);border-radius:20px;padding:24px;">
-                    <p style="font-size:0.85rem;color:var(--text-mid);line-height:1.65;">
-                        <strong style="color:var(--gold);">Hindi Support:</strong> If Hindi OCR fails, download 
-                        <code style="background:var(--ink-soft);padding:2px 6px;border-radius:6px;font-size:0.8rem;">hin.traineddata</code> 
-                        from <a href="https://github.com/tesseract-ocr/tessdata" target="_blank" style="color:var(--gold);">tesseract-ocr/tessdata</a> 
-                        and copy to <code style="background:var(--ink-soft);padding:2px 6px;border-radius:6px;font-size:0.8rem;">C:\Program Files\Tesseract-OCR\tessdata\</code> as Administrator.
-                    </p>
+
+                <!-- API & Token Health Card -->
+                <div style="background:var(--ink-mid);border:1px solid var(--border);border-radius:20px;padding:28px;box-shadow:0 8px 32px rgba(0,0,0,0.15);display:flex;flex-direction:column;justify-content:space-between;">
+                    <div>
+                        <h3 style="font-size:1.1rem;font-weight:800;color:var(--text-bright);margin-bottom:20px;display:flex;align-items:center;gap:8px;">
+                            <span>⚡</span> API Quota & Health
+                        </h3>
+                        <div style="display:flex;flex-direction:column;gap:14px;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.03);padding-bottom:10px;">
+                                <span style="font-size:0.85rem;color:var(--text-mid);">Azure Document Intelligence</span>
+                                <span id="health-adi" style="font-size:0.85rem;font-weight:800;color:#34d399;background:rgba(52,211,153,0.1);padding:4px 10px;border-radius:100px;">Checking...</span>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:2px;">
+                                <span style="font-size:0.85rem;color:var(--text-mid);">OpenAI API (LLM Engine)</span>
+                                <span id="health-llm" style="font-size:0.85rem;font-weight:800;color:#34d399;background:rgba(52,211,153,0.1);padding:4px 10px;border-radius:100px;">Checking...</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="font-size:0.75rem;color:var(--text-dim);line-height:1.5;margin-top:20px;border-top:1px solid rgba(255,255,255,0.05);padding-top:14px;display:flex;gap:8px;">
+                        <span>💡</span>
+                        <span>
+                            <strong>Quota Warning:</strong> Prompt and completion tokens are tracked automatically for each document. 
+                            Remaining balances cannot be fetched programmatically; please monitor OpenAI Developer and Azure billing portals directly.
+                        </span>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Hindi Setup Box -->
+            <div style="background:var(--gold-pale);border:1px solid var(--border-gold);border-radius:20px;padding:24px;max-width:900px;margin-top:24px;">
+                <p style="font-size:0.85rem;color:var(--text-mid);line-height:1.65;margin:0;">
+                    <strong style="color:var(--gold);">Hindi Support:</strong> If Hindi OCR fails, download 
+                    <code style="background:var(--ink-soft);padding:2px 6px;border-radius:6px;font-size:0.8rem;">hin.traineddata</code> 
+                    from <a href="https://github.com/tesseract-ocr/tessdata" target="_blank" style="color:var(--gold);text-decoration:underline;">tesseract-ocr/tessdata</a> 
+                    and copy to <code style="background:var(--ink-soft);padding:2px 6px;border-radius:6px;font-size:0.8rem;">C:\Program Files\Tesseract-OCR\tessdata\</code> as Administrator.
+                </p>
             </div>
         </div>
 
@@ -370,11 +402,11 @@
                                 
                                 <button id="download-raw-btn" class="btn-solar" style="padding:6px 16px;font-size:0.75rem;background:rgba(232,160,32,0.12);color:var(--gold);border:1px solid rgba(232,160,32,0.3);" onclick="window.open('/api/download_raw/'+valCurrentJobId)">⬇ RAW File</button>
                                 <button id="download-excel-btn" class="btn-solar" style="padding:6px 16px;font-size:0.75rem;background:rgba(16,185,129,0.12);color:#10b981;border:1px solid rgba(16,185,129,0.3);" onclick="window.open('/api/download_excel/'+valCurrentJobId)">⬇ Excel</button>
-                                <button id="download-semantic-btn" class="btn-solar" style="padding:6px 16px;font-size:0.75rem;background:rgba(59,130,246,0.12);color:#60a5fa;border:1px solid rgba(59,130,246,0.3);" onclick="window.open('/api/download_semantic/'+valCurrentJobId)">⬇ JSON</button>
+                                <button id="download-semantic-btn" class="btn-solar" style="padding:6px 16px;font-size:0.75rem;background:rgba(232,160,32,0.12);color:#f5c842;border:1px solid rgba(232,160,32,0.3);" onclick="window.open('/api/download_semantic/'+valCurrentJobId)">⬇ JSON</button>
 
                                 <button id="audit-btn" class="btn-solar" style="display:none;padding:6px 16px;font-size:0.75rem;background:rgba(168,85,247,0.1);color:#a855f7;border:1px solid rgba(168,85,247,0.25);" onclick="showAuditForJob(valCurrentJobId)">Audit</button>
                                 <button id="download-verified-btn" class="btn-solar" style="display:none;padding:6px 16px;font-size:0.75rem;background:rgba(16,185,129,0.1);color:#10b981;border:1px solid rgba(16,185,129,0.25);" onclick="window.open('/api/download_verified/'+valCurrentJobId)">Download Verified</button>
-                                <button id="export-form-btn" class="btn-solar" style="display:none;padding:6px 16px;font-size:0.75rem;background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.25);" onclick="openExportModalDirect(valCurrentJobId)">Export</button>
+                                <button id="export-form-btn" class="btn-solar" style="display:none;padding:6px 16px;font-size:0.75rem;background:rgba(232,160,32,0.1);color:#e8a020;border:1px solid rgba(232,160,32,0.25);" onclick="openExportModalDirect(valCurrentJobId)">Export</button>
                                 <button id="save-verified-btn" class="btn-solar" style="padding:6px 16px;font-size:0.75rem;background:var(--grad-gold);color:var(--ink);border:none;" onclick="saveValidationData()">Save Verified Data</button>
                             </div>
                         </div>
@@ -432,10 +464,11 @@
 <div id="audit-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:center;justify-content:center;">
     <div style="background:#111827;border:1px solid rgba(255,255,255,0.1);border-radius:24px;width:90%;max-width:860px;max-height:85vh;display:flex;flex-direction:column;overflow:hidden;">
         <div style="padding:24px 28px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;justify-content:space-between;align-items:center;">
-            <h2 style="font-size:1.3rem;font-weight:900;color:#f8fafc;">Accuracy Audit Report</h2>
+            <h2 style="font-size:1.3rem;font-weight:900;color:#f8fafc;">Accuracy & Token Audit Report</h2>
             <button onclick="closeAuditModal()" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#64748b;border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:1.1rem;">✕</button>
         </div>
         <div id="audit-stats-row" style="display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.07);"></div>
+        <div id="audit-token-usage-row" style="display:none;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.01);"></div>
         <div style="overflow-y:auto;flex:1;">
             <table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
                 <thead>
@@ -491,7 +524,7 @@
                 <p style="color:var(--text-mid);font-size:0.9rem;">AI is intelligently mapping data to the target schema...</p>
             </div>
 
-            <button id="generate-map-btn" onclick="generateMapping()" class="btn-solar" style="width:100%;padding:14px;background:#60a5fa;color:white;border:none;font-weight:800;cursor:pointer;">
+            <button id="generate-map-btn" onclick="generateMapping()" class="btn-solar" style="width:100%;padding:14px;background:#f5c842;color:white;border:none;font-weight:800;cursor:pointer;">
                 Generate Mapping
             </button>
         </div>
@@ -764,6 +797,60 @@ function showView(name) {
     if (name === 'overview') loadOverviewStats();
     if (name === 'validation') loadValidationJobs();
     if (name === 'admin') loadDemoRequests();
+    if (name === 'settings') checkApiHealth();
+}
+
+function checkApiHealth() {
+    const adiSpan = document.getElementById('health-adi');
+    const llmSpan = document.getElementById('health-llm');
+    if (!adiSpan || !llmSpan) return;
+
+    adiSpan.textContent = 'Checking...';
+    adiSpan.style.background = 'rgba(232,160,32,0.1)';
+    adiSpan.style.color = '#e8a020';
+
+    llmSpan.textContent = 'Checking...';
+    llmSpan.style.background = 'rgba(232,160,32,0.1)';
+    llmSpan.style.color = '#e8a020';
+
+    fetch('/api/health')
+        .then(res => res.json())
+        .then(data => {
+            // Update Azure DI status
+            if (data.azure_di && data.azure_di.status === 'healthy') {
+                adiSpan.textContent = 'Healthy ✓';
+                adiSpan.style.background = 'rgba(52,211,153,0.1)';
+                adiSpan.style.color = '#34d399';
+                adiSpan.title = 'Connection successful';
+            } else {
+                adiSpan.textContent = 'Unhealthy ⚠';
+                adiSpan.style.background = 'rgba(248,113,113,0.1)';
+                adiSpan.style.color = '#f87171';
+                adiSpan.title = (data.azure_di && data.azure_di.error) ? data.azure_di.error : 'Connection failed';
+            }
+
+            // Update OpenAI status
+            if (data.openai && data.openai.status === 'healthy') {
+                llmSpan.textContent = 'Healthy ✓';
+                llmSpan.style.background = 'rgba(52,211,153,0.1)';
+                llmSpan.style.color = '#34d399';
+                llmSpan.title = 'Connection successful';
+            } else {
+                llmSpan.textContent = 'Unhealthy ⚠';
+                llmSpan.style.background = 'rgba(248,113,113,0.1)';
+                llmSpan.style.color = '#f87171';
+                llmSpan.title = (data.openai && data.openai.error) ? data.openai.error : 'Connection failed';
+            }
+        })
+        .catch(err => {
+            console.error('Error fetching API health:', err);
+            [adiSpan, llmSpan].forEach(span => {
+                span.textContent = 'Error ⚠';
+                span.style.background = 'rgba(248,113,113,0.1)';
+                span.style.color = '#f87171';
+                span.title = err.message || 'Network error';
+            });
+        });
 }
 
 function checkAdminRole() {
@@ -877,7 +964,7 @@ async function loadValidationJobs() {
         
         let statusBadge = '';
         if (job.status === 'ready_for_export') {
-            statusBadge = '<span style="padding:4px 10px;border-radius:100px;font-size:0.65rem;font-weight:900;background:rgba(59,130,246,0.1);color:#3b82f6;">🚀 READY FOR EXPORT</span>';
+            statusBadge = '<span style="padding:4px 10px;border-radius:100px;font-size:0.65rem;font-weight:900;background:rgba(232,160,32,0.1);color:#e8a020;">🚀 READY FOR EXPORT</span>';
         } else if (job.status === 'exported') {
             statusBadge = '<span style="padding:4px 10px;border-radius:100px;font-size:0.65rem;font-weight:900;background:rgba(16,185,129,0.1);color:#10b981;">✅ EXPORTED</span>';
         } else if (job.status === 'completed') {
@@ -943,7 +1030,7 @@ async function loadValidationJobs() {
             }
 
             if (job.status === 'ready_for_export' || job.status === 'exported') {
-                actionsHtml += `<button onclick="openExportModalDirect('${job.job_id}')" style="padding:4px 10px;font-size:0.75rem;background:rgba(59,130,246,0.15);color:#3b82f6;border:1px solid rgba(59,130,246,0.3);border-radius:6px;cursor:pointer;font-weight:700;">Export</button>`;
+                actionsHtml += `<button onclick="openExportModalDirect('${job.job_id}')" style="padding:4px 10px;font-size:0.75rem;background:rgba(232,160,32,0.15);color:#e8a020;border:1px solid rgba(232,160,32,0.3);border-radius:6px;cursor:pointer;font-weight:700;">Export</button>`;
             }
         }
         
@@ -954,7 +1041,7 @@ async function loadValidationJobs() {
         <tr class="val-job-row" data-filename="${job.filename.toLowerCase()}" style="border-bottom:1px solid var(--border);transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.02)'" onmouseout="this.style.background='transparent'">
             <td style="padding:6px 12px;width:30px;"><input type="checkbox" class="val-job-checkbox" data-job-id="${job.job_id}" onclick="updateBulkDeleteButton()" style="cursor:pointer;width:16px;height:16px;accent-color:var(--gold);"></td>
             <td style="padding:6px 12px;">
-                <a href="/api/download_pdf/${job.job_id}" target="_blank" title="Download Original PDF" style="display:inline-flex;align-items:center;gap:5px;font-weight:800;color:#60a5fa;text-decoration:none;margin-bottom:2px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color 0.2s;" onmouseover="this.style.color='#93c5fd'" onmouseout="this.style.color='#60a5fa'">${job.filename}</a>
+                <a href="/api/download_pdf/${job.job_id}" target="_blank" title="Download Original PDF" style="display:inline-flex;align-items:center;gap:5px;font-weight:800;color:#f5c842;text-decoration:none;margin-bottom:2px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color 0.2s;" onmouseover="this.style.color='#f5c842'" onmouseout="this.style.color='#f5c842'">${job.filename}</a>
                 <div style="font-size:0.65rem;color:var(--text-dim);font-family:monospace;">ID: ${job.job_id.substring(0,8)}...</div>
                 ${editCountHtml}
             </td>
@@ -1847,6 +1934,23 @@ function showAuditModal() {
             <div style="font-size:1.5rem;font-weight:900;color:${s.color};font-family:'Outfit',sans-serif;">${s.val}</div>
             <div style="font-size:0.65rem;color:#64748b;text-transform:uppercase;margin-top:4px;">${s.label}</div>
         </div>`).join('');
+
+    const tokenRow = document.getElementById('audit-token-usage-row');
+    if (tokenRow) {
+        if (audit.token_usage) {
+            tokenRow.style.display = 'block';
+            tokenRow.innerHTML = `
+                <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.78rem;">
+                    <span style="color:#64748b;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;font-size:0.7rem;">Token Consumption:</span>
+                    <span style="color:#94a3b8;">Input (Prompt): <strong style="color:#cbd5e1;font-family:monospace;font-size:0.8rem;">${audit.token_usage.prompt_tokens.toLocaleString()}</strong></span>
+                    <span style="color:#94a3b8;">Output (Completion): <strong style="color:#cbd5e1;font-family:monospace;font-size:0.8rem;">${audit.token_usage.completion_tokens.toLocaleString()}</strong></span>
+                    <span style="color:var(--gold);">Total Tokens: <strong style="color:var(--gold);font-family:monospace;font-size:0.82rem;">${audit.token_usage.total_tokens.toLocaleString()}</strong></span>
+                </div>
+            `;
+        } else {
+            tokenRow.style.display = 'none';
+        }
+    }
 
     const tbody = document.getElementById('audit-table-body');
     if (!audit.trail || audit.trail.length === 0) {

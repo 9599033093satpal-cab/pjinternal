@@ -41,6 +41,7 @@ def route_page(
     dpi: int = 200,
     language: str = "eng",
     azure_client=None,
+    doc=None,
 ) -> dict:
     """
     Main routing function.
@@ -55,9 +56,15 @@ def route_page(
         "is_blank": False,
     }
 
+    local_doc = None
     try:
-        doc = pdfium.PdfDocument(pdf_path)
-        page = doc[page_index]
+        if doc is not None:
+            active_doc = doc
+        else:
+            local_doc = pdfium.PdfDocument(pdf_path)
+            active_doc = local_doc
+
+        page = active_doc[page_index]
 
         # ── Step 1: Digital text extraction (FREE) ──
         textpage = page.get_textpage()
@@ -66,7 +73,9 @@ def route_page(
 
         # If user wants Azure DI for everything, bypass digital extraction
         if len(digital_text) > 50 and not azure_client:
-            page.close(); doc.close()
+            page.close()
+            if local_doc is not None:
+                local_doc.close()
             result.update({"text": digital_text, "engine": "digital", "confidence": 1.0, "quality_score": 1.0})
             logger.info(f"  Page {page_index+1}: [DIGITAL] {len(digital_text)} chars")
             return result
@@ -75,7 +84,9 @@ def route_page(
         scale = dpi / 72.0
         bitmap = page.render(scale=scale, rotation=0)
         pil_image = bitmap.to_pil()
-        page.close(); doc.close()
+        page.close()
+        if local_doc is not None:
+            local_doc.close()
 
         # ── Step 3: Blank page check ──
         if is_blank_page(pil_image, digital_text):
@@ -116,6 +127,9 @@ def route_page(
     return result
 
 
+_paddleocr_instances = {}
+
+
 def _paddleocr(pil_image: Image.Image, language: str = "eng") -> tuple:
     """PaddleOCR PP-Structure — primary engine."""
     try:
@@ -123,7 +137,12 @@ def _paddleocr(pil_image: Image.Image, language: str = "eng") -> tuple:
         lang_map = {"eng": "en", "hin": "hi", "chi_sim": "ch", "ara": "ar", "fra": "fr", "deu": "de"}
         lang = lang_map.get(language, "en")
 
-        ocr = PaddleOCR(use_angle_cls=True, lang=lang, use_gpu=False, show_log=False)
+        global _paddleocr_instances
+        if lang not in _paddleocr_instances:
+            logger.info(f"Initializing global PaddleOCR instance for language: {lang}")
+            _paddleocr_instances[lang] = PaddleOCR(use_angle_cls=True, lang=lang, use_gpu=False, show_log=False)
+
+        ocr = _paddleocr_instances[lang]
         img_array = np.array(pil_image)
         result = ocr.ocr(img_array, cls=True)
 

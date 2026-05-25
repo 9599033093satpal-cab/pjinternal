@@ -65,6 +65,8 @@ TYPE_FIELD_MAP = {
 
 class DocumentClassifier:
     def __init__(self):
+        self.prompt_tokens = 0
+        self.completion_tokens = 0
         api_key = os.environ.get("OPENAI_API_KEY")
         if api_key:
             self.client = OpenAI(api_key=api_key, timeout=60.0)
@@ -112,6 +114,10 @@ JSON:"""
                 temperature=0.0,
                 max_tokens=150,
             )
+
+            if hasattr(response, "usage") and response.usage:
+                self.prompt_tokens += getattr(response.usage, "prompt_tokens", 0)
+                self.completion_tokens += getattr(response.usage, "completion_tokens", 0)
 
             content = re.sub(r"```json|```", "", response.choices[0].message.content).strip()
             result = json.loads(content)

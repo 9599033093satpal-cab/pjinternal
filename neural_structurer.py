@@ -22,6 +22,8 @@ class NeuralStructurer:
     Transforms raw OCR text into semantically structured JSON using LLM.
     """
     def __init__(self, api_key=None):
+        self.prompt_tokens = 0
+        self.completion_tokens = 0
         env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
         load_dotenv(dotenv_path=env_path)
         self.openai_key = api_key or os.environ.get("OPENAI_API_KEY")
@@ -98,6 +100,9 @@ class NeuralStructurer:
                     temperature=0.0,
                     max_tokens=3000
                 )
+                if hasattr(response, "usage") and response.usage:
+                    self.prompt_tokens += getattr(response.usage, "prompt_tokens", 0)
+                    self.completion_tokens += getattr(response.usage, "completion_tokens", 0)
                 content = response.choices[0].message.content
                 data = self._parse_json(content)
                 if data:

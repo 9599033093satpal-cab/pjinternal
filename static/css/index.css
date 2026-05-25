@@ -5,34 +5,37 @@
    One theme. All pages. No exceptions.
 ═══════════════════════════════════════════════ */
 :root {
-    /* Core palette */
-    --ink:        #07090f;
-    --ink-mid:    #111827;
-    --ink-soft:   #1a2232;
-    --ink-card:   #1e2535;
+    /* Ultra Premium Dark Palette */
+    --ink:        #0a0c10;
+    --ink-mid:    #12161f;
+    --ink-soft:   #1c212e;
+    --ink-card:   rgba(18, 22, 31, 0.65); /* Glassmorphic base */
 
-    /* Gold brand */
+    /* Cyber Gold Brand */
     --gold:       #e8a020;
     --gold-light: #f5c842;
-    --gold-glow:  rgba(232,160,32,0.18);
-    --gold-pale:  rgba(232,160,32,0.08);
-    --grad-gold:  linear-gradient(135deg,#e8a020 0%,#f5c842 60%,#e8a020 100%);
+    --gold-glow:  rgba(232, 160, 32, 0.25);
+    --gold-pale:  rgba(232, 160, 32, 0.08);
+    --grad-gold:  linear-gradient(135deg, #f5c842 0%, #e8a020 50%, #d97706 100%);
+    --grad-dark:  linear-gradient(180deg, rgba(10, 12, 16, 0) 0%, #0a0c10 100%);
 
     /* Text */
-    --text-bright: #f8fafc;
-    --text-mid:    #94a3b8;
-    --text-dim:    #475569;
+    --text-bright: #ffffff;
+    --text-mid:    #a1a1aa;
+    --text-dim:    #64748b;
 
-    /* Borders */
-    --border:      rgba(255,255,255,0.07);
-    --border-gold: rgba(232,160,32,0.28);
+    /* Borders - Soft & Premium */
+    --border:      rgba(255, 255, 255, 0.08);
+    --border-glow: rgba(255, 255, 255, 0.15);
+    --border-gold: rgba(232, 160, 32, 0.35);
 
-    /* Shadows */
-    --shadow-card: 0 4px 40px rgba(0,0,0,0.4);
-    --shadow-glow: 0 0 40px rgba(232,160,32,0.14);
+    /* Premium Shadows & Glass */
+    --shadow-card: 0 20px 40px -10px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255,255,255,0.05);
+    --shadow-glow: 0 0 40px rgba(232, 160, 32, 0.2);
+    --glass-blur:  blur(24px) saturate(180%);
 
     /* Transition */
-    --transition:  all 0.3s cubic-bezier(0.16,1,0.3,1);
+    --transition:  all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ── RESET ── */
@@ -43,6 +46,7 @@ html { scroll-behavior: smooth; }
 body, .landing-body, .auth-page, .dashboard-body {
     font-family: 'Inter', sans-serif;
     background: var(--ink) !important;
+    background-image: radial-gradient(circle at center top, rgba(28,33,46,0.5) 0%, var(--ink) 100%) !important;
     color: var(--text-bright);
     -webkit-font-smoothing: antialiased;
     line-height: 1.6;
@@ -345,7 +349,7 @@ select.input-solar { cursor: pointer; }
 .t-line { display:flex; gap:10px; margin-bottom:7px; opacity:0; animation:fadeIn 0.3s ease forwards; }
 .t-ts { color:var(--text-dim); }
 .t-ok { color:#34d399; }
-.t-info { color:#93c5fd; }
+.t-info { color:#f5c842; }
 .t-warn { color:var(--gold); }
 
 /* Step numbers */

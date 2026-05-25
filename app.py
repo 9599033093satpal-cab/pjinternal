@@ -260,13 +260,13 @@ def run_ocr_job(job_id: str, pdf_path: str, output_dir: str, language: str, dpi:
         job = Job.query.get(job_id)
         if not job: return
         
+        pdf_doc = None
         try:
             # ── Step 1: Validate PDF ──
             job.status = 'processing'
-            doc = pdfium.PdfDocument(pdf_path)
-            total_pages = len(doc)
+            pdf_doc = pdfium.PdfDocument(pdf_path)
+            total_pages = len(pdf_doc)
             job.total_pages = total_pages
-            doc.close()
             db.session.commit()
             logger.info(f"Job {job_id}: {total_pages} pages detected (Threaded)")
 
@@ -291,7 +291,8 @@ def run_ocr_job(job_id: str, pdf_path: str, output_dir: str, language: str, dpi:
                         page_index=page_index,
                         dpi=dpi,
                         language=language,
-                        azure_client=azure_client
+                        azure_client=azure_client,
+                        doc=pdf_doc
                     )
                     all_pages.append(page_result)
                     
@@ -362,6 +363,42 @@ def run_ocr_job(job_id: str, pdf_path: str, output_dir: str, language: str, dpi:
             except Exception as ex_err:
                 logger.error(f"Auto Excel export failed in run_ocr_job: {ex_err}")
 
+            # Calculate token usage
+            total_prompt_tokens = 0
+            total_completion_tokens = 0
+            breakdown = {}
+
+            if 'classifier' in locals() and classifier:
+                total_prompt_tokens += getattr(classifier, 'prompt_tokens', 0)
+                total_completion_tokens += getattr(classifier, 'completion_tokens', 0)
+                breakdown['classifier'] = {
+                    'prompt_tokens': getattr(classifier, 'prompt_tokens', 0),
+                    'completion_tokens': getattr(classifier, 'completion_tokens', 0)
+                }
+            if 'structurer' in locals() and structurer:
+                total_prompt_tokens += getattr(structurer, 'prompt_tokens', 0)
+                total_completion_tokens += getattr(structurer, 'completion_tokens', 0)
+                breakdown['structurer'] = {
+                    'prompt_tokens': getattr(structurer, 'prompt_tokens', 0),
+                    'completion_tokens': getattr(structurer, 'completion_tokens', 0)
+                }
+            if 'builder' in locals() and builder:
+                total_prompt_tokens += getattr(builder, 'prompt_tokens', 0)
+                total_completion_tokens += getattr(builder, 'completion_tokens', 0)
+                breakdown['builder'] = {
+                    'prompt_tokens': getattr(builder, 'prompt_tokens', 0),
+                    'completion_tokens': getattr(builder, 'completion_tokens', 0)
+                }
+
+            current_summary = job.audit_summary or {}
+            current_summary["token_usage"] = {
+                "prompt_tokens": total_prompt_tokens,
+                "completion_tokens": total_completion_tokens,
+                "total_tokens": total_prompt_tokens + total_completion_tokens,
+                "breakdown": breakdown
+            }
+            job.audit_summary = current_summary
+
             job.output_files = output_files
             job.status = 'completed'
             job.completed_at = datetime.utcnow()
@@ -377,6 +414,12 @@ def run_ocr_job(job_id: str, pdf_path: str, output_dir: str, language: str, dpi:
                     j.completed_at = datetime.utcnow()
                     db.session.commit()
             logger.error(f"Job {job_id} failed: {e}")
+        finally:
+            if pdf_doc is not None:
+                try:
+                    pdf_doc.close()
+                except Exception as e:
+                    logger.error(f"Error closing pdf_doc: {e}")
 
 
 # ── Routes ──
@@ -386,15 +429,73 @@ def landing():
     return render_template('landing.html')
 
 
+import subprocess
+def get_app_version():
+    try:
+        commit_count = subprocess.check_output(['git', 'rev-list', '--count', 'HEAD'], stderr=subprocess.DEVNULL).decode('utf-8').strip()
+        commit_hash = subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD'], stderr=subprocess.DEVNULL).decode('utf-8').strip()
+        return f"v1.0.{commit_count} ({commit_hash})"
+    except Exception:
+        return "v1.0.0"
+
 @app.route('/login')
 def login_page():
-    return render_template('login.html')
+    return render_template('login.html', version=get_app_version())
 
 
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for('landing'))
+
+
+@app.route('/api/health', methods=['GET'])
+def check_health():
+    openai_ok = False
+    openai_error = None
+    azure_ok = False
+    azure_error = None
+    
+    # 1. Check OpenAI
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if api_key:
+        try:
+            from openai import OpenAI
+            client = OpenAI(api_key=api_key, timeout=5.0)
+            client.models.list()
+            openai_ok = True
+        except Exception as e:
+            openai_error = str(e)
+    else:
+        openai_error = "Missing OPENAI_API_KEY in environment variables"
+        
+    # 2. Check Azure DI
+    endpoint = os.environ.get("AZURE_DI_ENDPOINT")
+    key = os.environ.get("AZURE_DI_KEY")
+    if endpoint and key:
+        try:
+            from azure.ai.documentintelligence import DocumentIntelligenceClient
+            from azure.core.credentials import AzureKeyCredential
+            if endpoint.startswith("http"):
+                client = DocumentIntelligenceClient(endpoint=endpoint, credential=AzureKeyCredential(key))
+                azure_ok = True
+            else:
+                azure_error = "Invalid Azure DI Endpoint format"
+        except Exception as e:
+            azure_error = str(e)
+    else:
+        azure_error = "Missing AZURE_DI_ENDPOINT or AZURE_DI_KEY in environment variables"
+        
+    return jsonify({
+        'openai': {
+            'status': 'healthy' if openai_ok else 'unhealthy',
+            'error': openai_error
+        },
+        'azure_di': {
+            'status': 'healthy' if azure_ok else 'unhealthy',
+            'error': azure_error
+        }
+    })
 
 
 @app.route('/dashboard')
@@ -699,6 +800,7 @@ def save_semantic_data(job_id):
             })
 
     current_edit_count = job.audit_summary.get('edit_count', 0) if job.audit_summary else 0
+    current_token_usage = job.audit_summary.get('token_usage') if job.audit_summary else None
     
     accuracy = (matches / total_fields * 100) if total_fields > 0 else 100
     job.accuracy_score = round(accuracy, 2)
@@ -707,7 +809,8 @@ def save_semantic_data(job_id):
         'matches': matches,
         'corrections': total_fields - matches,
         'trail': audit_trail,
-        'edit_count': current_edit_count + 1
+        'edit_count': current_edit_count + 1,
+        'token_usage': current_token_usage
     }
     
     job.verified_json = updated_data

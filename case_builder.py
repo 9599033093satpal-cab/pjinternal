@@ -22,6 +22,8 @@ logger = logging.getLogger(__name__)
 
 class MasterCaseBuilder:
     def __init__(self):
+        self.prompt_tokens = 0
+        self.completion_tokens = 0
         api_key = os.environ.get("OPENAI_API_KEY")
         self.client = OpenAI(api_key=api_key) if api_key else None
         self.model = "gpt-4o"  # Full model for extraction accuracy
@@ -35,32 +37,32 @@ class MasterCaseBuilder:
         
         # Stamp paper indicators are strong signs of a new document start
         stamp_patterns = [
-            "non judicial",
-            "गैर न्यायिक",
-            "stamp duty",
-            "satyamev jayate",
-            "सत्यमेव जयते"
+            r"non[\s\-]*judicial",
+            r"गैर\s*न्यायिक",
+            r"stamp\s*duty",
+            r"satyamev\s*jayate",
+            r"सत्यमेव\s*जयते"
         ]
-        has_stamp = any(pat in text_lower[:800] for pat in stamp_patterns)
+        has_stamp = any(re.search(pat, text_lower[:1500]) for pat in stamp_patterns)
         if has_stamp:
             return True
             
         # Specific title patterns that start a document (usually near the top)
         title_patterns = [
-            "articles of agreement",
-            "this deed of",
-            "memorandum of understanding",
-            "offer letter",
-            "insurance policy schedule",
-            "sarfaesi notice",
-            "possession notice"
+            r"articles of agreement",
+            r"this deed of",
+            r"memorandum of understanding",
+            r"offer letter",
+            r"insurance policy schedule",
+            r"sarfaesi notice",
+            r"possession notice"
         ]
-        has_title = any(pat in text_lower[:500] for pat in title_patterns)
+        has_title = any(re.search(pat, text_lower[:1500]) for pat in title_patterns)
         if has_title:
             return True
             
         # "agreement for leave and license" or similar starting lines
-        if "agreement for" in text_lower[:500] and "between" in text_lower[:800]:
+        if "agreement for" in text_lower[:1500] and "between" in text_lower[:1500]:
             return True
             
         return False
@@ -195,7 +197,7 @@ Required JSON format:
 }}
 
 DOCUMENT TEXT:
-{segment_text[:15000]}
+{segment_text[:40000]}
 
 JSON RESPONSE:"""
 
@@ -208,8 +210,11 @@ JSON RESPONSE:"""
                         {"role": "user", "content": prompt},
                     ],
                     temperature=0.0,
-                    max_tokens=2500,
+                    max_tokens=4000,
                 )
+                if hasattr(resp, "usage") and resp.usage:
+                    self.prompt_tokens += getattr(resp.usage, "prompt_tokens", 0)
+                    self.completion_tokens += getattr(resp.usage, "completion_tokens", 0)
                 content = re.sub(r"```json|```", "", resp.choices[0].message.content).strip()
                 parsed = json.loads(content)
                 if "entities" not in parsed:
@@ -250,35 +255,43 @@ JSON RESPONSE:"""
 
     def _consolidate_dynamic_master_case(self, processed_docs: list, primary_type: str) -> dict:
         """
-        Consolidates dynamic entities from processed documents into a clean master_case structure.
+        Consolidates ALL processed document entities into a single enterprise master_case.
         """
-        # Collect all non-empty fields
-        merged_entities = {}
-        for doc in processed_docs:
-            for k, v in doc["entities"].items():
-                if v and str(v).strip() not in ["", "null", "N/A"]:
-                    # Keep the first non-empty value or list them if different
-                    if k not in merged_entities:
-                        merged_entities[k] = v
-                        
-        if not merged_entities:
+        if not processed_docs:
             return {}
             
         if not self.client:
+            # Fallback dumb merge
+            merged_entities = {}
+            for doc in processed_docs:
+                for k, v in doc["entities"].items():
+                    if v and str(v).strip() not in ["", "null", "N/A"]:
+                        if k not in merged_entities:
+                            merged_entities[k] = v
             return merged_entities
             
-        # Ask LLM to consolidate and clean the structure
-        prompt = f"""You are an enterprise document intelligence consolidator.
-We have extracted fields from a document bundle classified as '{primary_type}'.
-Consolidate these fields into a clean, well-organized JSON object representing the 'master_case' for this document.
+        # Build summary of all docs
+        doc_summaries = []
+        for d in processed_docs:
+            doc_summaries.append({
+                "type": d["document_type"],
+                "pages": f"{d['page_range'][0]}-{d['page_range'][1]}",
+                "entities": d["entities"]
+            })
+            
+        prompt = f"""You are an enterprise document intelligence expert and consolidator.
+We have extracted several documents from a single PDF bundle. The primary detected type is '{primary_type}'.
+Your task is to consolidate this information into a SINGLE comprehensive, clean 'master_case' JSON object.
 
-Raw Extracted Fields:
-{json.dumps(merged_entities, indent=2)}
+Raw Extracted Documents:
+{json.dumps(doc_summaries, indent=2)}
 
 Rules:
-- Organize related fields into logical sub-objects (e.g. for Resume: personal_details, education, experience, skills; for Offer Letter: candidate, compensation, job_details).
-- Ensure key names are clean, lowercase, and descriptive.
-- Return ONLY valid JSON, with no markdown, no triple backticks, and no explanations.
+1. Identify the MAIN purpose of this bundle (e.g., Home Loan / Mortgage).
+2. Extract the TRUE overall borrower, loan amount, EMI, and property details. DO NOT confuse small rent amounts (from Leave & License agreements) with the main loan amount.
+3. Group related fields into logical sub-objects (e.g., borrower, loan, property, insurance).
+4. If there are multiple subsidiary agreements (like Leave and License agreements, or multiple insurance policies), summarize them in an array under a relevant key (e.g., "subsidiary_agreements" or "insurance_policies") so their specific details are not lost but do not pollute the main loan details.
+5. Return ONLY a valid JSON object. No markdown, no triple backticks, and no explanations.
 """
         try:
             resp = self.client.chat.completions.create(
@@ -288,13 +301,16 @@ Rules:
                     {"role": "user", "content": prompt},
                 ],
                 temperature=0.0,
-                max_tokens=1500,
+                max_tokens=4000,
             )
+            if hasattr(resp, "usage") and resp.usage:
+                self.prompt_tokens += getattr(resp.usage, "prompt_tokens", 0)
+                self.completion_tokens += getattr(resp.usage, "completion_tokens", 0)
             content = re.sub(r"```json|```", "", resp.choices[0].message.content).strip()
             return json.loads(content)
         except Exception as e:
             logger.error(f"Error consolidating dynamic master case: {e}")
-            return merged_entities
+            return {}
 
     def build(self, job_id: str, filename: str, pages: list, output_dir: str) -> dict:
         """
@@ -393,48 +409,7 @@ Rules:
                 type_dist[t] = type_dist.get(t, 0) + 1
         primary_type = max(type_dist, key=type_dist.get) if type_dist else "other"
 
-        is_standard_agreement = primary_type in [
-            "loan_agreement", 
-            "leave_license_agreement", 
-            "sarfaesi_notice", 
-            "insurance_policy", 
-            "mortgage_deed", 
-            "sale_deed",
-            "property_deed"
-        ]
-
-        if is_standard_agreement:
-            def get_global_entity(keys):
-                for doc in processed_docs:
-                    for k in keys:
-                        val = doc["entities"].get(k)
-                        if val and str(val).strip() not in ["", "null", "N/A"]:
-                            return str(val).strip()
-                return ""
-                
-            master_case_obj = {
-                "borrower": {
-                    "name": get_global_entity(["borrower", "licensor", "licensee"]),
-                    "address": get_global_entity(["property_address"])
-                },
-                "loan": {
-                    "loan_account_number": get_global_entity(["loan_account_number"]),
-                    "loan_amount": get_global_entity(["loan_amount"]),
-                    "interest_rate": get_global_entity(["interest_rate"]),
-                    "emi": get_global_entity(["emi"])
-                },
-                "property": {
-                    "property_address": get_global_entity(["property_address"])
-                },
-                "insurance": {
-                    "policy_number": get_global_entity(["policy_number"])
-                },
-                "agreements": {
-                    "agreement_dates": get_global_entity(["agreement_dates"])
-                }
-            }
-        else:
-            master_case_obj = self._consolidate_dynamic_master_case(processed_docs, primary_type)
+        master_case_obj = self._consolidate_dynamic_master_case(processed_docs, primary_type)
         
         # 3. Detect contradictions
         anomalies = self._detect_contradictions(processed_docs)

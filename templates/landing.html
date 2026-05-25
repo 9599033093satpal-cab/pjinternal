@@ -20,43 +20,54 @@
         }
 
         .feat-card {
-            background: var(--ink-mid);
+            background: var(--ink-card);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid var(--border);
             border-radius: 20px;
             padding: 32px;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
         }
 
         .feat-card:hover {
             border-color: var(--border-gold);
-            transform: translateY(-4px);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(255,255,255,0.1);
         }
 
         .step-num {
-            font-family: 'Syne', sans-serif;
-            font-size: 4rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 5rem;
             font-weight: 900;
-            color: var(--gold);
+            background: var(--grad-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             opacity: 0.15;
             line-height: 1;
+            position: absolute;
+            top: 10px;
+            right: 20px;
         }
 
         /* Animated terminal */
         .terminal {
-            background: var(--ink-mid);
-            border: 1px solid var(--border);
+            background: rgba(10, 12, 16, 0.85);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-glow);
             border-radius: 16px;
             overflow: hidden;
             font-family: 'Monaco', 'Menlo', monospace;
             font-size: 0.72rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
         .terminal-bar {
-            background: var(--ink-soft);
-            padding: 10px 14px;
+            background: rgba(28, 33, 46, 0.7);
+            padding: 12px 16px;
             display: flex;
             align-items: center;
-            gap: 7px;
+            gap: 8px;
             border-bottom: 1px solid var(--border);
         }
 
@@ -89,7 +100,7 @@
         }
 
         .t-info {
-            color: #93c5fd;
+            color: #f5c842;
         }
 
         .t-warn {
@@ -283,8 +294,8 @@
             bottom: -5px;
             left: 50%;
             transform: translateX(-50%);
-            background: #818cf8;
-            box-shadow: 0 0 15px #818cf8;
+            background: #e8a020;
+            box-shadow: 0 0 15px #e8a020;
         }
 
         .node-3 {
@@ -550,7 +561,7 @@
                 </div>
                 <div
                     style="background:var(--ink-mid);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center;">
-                    <div style="font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:800;color:#818cf8;">100+
+                    <div style="font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:800;color:#e8a020;">100+
                     </div>
                     <div
                         style="font-size:0.55rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em;">
@@ -576,7 +587,7 @@
             <div
                 style="display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:30px;text-align:left;">
                 <div class="reveal"
-                    style="background:var(--ink-mid);border:1px solid var(--border);border-radius:32px;padding:40px;position:relative;overflow:hidden;">
+                    style="background:var(--ink-card);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--border);border-radius:32px;padding:40px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);transition:var(--transition);" onmouseover="this.style.transform='translateY(-6px)';this.style.borderColor='var(--border-gold)';this.style.boxShadow='var(--shadow-glow), inset 0 1px 0 rgba(255,255,255,0.1)'" onmouseout="this.style.transform='translateY(0)';this.style.borderColor='var(--border)';this.style.boxShadow='inset 0 1px 0 rgba(255,255,255,0.05)'">
                     <div
                         style="position:absolute;top:-20px;right:-20px;font-size:8rem;opacity:0.03;font-weight:900;color:var(--text-bright);">
                         1</div>
@@ -592,7 +603,7 @@
                 </div>
 
                 <div class="reveal"
-                    style="background:var(--ink-mid);border:2px solid var(--gold);border-radius:32px;padding:40px;position:relative;overflow:hidden;transform:scale(1.05);z-index:2;">
+                    style="background:var(--ink-card);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--border-gold);border-radius:32px;padding:40px;position:relative;overflow:hidden;transform:scale(1.05);z-index:2;box-shadow:var(--shadow-glow), inset 0 1px 0 rgba(255,255,255,0.1);transition:var(--transition);" onmouseover="this.style.transform='scale(1.05) translateY(-6px)';this.style.boxShadow='0 0 60px rgba(232,160,32,0.3), inset 0 1px 0 rgba(255,255,255,0.1)'" onmouseout="this.style.transform='scale(1.05)';this.style.boxShadow='var(--shadow-glow), inset 0 1px 0 rgba(255,255,255,0.1)'">
                     <div
                         style="position:absolute;top:-20px;right:-20px;font-size:8rem;opacity:0.03;font-weight:900;color:var(--gold);">
                         2</div>
@@ -608,7 +619,7 @@
                 </div>
 
                 <div class="reveal"
-                    style="background:var(--ink-mid);border:1px solid var(--border);border-radius:32px;padding:40px;position:relative;overflow:hidden;">
+                    style="background:var(--ink-card);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--border);border-radius:32px;padding:40px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);transition:var(--transition);" onmouseover="this.style.transform='translateY(-6px)';this.style.borderColor='var(--border-gold)';this.style.boxShadow='var(--shadow-glow), inset 0 1px 0 rgba(255,255,255,0.1)'" onmouseout="this.style.transform='translateY(0)';this.style.borderColor='var(--border)';this.style.boxShadow='inset 0 1px 0 rgba(255,255,255,0.05)'">
                     <div
                         style="position:absolute;top:-20px;right:-20px;font-size:8rem;opacity:0.03;font-weight:900;color:var(--text-bright);">
                         3</div>
@@ -648,9 +659,9 @@
                 ('file-warning','Garbage In, Garbage Out','After hours of waiting, the output is full of mistakes like "1nv0ic3 d4t3". You still have to manually correct it.','Aether uses AI confidence scoring. We deliver clean text, and let you easily verify any tricky words.')
                 ] %}
                 <div class="reveal"
-                    style="background:var(--ink-mid);border:1px solid var(--border);border-radius:24px;padding:28px;transition:all 0.3s ease;"
-                    onmouseover="this.style.borderColor='rgba(232,160,32,0.3)'"
-                    onmouseout="this.style.borderColor='rgba(255,255,255,0.07)'">
+                    style="background:var(--ink-card);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--border);border-radius:24px;padding:28px;transition:var(--transition);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);"
+                    onmouseover="this.style.borderColor='rgba(248,113,113,0.3)';this.style.transform='translateY(-4px)';this.style.boxShadow='0 0 40px rgba(248,113,113,0.1), inset 0 1px 0 rgba(255,255,255,0.1)'"
+                    onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)';this.style.boxShadow='inset 0 1px 0 rgba(255,255,255,0.05)'">
                     <div style="width:44px;height:44px;background:rgba(248,113,113,0.05);border:1px solid rgba(248,113,113,0.2);border-radius:12px;display:grid;place-items:center;margin-bottom:18px;color:#f87171;">
                         <i data-lucide="{{ item[0] }}" style="width:24px;height:24px;"></i>
                     </div>
@@ -765,7 +776,7 @@
                     </div>
                 </div>
                 
-                <div class="reveal" style="background:var(--ink-mid);border:1px solid var(--border);border-radius:40px;padding:40px;position:relative;">
+                <div class="reveal" style="background:var(--ink-card);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--border);border-radius:40px;padding:40px;position:relative;box-shadow:var(--shadow-card), inset 0 1px 0 rgba(255,255,255,0.05);">
                     <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--grad-gold);border-radius:40px 40px 0 0;"></div>
                     <div style="font-family:'Outfit',sans-serif;font-size:1.8rem;font-weight:800;color:var(--text-bright);margin-bottom:24px;">Neural Roadmap</div>
                     <div style="display:flex;flex-direction:column;gap:12px;">
@@ -919,8 +930,8 @@
     </footer>
 
     <!-- Demo Modal -->
-    <div id="demoModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;place-items:center;">
-        <div style="background:var(--ink-mid);border:1px solid var(--border-gold);border-radius:24px;width:90%;max-width:400px;padding:36px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
+    <div id="demoModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);backdrop-filter:var(--glass-blur);z-index:9999;place-items:center;">
+        <div style="background:var(--ink-card);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--border-gold);border-radius:24px;width:90%;max-width:400px;padding:36px;position:relative;box-shadow:var(--shadow-card), inset 0 1px 0 rgba(255,255,255,0.05);">
             <button onclick="closeDemoModal()" style="position:absolute;top:24px;right:24px;background:var(--ink-soft);border:1px solid var(--border);border-radius:50%;width:32px;height:32px;display:grid;place-items:center;color:var(--text-dim);cursor:pointer;transition:all 0.2s;"><i data-lucide="x" style="width:16px;"></i></button>
             <h3 style="font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:800;color:var(--text-bright);margin-bottom:8px;">Request Demo</h3>
             <p style="font-size:0.85rem;color:var(--text-mid);margin-bottom:28px;line-height:1.5;">See Aether AI in action. Leave your details and we will schedule a live demonstration.</p>
