@@ -40,6 +40,7 @@ COPY form_mapper.py .
 COPY draft_generator.py .
 COPY excel_exporter.py .
 COPY migrate_db.py .
+COPY asgi.py .
 COPY VERSION.txt .
 
 # Copy web assets
@@ -57,11 +58,8 @@ ENV PYTHONUNBUFFERED=1 \
 # GCP Cloud Run injects PORT=8080
 EXPOSE 8080
 
-# Start gunicorn on $PORT (injected by Cloud Run as 8080)
-CMD exec gunicorn --bind "0.0.0.0:${PORT:-8080}" \
+# Start hypercorn on $PORT (injected by Cloud Run as 8080) to support HTTP/2
+CMD exec hypercorn --bind "0.0.0.0:${PORT:-8080}" \
     --workers 2 \
-    --threads 4 \
-    --timeout 300 \
     --keep-alive 5 \
-    --log-level info \
-    app:app
+    "asgi:asgi_app"

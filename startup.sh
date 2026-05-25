@@ -20,16 +20,11 @@ with app.app_context():
 # Create required directories
 mkdir -p /app/uploads /app/outputs /app/instance
 
-# Start gunicorn on the PORT provided by Cloud Run (default 8080)
+# Start hypercorn on the PORT provided by Cloud Run (default 8080)
 PORT="${PORT:-8080}"
-echo "Starting gunicorn on port $PORT..."
-exec gunicorn \
+echo "Starting hypercorn on port $PORT..."
+exec hypercorn \
     --bind "0.0.0.0:$PORT" \
     --workers 2 \
-    --threads 4 \
-    --timeout 300 \
     --keep-alive 5 \
-    --log-level info \
-    --access-logfile - \
-    --error-logfile - \
-    "app:app"
+    "asgi:asgi_app"
